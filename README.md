@@ -13,12 +13,13 @@
 | **先架构后代码** | 不读通架构不写代码，不画清依赖不修改 |
 | **专家委派** | 将任务委派给 architect、code-reviewer、explore、general、java-developer、java-security、quality-inspector 等专家 Agent |
 | **结果综合** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁 |
-| **异常处理** | 超时重试、降级自执行、循环委派检测、关键路径保护 |
+| **异常处理** | 模型失败自动重试（指数退避）、Agent超时降级自执行、循环委派检测、关键路径保护 |
 
 ## 项目结构
 
 ```
 ├── PuaSE.md                 # 全局编排 Agent（主入口）
+├── AGENTS.md                # 仓库规则与约定
 ├── subagent/                # 子 Agent 定义
 │   ├── architect.md         # 架构分析
 │   ├── code-reviewer.md     # 代码审查
