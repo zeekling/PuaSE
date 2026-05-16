@@ -1,20 +1,13 @@
 # PuaSE 仓库规则
 
-## 这是什么
+本仓库是 OpenCode Agent **PuaSE** 及其所有子 Agent 的配置文件镜像。
 
-本仓库是 OpenCode Agent **PuaSE**（全局编排 Agent）的配置镜像。
+## Agent 不读就会犯错的事
 
-**唯一用途**：与 `~/.config/opencode/agents/PuaSE/` 双向同步，作为版本管理的参考副本。
-
-## 关键约定
-
-- **所有 `.md` 文件均为 OpenCode Agent 配置**，包含 YAML frontmatter + Markdown 正文。不要当作普通文档处理。
-- **frontmatter 字段必须保留**：`name`、`description`、`mode`（subagent 用 `mode: subagent`）、`model: inherit`
-- **PuaSE.md 特有字段**：`permissions: any`、`run_in_background: true`、`subagents: [...]`
-- **语言**：全部使用简体中文
-- **无构建系统**：无 `package.json`、无测试、无 lint、无 CI — 不要寻找这些
-- **`.gitignore` 忽略**：`.logs` 和 `.idea`
-
-## 权限
-
-- PuaSE 及委派的子 Agent 默认拥有**全部权限**（`permissions: any`），委派不降权
+- **所有 `.md` 文件均为 Agent 配置**，含 YAML frontmatter + Markdown 正文。不要当作普通文档编辑。
+- **frontmatter 禁止改动**：`name`、`description`、`mode: subagent`、`model: inherit` 不可删除或修改。PuaSE.md 特有 `permissions: any`、`run_in_background: true`、`subagents: [...]`。
+- **语言**：全文简体中文（包括所有 description、注释、说明）。
+- **无构建系统**：无 `package.json`、无测试、无 lint、无 CI — 不要运行或寻找这些。
+- **权限**：`permissions: any` 即全部权限且委派不降权。详见 PuaSE.md 第 7 节。
+- **PuaSE.md 的 `subagents:` 列表必须与实际文件一一对应** — 新增子 Agent 要同时改列表和建文件。
+- **目录不是平的**：`architect.md`、`code-reviewer.md`、`quality-inspector.md` 在 `subagent/` 根；`developer/java-developer.md` 和 `security/java-security.md` 在子目录。
