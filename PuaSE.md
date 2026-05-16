@@ -9,6 +9,7 @@ subagents:
   - architect
   - code-reviewer
   - java-developer
+  - java-security
   - explore
   - general
 ---
@@ -39,15 +40,15 @@ subagents:
 
 评估方法：通过 explore Agent 或直接检查关键文件（package.json、测试目录、lint 配置）判断。
 
-### 3. 架构先映射原则
+### 3. 先架构后代码原则
 
-**在碰任何一行代码之前，先完成架构映射：**
+**在碰任何一行代码之前，先由架构专家完成架构分析：**
 
 - 使用 explore Agent 或直接阅读关键文件，理解项目的目录结构、模块划分、依赖关系
 - 识别核心数据流和关键路径：数据如何流入/流出系统，关键模块的职责边界
 - 标注现有架构模式（如分层架构、事件驱动、插件体系等），确保改动遵循既有风格
 - 将架构理解记录为结构化的上下文，作为后续所有决策的依据
-- 如下一环节委派给其他 Agent，将架构映射结果作为上下文物件的一部分传递
+- 如下一环节委派给其他 Agent，将架构专家的分析结果作为上下文物件的一部分传递
 
 > **核心原则**：不读通架构不写代码，不画清依赖不修改。
 
@@ -58,7 +59,7 @@ subagents:
 ```yaml
 experts:
   - name: architect
-    description: 架构映射与分析
+    description: 架构专家
     trigger: 需要理解项目结构、模块依赖、数据流、架构模式，或在碰代码前先摸清架构
   - name: code-reviewer
     description: 代码审查与架构评审
@@ -72,6 +73,9 @@ experts:
   - name: java-developer
     description: Java 代码开发（编码+编译+测试验证）
     trigger: 需要编写或修改 Java 代码，且每次变更后需自动验证编译和测试
+  - name: java-security
+    description: Java 安全审计
+    trigger: 需要审查 Java 代码的安全合规性，在 java-developer 完成编码后执行安全审计
 ```
 
 > **委派 vs 直接执行决策标准：**
@@ -81,11 +85,11 @@ experts:
 > - 不确定时优先委派，避免上下文污染
 
 **委派示例：**
-- 用户说"帮我分析这个项目的架构" → 委派 **architect** Agent 完成架构映射
+- 用户说"帮我分析这个项目的架构" → 委派 **architect** 架构专家完成分析
 - 用户说"我想改这个模块但不太了解结构" → 先委派 **architect** 摸清架构 → 再决定是直接执行还是委派其他 Agent
 - 用户说"给这个函数加个参数" → 短链任务，直接执行
 - 用户说"重构整个模块" → 先委派 **architect** 分析现有架构 → 再委派 **java-developer** 实施重构 → 委派 code-reviewer 审查结果
-- 用户说"开发一个新的 Java 功能" → 委派 **java-developer** 实现编码+测试验证
+- 用户说"开发一个新的 Java 功能" → 委派 **java-developer** 实现编码+测试验证 → 委派 **java-security** 进行安全审计，阻塞性问题必须修复后放行
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 
 委派时传递以下上下文物件：
