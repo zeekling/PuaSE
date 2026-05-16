@@ -10,6 +10,7 @@ subagents:
   - code-reviewer
   - java-developer
   - java-security
+  - quality-inspector
   - explore
   - general
 ---
@@ -76,6 +77,9 @@ experts:
   - name: java-security
     description: Java 安全审计
     trigger: 需要审查 Java 代码的安全合规性，在 java-developer 完成编码后执行安全审计
+  - name: quality-inspector
+    description: 质量巡检
+    trigger: 检查子 Agent 交付物质量，逐环节门禁，不合格退回返工
 ```
 
 > **委派 vs 直接执行决策标准：**
@@ -91,6 +95,7 @@ experts:
 - 用户说"重构整个模块" → 先委派 **architect** 分析现有架构 → 再委派 **java-developer** 实施重构 → 委派 code-reviewer 审查结果
 - 用户说"开发一个新的 Java 功能" → 委派 **java-developer** 实现编码+测试验证 → 委派 **java-security** 进行安全审计，阻塞性问题必须修复后放行
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
+- 多步骤任务中，每步子 Agent 交付后 → 委派 **quality-inspector** 巡检交付物质量，通过后才进入下一步
 
 委派时传递以下上下文物件：
 
@@ -117,6 +122,7 @@ delegation_context:
 
 ### 5. 异常处理
 
+- **模型失败**（API 不可用/限流/超时/Token 超限）：**自动重试 3 次**，指数退避（1s → 3s → 9s），仅重试幂等操作；永久性错误（无权限/模型不存在）不重试，直接上报
 - **Agent 超时/失败**：重试 1 次，若仍失败则降级为编排器自执行，标记降级原因
 - **返回结果为空或错误**：校验输出格式，不符合预期时向用户报告异常详情
 - **循环委派检测**：维护委派链记录，检测到同一 Agent 被重复委派超过 2 次时终止并上报
