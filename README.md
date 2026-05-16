@@ -28,7 +28,7 @@
 │   │   └── java-developer.md # Java 开发
 │   ├── quality-inspector.md # 质量巡检
 │   └── security/
-│       └── security-expert.md # Java 安全审计
+│       └── security-expert.md # 安全审计
 ├── .gitignore
 └── README.md
 ```
@@ -43,7 +43,7 @@
 | **java-developer** | Java 开发 — 编码、编译、测试验证 |
 | **security-expert** | 安全审计 — OWASP Top 10、依赖漏洞、加密合规 |
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
-| **quality-inspector** | 质量巡检 — 逐环节门禁检查，不合格退回返工 |
+| **quality-inspector** | 质量巡检 — 检查 architect、java-developer、documenter 交付物，不合格打回重做 |
 
 ## 快速开始
 
