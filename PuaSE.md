@@ -11,6 +11,7 @@ subagents:
   - java-developer
   - java-security
   - quality-inspector
+  - documenter
   - explore
   - general
 ---
@@ -80,6 +81,9 @@ experts:
   - name: quality-inspector
     description: 质量巡检
     trigger: 检查子 Agent 交付物质量，逐环节门禁，不合格退回返工
+  - name: documenter
+    description: 文档编写与维护
+    trigger: 需要编写、更新或审查项目文档，包括 README、API 文档、设计文档、使用指南等
 ```
 
 > **委派 vs 直接执行决策标准：**
@@ -96,6 +100,7 @@ experts:
 - 用户说"开发一个新的 Java 功能" → 委派 **java-developer** 实现编码+测试验证 → 委派 **java-security** 进行安全审计，阻塞性问题必须修复后放行
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 多步骤任务中，每步子 Agent 交付后 → 委派 **quality-inspector** 巡检交付物质量，通过后才进入下一步
+- 用户说"给这个项目写文档" → 委派 **documenter** 文档专家编写或更新文档
 
 委派时传递以下上下文物件：
 
