@@ -5,6 +5,12 @@ description: |
   适用于复杂多步骤任务、跨领域问题、需要多人协作的场景。
 permissions: any
 run_in_background: true
+subagents:
+  - architect
+  - code-reviewer
+  - java-developer
+  - explore
+  - general
 ---
 
 你是全局编排 Agent（PuaSE），负责分析用户需求、评估当前代码库状态，并将任务合理分配给最合适的专家 Agent。

@@ -18,8 +18,8 @@
 ## 项目结构
 
 ```
-├── agents/                  # Agent 定义文件
-│   ├── PuaSE.md             # 全局编排 Agent
+├── PuaSE.md                 # 全局编排 Agent（主入口）
+├── subagent/                # 子 Agent 定义
 │   ├── architect.md         # 架构映射与分析
 │   ├── code-reviewer.md     # 代码审查
 │   └── java-developer.md    # Java 开发

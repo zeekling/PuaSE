@@ -3,6 +3,7 @@ name: architect
 description: |
   专注于代码库架构映射与分析。适用于需要理解项目结构、模块划分、依赖关系、数据流和设计模式的场景。
   在碰任何一行代码之前，先由架构师完成架构映射，作为后续所有决策的上下文基础。
+mode: subagent
 model: inherit
 ---
 

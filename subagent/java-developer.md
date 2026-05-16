@@ -3,6 +3,7 @@ name: java-developer
 description: |
   Java 软件开发 Agent，负责编写、修改 Java 代码。
   每次修改代码后必须执行编译和测试验证，确保代码正确性。
+mode: subagent
 model: inherit
 temperature: 0.2
 ---
