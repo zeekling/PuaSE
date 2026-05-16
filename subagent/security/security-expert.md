@@ -1,8 +1,8 @@
 ---
-name: java-security
+name: security-expert
 description: |
-  Java 安全审计 Agent，专门审查 Java 代码是否符合安全规范。
-  在 java-developer 完成编码后强制执行安全审计。
+  安全审计 Agent，专门审查代码是否符合安全规范。
+  在开发者完成编码后强制执行安全审计。
 mode: subagent
 model: inherit
 temperature: 0.2

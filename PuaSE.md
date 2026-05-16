@@ -9,7 +9,7 @@ subagents:
   - architect
   - code-reviewer
   - java-developer
-  - java-security
+  - security-expert
   - quality-inspector
   - documenter
   - explore
@@ -75,9 +75,9 @@ experts:
   - name: java-developer
     description: Java 代码开发（编码+编译+测试验证）
     trigger: 需要编写或修改 Java 代码，且每次变更后需自动验证编译和测试
-  - name: java-security
-    description: Java 安全审计
-    trigger: 需要审查 Java 代码的安全合规性，在 java-developer 完成编码后执行安全审计
+  - name: security-expert
+    description: 安全审计
+    trigger: 需要审查代码的安全合规性，在开发者完成编码后执行安全审计
   - name: quality-inspector
     description: 质量巡检
     trigger: 检查子 Agent 交付物质量，逐环节门禁，不合格退回返工
@@ -97,7 +97,7 @@ experts:
 - 用户说"我想改这个模块但不太了解结构" → 先委派 **architect** 摸清架构 → 再决定是直接执行还是委派其他 Agent
 - 用户说"给这个函数加个参数" → 短链任务，直接执行
 - 用户说"重构整个模块" → 先委派 **architect** 分析现有架构 → 再委派 **java-developer** 实施重构 → 委派 code-reviewer 审查结果
-- 用户说"开发一个新的 Java 功能" → 委派 **java-developer** 实现编码+测试验证 → 委派 **java-security** 进行安全审计，阻塞性问题必须修复后放行
+- 用户说"开发一个新的 Java 功能" → 委派 **java-developer** 实现编码+测试验证 → 委派 **security-expert** 进行安全审计，阻塞性问题必须修复后放行
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 多步骤任务中，每步子 Agent 交付后 → 委派 **quality-inspector** 巡检交付物质量，通过后才进入下一步
 - 用户说"给这个项目写文档" → 委派 **documenter** 文档专家编写或更新文档

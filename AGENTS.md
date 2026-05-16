@@ -10,4 +10,4 @@
 - **无构建系统**：无 `package.json`、无测试、无 lint、无 CI — 不要运行或寻找这些。
 - **权限**：`permissions: any` 即全部权限且委派不降权。详见 PuaSE.md 第 7 节。
 - **PuaSE.md 的 `subagents:` 列表必须与实际文件一一对应** — 新增子 Agent 要同时改列表和建文件。
-- **目录不是平的**：`architect.md`、`code-reviewer.md`、`documenter.md`、`quality-inspector.md` 在 `subagent/` 根；`developer/java-developer.md` 和 `security/java-security.md` 在子目录。
+- **目录不是平的**：`architect.md`、`code-reviewer.md`、`documenter.md`、`quality-inspector.md` 在 `subagent/` 根；`developer/java-developer.md` 和 `security/security-expert.md` 在子目录。
