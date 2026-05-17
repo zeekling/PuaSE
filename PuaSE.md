@@ -10,6 +10,7 @@ subagents:
   - code-reviewer
   - java-developer
   - python-developer
+  - cpp-developer
   - security-expert
   - quality-inspector
   - documenter
@@ -82,6 +83,9 @@ experts:
   - name: python-developer
     description: Python 代码开发（编码+语法检查+测试验证）
     trigger: 需要编写或修改 Python 代码，且每次变更后需自动验证语法和测试
+  - name: cpp-developer
+    description: C/C++ 代码开发（编码+编译+测试验证）
+    trigger: 需要编写或修改 C 或 C++ 代码，且每次变更后需自动验证编译和测试
   - name: quality-inspector
     description: 质量巡检
     trigger: 检查子 Agent 交付物质量，逐环节门禁，不合格退回返工
@@ -104,6 +108,7 @@ experts:
 - 用户说"开发一个新的 Java 功能" → 先委派 **architect** 进行架构设计 → 再委派 **java-developer** 实现编码+测试验证 → **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 用户说"写一个 Python 脚本" → 委派 **python-developer** 实现编码+测试验证
+- 用户说"编写 C/C++ 程序" → 委派 **cpp-developer** 实现编码+编译+测试验证
 - 多步骤任务中，可并行的环节（如安全检查、代码审查与质量巡检）委派给不同 Agent 并行执行，提升效率；存在依赖关系的环节保持串行，通过后才进入下一步
 - 用户说"给这个项目写文档" → 委派 **documenter** 文档专家编写或更新文档
 
