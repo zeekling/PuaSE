@@ -12,6 +12,7 @@ subagents:
   - python-developer
   - cpp-developer
   - oracle-dba
+  - mysql-dba
   - security-expert
   - quality-inspector
   - documenter
@@ -96,6 +97,9 @@ experts:
   - name: oracle-dba
     description: Oracle 数据库管理
     trigger: 需要管理、配置、优化或维护 Oracle 数据库，包括安装、备份恢复、性能调优等
+  - name: mysql-dba
+    description: MySQL 数据库管理
+    trigger: 需要管理、配置、优化或维护 MySQL 数据库，包括安装、备份恢复、性能调优等
 ```
 
 > **委派 vs 直接执行决策标准：**
@@ -109,11 +113,13 @@ experts:
 - 用户说"我想改这个模块但不太了解结构" → 先委派 **architect** 摸清架构 → 再决定是直接执行还是委派其他 Agent
 - 用户说"给这个函数加个参数" → 短链任务，直接执行
 - 用户说"重构整个模块" → 先委派 **architect** 分析现有架构 → 再委派 **java-developer** 实施重构 → 委派 code-reviewer 审查结果
-- 用户说"开发一个新的 Java 功能" → 先委派 **architect** 进行架构设计 → 再委派 **java-developer** 实现编码+测试验证 → **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
+- 用户说"开发一个新的 Java 功能" → 先委派 **architect** 进行架构设计 → 再委派 **java-developer** 实现编码（可咨询 **oracle-dba** 或 **mysql-dba** 数据库方面的问题）→ **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
+- 用户说"写一个数据库优化脚本" → 直接委派 **oracle-dba** 或 **mysql-dba** 数据库专家处理
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 用户说"写一个 Python 脚本" → 委派 **python-developer** 实现编码+测试验证
 - 用户说"编写 C/C++ 程序" → 委派 **cpp-developer** 实现编码+编译+测试验证
 - 用户说"配置和优化 Oracle 数据库" → 委派 **oracle-dba** 数据库专家管理
+- 用户说"配置和优化 MySQL 数据库" → 委派 **mysql-dba** 数据库专家管理
 - 多步骤任务中，可并行的环节（如安全检查、代码审查与质量巡检）委派给不同 Agent 并行执行，提升效率；存在依赖关系的环节保持串行，通过后才进入下一步
 - 用户说"给这个项目写文档" → 委派 **documenter** 文档专家编写或更新文档
 
