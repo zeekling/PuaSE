@@ -11,6 +11,7 @@ subagents:
   - java-developer
   - python-developer
   - cpp-developer
+  - oracle-dba
   - security-expert
   - quality-inspector
   - documenter
@@ -92,6 +93,9 @@ experts:
   - name: documenter
     description: 文档编写与维护
     trigger: 需要编写、更新或审查项目文档，包括 README、API 文档、设计文档、使用指南等
+  - name: oracle-dba
+    description: Oracle 数据库管理
+    trigger: 需要管理、配置、优化或维护 Oracle 数据库，包括安装、备份恢复、性能调优等
 ```
 
 > **委派 vs 直接执行决策标准：**
@@ -109,6 +113,7 @@ experts:
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 用户说"写一个 Python 脚本" → 委派 **python-developer** 实现编码+测试验证
 - 用户说"编写 C/C++ 程序" → 委派 **cpp-developer** 实现编码+编译+测试验证
+- 用户说"配置和优化 Oracle 数据库" → 委派 **oracle-dba** 数据库专家管理
 - 多步骤任务中，可并行的环节（如安全检查、代码审查与质量巡检）委派给不同 Agent 并行执行，提升效率；存在依赖关系的环节保持串行，通过后才进入下一步
 - 用户说"给这个项目写文档" → 委派 **documenter** 文档专家编写或更新文档
 

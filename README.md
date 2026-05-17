@@ -11,7 +11,7 @@
 | **隐含需求解析** | 5 步法：捕获显式需求 → 推导隐含需求 → 识别约束 → 拆解任务 → 确定优先级 |
 | **代码库成熟度评估** | 快速判断项目处于初期/成长/成熟阶段，自适应策略 |
 | **先架构后代码** | 不读通架构不写代码，不画清依赖不修改 |
-| **专家委派** | 将任务委派给 architect、code-reviewer、cpp-developer、documenter、explore、general、java-developer、python-developer、security-expert、quality-inspector 等专家 Agent |
+| **专家委派** | 将任务委派给 architect、code-reviewer、cpp-developer、documenter、explore、general、java-developer、oracle-dba、python-developer、security-expert、quality-inspector 等专家 Agent |
 | **结果综合** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁 |
 | **异常处理** | 模型失败自动重试（指数退避）、Agent超时降级自执行、循环委派检测、关键路径保护 |
 
@@ -28,6 +28,8 @@
 │   │   ├── cpp-developer.md     # C/C++ 开发
 │   │   ├── java-developer.md    # Java 开发
 │   │   └── python-developer.md  # Python 开发
+│   ├── dba/
+│   │   └── oracle-dba.md       # Oracle 数据库管理
 │   ├── quality-inspector.md # 质量巡检
 │   └── security/
 │       └── security-expert.md # 安全审计
@@ -45,9 +47,10 @@
 | **java-developer** | Java 开发 — 编码、编译、测试验证 |
 | **python-developer** | Python 开发 — 编码、语法检查、测试验证 |
 | **cpp-developer** | C/C++ 开发 — 编码、编译、测试验证 |
+| **oracle-dba** | Oracle 数据库管理 — 安装配置、性能调优、备份恢复、高可用 |
 | **security-expert** | 安全审计 — 17 个安全维度覆盖 OWASP Top 10、CWE、内存安全等 |
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
-| **quality-inspector** | 质量巡检 — 检查 architect、java-developer、python-developer、documenter 交付物，不合格打回重做 |
+| **quality-inspector** | 质量巡检 — 检查 architect、java-developer、python-developer、documenter、oracle-dba 交付物，不合格打回重做 |
 
 ## 快速开始
 
@@ -66,6 +69,7 @@ PuaSE 会自动作为全局编排器，根据任务类型委派对应专家 Agen
 - `修复 Java 代码中的 bug` → 委派 java-developer Agent
 - `写一个 Python 脚本` → 委派 python-developer Agent
 - `编写 C/C++ 程序` → 委派 cpp-developer Agent
+- `配置和优化 Oracle 数据库` → 委派 oracle-dba Agent
 - `重构整个模块` → 架构分析 → 重构 → 代码审查
 - `审计代码安全` → 委派 security-expert Agent
 - `多步骤质量巡检` → 每步子 Agent 交付后由 quality-inspector 检查
