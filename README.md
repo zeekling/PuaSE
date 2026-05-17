@@ -37,11 +37,11 @@
            │   architect-scan│          │       ├─ java      │       │  code-reviewer      │
            │   explore       │          │       ├─ python    │       │  quality-inspector  │
            │                 │          │       ├─ cpp       │       │                     │
-            │                 │          │       ├─ go        │       │                     │
-            │                 │          │       ├─ rust      │       │                     │
-            │                 │          │       ├─ csharp    │       │                     │
-            │                 │          │       ├─ bigdata   │       │                     │
-            │                 │          │       └─ web       │       │                     │
+           │                 │          │       ├─ go        │       │                     │
+           │                 │          │       ├─ rust      │       │                     │
+           │                 │          │       ├─ csharp    │       │                     │
+           │                 │          │       ├─ bigdata   │       │                     │
+           │                 │          │       └─ web       │       │                     │
            │                 │          │                    │       │                     │
            │                 │          │   dba/*            │       │                     │
            │                 │          │       ├─ mysql     │       │                     │
