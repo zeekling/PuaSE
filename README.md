@@ -130,7 +130,38 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\agents\PuaS
 Copy-Item -Recurse -Path ".\*" -Destination "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
 ```
 
-### 3. 验证安装
+### 3. 配置 opencode.json
+
+在 OpenCode 配置目录（`~/.config/opencode/`）下找到或创建 `opencode.json`，添加 PuaSE Agent 注册信息：
+
+```json
+{
+  "agent": {
+    "PuaSE": {
+      "description": "全局编排 Agent，解析隐含需求、评估代码库成熟度、委派给专家 Agent。适用于复杂多步骤任务、跨领域问题、需要多人协作的场景。",
+      "prompt": "C:\\Users\\<用户名>\\.config\\opencode\\agents\\PuaSE\\PuaSE.md",
+      "permission": {
+        "*": "allow"
+      }
+    }
+  }
+}
+```
+
+> **注意**：`prompt` 路径替换为实际路径。macOS/Linux 示例：`"/home/<用户名>/.config/opencode/agents/PuaSE/PuaSE.md"`。如果使用符号链接或目录联结，路径指向链接目标位置即可。
+
+各字段说明：
+
+| 字段 | 说明 |
+|------|------|
+| `PuaSE` | Agent 名称，在 OpenCode 中通过 `@PuaSE` 引用 |
+| `description` | Agent 描述，OpenCode 用于自动匹配任务 |
+| `prompt` | 指向 PuaSE.md 配置文件的路径（含 YAML frontmatter + 工作流定义） |
+| `permission` | 权限配置，`"*": "allow"` 表示允许所有操作 |
+
+配置完成后重启 OpenCode 即可生效。
+
+### 4. 验证安装
 
 在任意项目目录启动 OpenCode 会话：
 
