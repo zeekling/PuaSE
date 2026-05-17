@@ -60,29 +60,45 @@
 
 根据你的操作系统选择一种方式：
 
-**macOS / Linux（推荐）**
+**YOLO（推荐，macOS / Linux）**
 
 ```bash
 curl -fsSL https://opencode.ai/install | bash
 ```
 
-**macOS（Homebrew）**
+**macOS / Linux（Homebrew，自动更新）**
+
+```bash
+brew install anomalyco/tap/opencode
+```
+
+**macOS / Linux（Homebrew 官方仓库，更新较慢）**
 
 ```bash
 brew install opencode
 ```
 
+**Arch Linux**
+
+```bash
+sudo pacman -S opencode   # 稳定版
+paru -S opencode-bin      # AUR 最新版
+```
+
 **Windows**
 
 ```bash
-winget install OpenCode.OpenCode
+scoop install opencode           # Scoop
+choco install opencode           # Chocolatey
 ```
 
 **任意平台（npm）**
 
 ```bash
-npm install -g opencode-ai
+npm i -g opencode-ai@latest
 ```
+
+> 安装前请确保已卸载 0.1.x 之前的旧版本。
 
 验证安装：
 
