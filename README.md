@@ -54,15 +54,51 @@
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
 | **quality-inspector** | 质量巡检 — 检查 architect、全部开发者（developer/*）、全部 DBA（dba/*）、documenter 交付物，不合格打回重做 |
 
-## 快速开始
+## 安装
 
-确保已安装 [OpenCode](https://opencode.ai)，然后在项目目录中启动会话：
+### 1. 安装 OpenCode
+
+```bash
+npm install -g @opencode/cli
+```
+
+验证安装：
+
+```bash
+opencode --version
+```
+
+### 2. 安装 PuaSE Agent
+
+将本仓库的 Agent 配置安装到 OpenCode 的配置目录：
+
+```bash
+# PowerShell（推荐 - 创建目录联结，不占额外空间）
+New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\agents\PuaSE" -Target "$pwd"
+
+# 或手动复制（如需独立副本）
+Copy-Item -Recurse -Path ".\*" -Destination "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
+```
+
+> 目录联结（Junction）保持文件同步，源目录变更后 OpenCode 自动生效。
+
+### 3. 验证安装
+
+在任意项目目录启动 OpenCode 会话：
 
 ```bash
 opencode
 ```
 
-PuaSE 会自动作为全局编排器，根据任务类型委派对应专家 Agent。
+PuaSE 会自动作为全局编排器可用。输入以下指令验证：
+
+```
+帮我分析这个项目的架构
+```
+
+如果返回架构分析任务，说明安装成功。
+
+## 快速开始
 
 ## 使用示例
 
