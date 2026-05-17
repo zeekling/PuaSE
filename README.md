@@ -58,8 +58,30 @@
 
 ### 1. 安装 OpenCode
 
+根据你的操作系统选择一种方式：
+
+**macOS / Linux（推荐）**
+
 ```bash
-npm install -g @opencode/cli
+curl -fsSL https://opencode.ai/install | bash
+```
+
+**macOS（Homebrew）**
+
+```bash
+brew install opencode
+```
+
+**Windows**
+
+```bash
+winget install OpenCode.OpenCode
+```
+
+**任意平台（npm）**
+
+```bash
+npm install -g opencode-ai
 ```
 
 验证安装：
@@ -72,15 +94,25 @@ opencode --version
 
 将本仓库的 Agent 配置安装到 OpenCode 的配置目录：
 
+**macOS / Linux**
+
 ```bash
-# PowerShell（推荐 - 创建目录联结，不占额外空间）
+# 推荐：创建符号链接（同步更新，自动生效）
+ln -sf "$PWD" "$HOME/.config/opencode/agents/PuaSE"
+
+# 或手动复制（如需独立副本）
+cp -r . "$HOME/.config/opencode/agents/PuaSE/"
+```
+
+**Windows（PowerShell）**
+
+```powershell
+# 推荐：创建目录联结（同步更新，自动生效）
 New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\agents\PuaSE" -Target "$pwd"
 
 # 或手动复制（如需独立副本）
 Copy-Item -Recurse -Path ".\*" -Destination "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
 ```
-
-> 目录联结（Junction）保持文件同步，源目录变更后 OpenCode 自动生效。
 
 ### 3. 验证安装
 
