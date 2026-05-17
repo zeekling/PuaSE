@@ -123,57 +123,7 @@
 
 ## 安装
 
-### 1. 安装 OpenCode
-
-根据你的操作系统选择一种方式：
-
-**YOLO（推荐，macOS / Linux）**
-
-```bash
-curl -fsSL https://opencode.ai/install | bash
-```
-
-**macOS / Linux（Homebrew，自动更新）**
-
-```bash
-brew install anomalyco/tap/opencode
-```
-
-**macOS / Linux（Homebrew 官方仓库，更新较慢）**
-
-```bash
-brew install opencode
-```
-
-**Arch Linux**
-
-```bash
-sudo pacman -S opencode   # 稳定版
-paru -S opencode-bin      # AUR 最新版
-```
-
-**Windows**
-
-```bash
-scoop install opencode           # Scoop
-choco install opencode           # Chocolatey
-```
-
-**任意平台（npm）**
-
-```bash
-npm i -g opencode-ai@latest
-```
-
-> 安装前请确保已卸载 0.1.x 之前的旧版本。
-
-验证安装：
-
-```bash
-opencode --version
-```
-
-### 2. 安装 PuaSE Agent
+### 1. 安装 PuaSE Agent
 
 将本仓库的 Agent 配置安装到 OpenCode 的配置目录：
 
@@ -197,7 +147,7 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\agents\PuaS
 Copy-Item -Recurse -Path ".\*" -Destination "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
 ```
 
-### 3. 配置 opencode.json
+### 2. 配置 opencode.json
 
 在 OpenCode 配置目录（`~/.config/opencode/`）下找到或创建 `opencode.json`，添加 PuaSE Agent 注册信息：
 
@@ -228,7 +178,7 @@ Copy-Item -Recurse -Path ".\*" -Destination "$env:USERPROFILE\.config\opencode\a
 
 配置完成后重启 OpenCode 即可生效。
 
-### 4. 验证安装
+### 3. 验证安装
 
 在任意项目目录启动 OpenCode 会话：
 
