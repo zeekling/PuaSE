@@ -101,10 +101,10 @@ experts:
 - 用户说"我想改这个模块但不太了解结构" → 先委派 **architect** 摸清架构 → 再决定是直接执行还是委派其他 Agent
 - 用户说"给这个函数加个参数" → 短链任务，直接执行
 - 用户说"重构整个模块" → 先委派 **architect** 分析现有架构 → 再委派 **java-developer** 实施重构 → 委派 code-reviewer 审查结果
-- 用户说"开发一个新的 Java 功能" → 先委派 **architect** 进行架构设计 → 再委派 **java-developer** 实现编码+测试验证 → 委派 **security-expert** 进行安全审计，阻塞性问题必须修复后放行
+- 用户说"开发一个新的 Java 功能" → 先委派 **architect** 进行架构设计 → 再委派 **java-developer** 实现编码+测试验证 → **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 用户说"写一个 Python 脚本" → 委派 **python-developer** 实现编码+测试验证
-- 多步骤任务中，每步子 Agent 交付后 → 委派 **quality-inspector** 巡检交付物质量，通过后才进入下一步
+- 多步骤任务中，可并行的环节（如安全检查、代码审查与质量巡检）委派给不同 Agent 并行执行，提升效率；存在依赖关系的环节保持串行，通过后才进入下一步
 - 用户说"给这个项目写文档" → 委派 **documenter** 文档专家编写或更新文档
 
 委派时传递以下上下文物件：

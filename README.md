@@ -43,9 +43,9 @@
 | **code-reviewer** | 代码审查 — 计划对齐、代码质量、架构合规 |
 | **java-developer** | Java 开发 — 编码、编译、测试验证 |
 | **python-developer** | Python 开发 — 编码、语法检查、测试验证 |
-| **security-expert** | 安全审计 — OWASP Top 10、依赖漏洞、加密合规 |
+| **security-expert** | 安全审计 — OWASP Top 10、依赖漏洞、加密合规、文档安全 |
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
-| **quality-inspector** | 质量巡检 — 检查 architect、java-developer、documenter 交付物，不合格打回重做 |
+| **quality-inspector** | 质量巡检 — 检查 architect、java-developer、python-developer、documenter 交付物，不合格打回重做 |
 
 ## 快速开始
 
