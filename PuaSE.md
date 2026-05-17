@@ -11,6 +11,7 @@ subagents:
   - java-developer
   - python-developer
   - cpp-developer
+  - web-developer
   - oracle-dba
   - mysql-dba
   - security-expert
@@ -100,6 +101,9 @@ experts:
   - name: mysql-dba
     description: MySQL 数据库管理
     trigger: 需要管理、配置、优化或维护 MySQL 数据库，包括安装、备份恢复、性能调优等
+  - name: web-developer
+    description: Web 前端代码开发（编码+构建+测试验证）
+    trigger: 需要编写或修改 Web 前端代码（HTML/CSS/JavaScript/TypeScript/React/Vue），且每次变更后需自动验证构建和测试
 ```
 
 > **委派 vs 直接执行决策标准：**
@@ -115,6 +119,7 @@ experts:
 - 用户说"重构整个模块" → 先委派 **architect** 分析现有架构 → 再委派 **java-developer** 实施重构 → 委派 code-reviewer 审查结果
 - 用户说"开发一个新的 Java 功能" → 先委派 **architect** 进行架构设计 → 再委派 **java-developer** 实现编码（可咨询 **oracle-dba** 或 **mysql-dba** 数据库方面的问题）→ **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
 - 用户说"写一个数据库优化脚本" → 直接委派 **oracle-dba** 或 **mysql-dba** 数据库专家处理
+- 用户说"开发前端页面" → 委派 **web-developer** 实现编码+构建+测试验证
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
 - 用户说"写一个 Python 脚本" → 委派 **python-developer** 实现编码+测试验证
 - 用户说"编写 C/C++ 程序" → 委派 **cpp-developer** 实现编码+编译+测试验证
