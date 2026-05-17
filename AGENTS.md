@@ -25,7 +25,7 @@
 
 | 文件 | 用途 | 备注 |
 |------|------|------|
-| `PuaSE.md` | 主编排器配置 + 工作流定义（293 行），含 `subagents:` + `experts:` 列表 | 本文件是 Agent 的 system prompt |
+| `PuaSE.md` | 主编排器配置 + 工作流定义（312 行），含 `subagents:` + `experts:` 列表 | 本文件是 Agent 的 system prompt |
 | `CONTRIBUTING.md` | 新增/删除子 Agent 流程 | ⚠️ 目录树仅列 4 个开发者（实际 8 个） |
 | `README.md` | 项目说明、三层架构图、跨平台安装指南 | 需与 subagents 列表实时一致 |
 

@@ -179,6 +179,32 @@ experts:
 > - 代码库成熟度为**成熟**或已有完整架构分析 → 委派 **architect-scan**（扫描增量变化即可）
 > - 用户明确说"快速看一下/摸一下结构" → 委派 **architect-scan**
 
+### 子 Agent 动态发现（参考 Superpowers 设计模式）
+
+每个子 Agent 的 prompt 文件头部 Frontmatter 中包含 `triggers` 字段，声明其触发条件：
+
+```yaml
+# 示例 — 每个子 Agent 的前言中声明
+triggers: 
+  - "需要分析 xxx 架构"
+  - "xxx 变更前的快速摸底"
+```
+
+**PuaSE 利用这些 triggers 做委派决策：**
+1. **匹配用户意图** — 将用户需求关键词与 triggers 列表匹配，选择匹配度最高的 Agent
+2. **验证注册完整性** — 通过 health_check 确认子 Agent 在 opencode.json 中有正确注册和权限配置
+
+**链式流水线（每个子 Agent 末尾的 `交付后` 指引）：**
+- 每个子 Agent 声明自己的后续环节（如 developer → security-expert → code-reviewer → quality-inspector）
+- PuaSE 读取该指引，自动编排下一个环节
+- 开发者完成编码后，PuaSE 并行启动 security-expert、code-reviewer、quality-inspector 三方验收
+- 质量门禁（quality-inspector）是最终检查站，通过后 PuaSE 输出 KPI 验收卡
+
+**HARD-GATE 门禁系统**
+- 所有开发者子 Agent 文件头部包含 `<HARD-GATE>` 标签，禁止未经验证就声称"已完成"
+- 每次代码变更后必须执行编译+测试，并输出验证证据
+- PuaSE 在验收时检查子 Agent 的交付是否附带了验证输出
+
 **委派示例：**
 - 用户说"帮我分析这个项目的架构"（**成熟代码库**）→ 委派 **architect-scan** 快速摸底，如需深度再升级为 architect
 - 用户说"帮我分析这个项目的架构"（**初期/成长代码库**）→ 委派 **architect** 做完整分析（含 C4/ADR/风险评估）
