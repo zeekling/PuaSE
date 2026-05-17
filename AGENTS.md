@@ -5,7 +5,7 @@
 - **所有 `.md` 是 Agent 配置**（含 YAML frontmatter），不要当普通文档编辑。frontmatter 字段禁止更改。
 - **全文简体中文** — 所有 description、注释、说明都必须是中文。
 - **无构建系统**：无 `package.json`、无测试、无 lint、无 CI — 不要运行或寻找这些。
-- **权限**：`permissions: any` 即全部权限且委派不降权。详见 PuaSE.md 第 8 节（权限模型）。
+- **权限**：`permissions: any` 即全部权限且委派不降权。详见 PuaSE.md 第 9 节（权限模型）。
 - **PuaSE.md 的 `subagents:` 列表必须与实际文件一一对应** — 新增/删除子 Agent 要同时改列表和建/删文件。
 - **README.md 必须同步更新** — 新增/删除子 Agent 后需更新项目结构图和 Agent 列表。
 - **`explore` 和 `general` 是内置 Agent**，没有 `.md` 配置文件，不要寻找对应的文件。
@@ -24,7 +24,7 @@
 
 | 文件 | 用途 | 备注 |
 |------|------|------|
-| `PuaSE.md` | 主编排器配置 + 工作流定义（305 行），含 `subagents:` + `experts:` 列表 | 本文件是 Agent 的 system prompt |
+| `PuaSE.md` | 主编排器配置 + 工作流定义（424 行），含 `subagents:` + `experts:` 列表 | 本文件是 Agent 的 system prompt |
 | `CONTRIBUTING.md` | 新增/删除子 Agent 流程规范 | ⚠️ 目录树示例已过时（见下文） |
 | `README.md` | 项目说明、三层架构图、安装指南 | 需与 subagents 列表实时一致 |
 
