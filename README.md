@@ -75,6 +75,13 @@
 ```
 ├── PuaSE.md                 # 全局编排 Agent（主入口）
 ├── AGENTS.md                # 仓库规则与约定
+├── docs/                    # 跨平台使用指南
+│   ├── index.md             # 跨平台入口与能力对比
+│   ├── opencode.md          # OpenCode 安装配置指南
+│   ├── claude-code.md       # Claude Code 使用指南
+│   ├── copilot-cli.md       # GitHub Copilot CLI 使用指南
+│   ├── cursor.md            # Cursor IDE 使用指南
+│   └── cline.md             # Cline VS Code 扩展使用指南
 ├── subagent/                # 子 Agent 定义
 │   ├── architect-scan.md    # 轻量级架构扫描
 │   ├── architect.md         # 架构分析
@@ -123,78 +130,33 @@
 
 ## 安装
 
-### 1. 安装 PuaSE Agent
+PuaSE 支持多种 AI 编码工具，选择你的平台查看详细安装指南：
 
-将本仓库的 Agent 配置安装到 OpenCode 的配置目录：
+| 平台 | 安装方式 | 指南 |
+|------|---------|------|
+| **OpenCode** | Agent 注册，原生支持 | [📖 OpenCode 安装指南](docs/opencode.md) |
+| **Claude Code** | CLAUDE.md 指令注入 | [📖 Claude Code 安装指南](docs/claude-code.md) |
+| **GitHub Copilot CLI** | AGENTS.md 指令注入 | [📖 Copilot CLI 安装指南](docs/copilot-cli.md) |
+| **Cursor** | .cursorrules 规则注入 | [📖 Cursor 安装指南](docs/cursor.md) |
+| **Cline** | CLINE.md 指令注入 | [📖 Cline 安装指南](docs/cline.md) |
 
-**macOS / Linux**
+> 各平台能力对比详见[跨平台使用指南](docs/index.md)。
 
-```bash
-# 推荐：创建符号链接（同步更新，自动生效）
-ln -sf "$PWD" "$HOME/.config/opencode/agents/PuaSE"
+## 跨平台使用
 
-# 或手动复制（如需独立副本）
-cp -r . "$HOME/.config/opencode/agents/PuaSE/"
-```
+PuaSE 的核心设计是**平台无关的** — 通过不同的配置方式（AGENTS.md / CLAUDE.md / .cursorrules / CLINE.md），可以在主流 AI 编码工具中使用相同的编排逻辑。
 
-**Windows（PowerShell）**
+各平台配置方式对比：
 
-```powershell
-# 推荐：创建目录联结（同步更新，自动生效）
-New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\agents\PuaSE" -Target "$pwd"
+| 平台 | 配置文件 | 配置方式 | 功能完整度 |
+|------|---------|---------|-----------|
+| **OpenCode** | `opencode.json` | Agent 注册 | ⭐⭐⭐⭐⭐ |
+| **Claude Code** | `CLAUDE.md` | 指令注入 | ⭐⭐⭐ |
+| **Copilot CLI** | `AGENTS.md` | 指令注入 | ⭐⭐⭐ |
+| **Cursor** | `.cursorrules` | 规则注入 | ⭐⭐⭐ |
+| **Cline** | `CLINE.md` | 指令注入 | ⭐⭐⭐ |
 
-# 或手动复制（如需独立副本）
-Copy-Item -Recurse -Path ".\*" -Destination "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
-```
-
-### 2. 配置 opencode.json
-
-在 OpenCode 配置目录（`~/.config/opencode/`）下找到或创建 `opencode.json`，添加 PuaSE Agent 注册信息：
-
-```json
-{
-  "agent": {
-    "PuaSE": {
-      "description": "全局编排 Agent，解析隐含需求、评估代码库成熟度、委派给专家 Agent。适用于复杂多步骤任务、跨领域问题、需要多人协作的场景。",
-      "prompt": "C:\\Users\\<用户名>\\.config\\opencode\\agents\\PuaSE\\PuaSE.md",
-      "permission": {
-        "*": "allow"
-      }
-    }
-  }
-}
-```
-
-> **注意**：`prompt` 路径替换为实际路径。macOS/Linux 示例：`"/home/<用户名>/.config/opencode/agents/PuaSE/PuaSE.md"`。如果使用符号链接或目录联结，路径指向链接目标位置即可。
-
-各字段说明：
-
-| 字段 | 说明 |
-|------|------|
-| `PuaSE` | Agent 名称，在 OpenCode 中通过 `@PuaSE` 引用 |
-| `description` | Agent 描述，OpenCode 用于自动匹配任务 |
-| `prompt` | 指向 PuaSE.md 配置文件的路径（含 YAML frontmatter + 工作流定义） |
-| `permission` | 权限配置，`"*": "allow"` 表示允许所有操作 |
-
-配置完成后重启 OpenCode 即可生效。
-
-### 3. 验证安装
-
-在任意项目目录启动 OpenCode 会话：
-
-```bash
-opencode
-```
-
-PuaSE 会自动作为全局编排器可用。输入以下指令验证：
-
-```
-帮我分析这个项目的架构
-```
-
-如果返回架构分析任务，说明安装成功。
-
-## 快速开始
+> **最佳体验**：OpenCode 提供完整的 Agent 委派、权限模型、后台运行等高级功能。其他平台通过指令注入模拟 PuaSE 的编排逻辑，适合轻量使用。
 
 ## 使用示例
 
