@@ -5,7 +5,6 @@ description: |
     适用于需要审查代码质量、设计评审、架构合规的场景。
     不负责计划对齐或架构评审（由 quality-inspector 承担）。
 mode: subagent
-model: inherit
 temperature: 0.1
 ---
 

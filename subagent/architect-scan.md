@@ -5,7 +5,6 @@ description: |
     模块依赖和核心数据流。适用于成熟代码库的常规维护、小范围变更前的快速摸底、
     或已有完整架构分析只需增量更新的场景。用户说"快速看一下结构"时优先选择。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

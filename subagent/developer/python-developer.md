@@ -5,7 +5,6 @@ description: |
     等 Web 框架应用开发、数据处理脚本和自动化工具开发。
     每次修改代码后必须执行语法检查和测试验证，确保代码正确性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

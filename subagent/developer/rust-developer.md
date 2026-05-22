@@ -5,7 +5,6 @@ description: |
     系统编程、CLI 工具和高性能并发服务的开发。
     每次修改代码后必须执行编译和测试验证（含 clippy 检查），确保代码正确性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

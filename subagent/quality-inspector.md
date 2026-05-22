@@ -5,7 +5,6 @@ description: |
     的交付结果。覆盖架构分析完整性、代码质量门禁、安全审计覆盖、DBA 运维合规、
     文档覆盖率和 API 文档一致性。不满足要求一律打回重做，通过后方可进入下一环节。
 mode: subagent
-model: inherit
 temperature: 0.1
 ---
 

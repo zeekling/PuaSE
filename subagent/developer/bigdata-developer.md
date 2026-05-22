@@ -5,7 +5,6 @@ description: |
     大数据处理代码。适用于数据管道开发、实时/离线计算任务、数据仓库 ETL。
     每次修改代码后必须执行编译和测试验证，含数据量级和资源估算评估。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

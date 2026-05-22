@@ -19,7 +19,7 @@
 | 开发者语言 | 8 种：java, python, cpp, go, rust, csharp, bigdata, web |
 | 数据库专家 | 2 种：mysql-dba, oracle-dba |
 | 架构流 | **Pre-Code**(architect) → **Execution**(developer/dba) → **Post-Code**(security/code-review/quality) |
-| `PuaSE.md` 行数 | 312 行，末尾含 `subagents:` + `experts:` 列表 |
+| `PuaSE.md` 行数 | 392 行，末尾含 `subagents:` + `experts:` 列表 |
 | 跨平台指南 | `docs/`（OpenCode/Claude Code/Copilot CLI/Cursor/Cline） |
 
 ## 三文件一致性规则

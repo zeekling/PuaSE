@@ -5,7 +5,6 @@ description: |
     后端服务、CLI 工具和并发系统的功能开发与 Bug 修复。
     每次修改代码后必须执行编译和测试验证（含 -race 检测），确保代码正确性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

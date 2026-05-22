@@ -5,7 +5,6 @@ description: |
     项目的系统库、嵌入式软件和高性能计算模块的开发。
     每次修改代码后必须执行编译和测试验证（0 error, 0 warning），确保代码正确性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

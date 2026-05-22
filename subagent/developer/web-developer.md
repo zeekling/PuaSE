@@ -5,7 +5,6 @@ description: |
     等前端代码。适用于 Web 应用界面开发、组件库构建和前端性能优化。
     每次修改代码后必须执行构建和测试验证，确保代码正确性和兼容性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

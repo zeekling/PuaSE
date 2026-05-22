@@ -5,7 +5,6 @@ description: |
     功能开发和 Bug 修复，包括 Spring Boot / Jakarta EE 应用。
     每次修改代码后必须执行编译和测试验证，确保代码正确性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

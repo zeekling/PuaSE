@@ -5,7 +5,6 @@ description: |
     包括 README、API 文档、设计文档、使用指南等。
     适用于代码变更后同步更新文档、首次发布生成文档、或补充缺失的架构/API 文档。
 mode: subagent
-model: inherit
 temperature: 0.3
 ---
 

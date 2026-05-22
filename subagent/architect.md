@@ -5,7 +5,6 @@ description: |
     用于项目初期或成长阶段需要完整架构设计时、首次分析大型模块、架构变更评审。
     在碰任何一行代码之前先完成架构分析，作为所有决策的上下文基础。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

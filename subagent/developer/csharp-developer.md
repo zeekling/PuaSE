@@ -5,7 +5,6 @@ description: |
     Web 应用（ASP.NET Core）、桌面应用和服务端开发。
     每次修改代码后必须执行编译和测试验证，确保代码正确性。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 
