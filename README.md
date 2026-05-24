@@ -63,7 +63,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **专家委派** | 将任务委派给 architect、architect-scan、bigdata-developer、code-reviewer、cpp-developer、csharp-developer、documenter、explore、general、go-developer、java-developer、mysql-dba、oracle-dba、python-developer、rust-developer、security-expert、quality-inspector、web-developer、reflector 等专家 Agent |
 | **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
 | **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
-| **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视）量化交付标准 |
+| **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视 + 🛡️ 安全审计）量化交付标准 |
 | **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做；全部通过后由 reflector 复盘总结（详见 PuaSE.md §4.2） |
 | **KPI 卡强制生成钩子** | 子 Agent 返回后、声明完成前必须按序执行：验收 → KPI 卡 → 复盘。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §6.4） |
 | **Brainstorming → 实现过渡** | brainstorming 产出 spec 后自动判断是否加载 writing-plans（涉及文件数 ≤ 2 + 无新模块 + 无架构变更 可跳过），输出过渡决策理由，跳过 plan 不跳过验收（详见 PuaSE.md §10.5） |
