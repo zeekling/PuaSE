@@ -4,6 +4,13 @@
 
 解析隐含需求、评估代码库成熟度、委派给专家 Agent。适用于复杂多步骤任务、跨领域问题、需要多人协作的场景。
 
+<p align="center">
+  <img src="https://img.shields.io/github/stars/zeekling/PuaSE?style=social" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/forks/zeekling/PuaSE?style=social" alt="GitHub forks" />
+  <img src="https://img.shields.io/github/watchers/zeekling/PuaSE?style=social" alt="GitHub watchers" />
+  <img src="https://img.shields.io/github/license/zeekling/PuaSE" alt="License" />
+</p>
+
 ## 设计理念：流程化编程，防欺诈架构
 
 > **AI 的最大风险不是"做错"，而是"假装做了"。**
@@ -201,6 +208,18 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 - `多步骤任务中有可并行环节` → 安全审计/代码审查/质量巡检委派给不同 Agent 并行执行
 - \`更新 README 和 website\` → 分别委派 **documenter**（README 更新）和 **web-developer**（website 更新），两个子 Agent 在独立上下文中**并行执行**，PuaSE 主上下文只做合并+验收
 - \`任务完成后复盘\` → 委派 **reflector** 分析委派链得失，产出改进建议，在下一次委派中落地
+
+## 项目趋势
+
+<p align="center">
+  <a href="https://star-history.com/#zeekling/PuaSE&Date">
+    <img src="https://api.star-history.com/svg?repos=zeekling/PuaSE&type=Date" alt="Star History Chart" width="600" />
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fcountapi.mileshilliard.com%2Fapi%2Fv1%2Fget%2FPuaSE-visits&query=%24.value&label=visits&color=brightgreen" alt="Visits" />
+</p>
 
 ## 许可证
 
