@@ -1,55 +1,6 @@
 // PuaSE Homepage — Entry point
 console.log('PuaSE — 全局编排 Agent');
 
-// === Matrix Digital Rain ===
-const canvas = document.getElementById('matrix-canvas');
-const ctx = canvas.getContext('2d');
-let width, height, columns, drops;
-
-function initMatrix() {
-  width = canvas.width = canvas.offsetWidth;
-  height = canvas.height = canvas.offsetHeight;
-  columns = Math.floor(width / 16);
-  drops = Array.from({ length: columns }, () => Math.floor(Math.random() * -100));
-}
-
-const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/{}[]|&^%$#@!';
-
-function drawMatrix() {
-  ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
-  ctx.fillRect(0, 0, width, height);
-  ctx.font = '14px monospace';
-
-  for (let i = 0; i < drops.length; i++) {
-    const char = chars[Math.floor(Math.random() * chars.length)];
-    const x = i * 16;
-    const y = drops[i] * 16;
-
-    ctx.fillStyle = '#00ff41';
-    ctx.fillText(char, x, y);
-
-    for (let j = 1; j <= 4; j++) {
-      const trailY = y - j * 16;
-      if (trailY > 0) {
-        ctx.fillStyle = `rgba(0, 255, 65, ${0.2 - j * 0.04})`;
-        const trailChar = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(trailChar, x, trailY);
-      }
-    }
-
-    if (drops[i] * 16 > height && Math.random() > 0.975) {
-      drops[i] = 0;
-    }
-    drops[i]++;
-  }
-
-  requestAnimationFrame(drawMatrix);
-}
-
-initMatrix();
-window.addEventListener('resize', initMatrix);
-drawMatrix();
-
 // === Typewriter Effect ===
 const subtitleEl = document.getElementById('hero-subtitle');
 const text = '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付';
