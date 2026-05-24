@@ -222,6 +222,13 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 </p>
 
 <p align="center">
+  <img src="https://github.com/zeekling/PuaSE/actions/workflows/build.yml/badge.svg" alt="Build Status" />
+  <img src="https://img.shields.io/github/commit-activity/m/zeekling/PuaSE" alt="Commit Activity" />
+  <img src="https://img.shields.io/github/last-commit/zeekling/PuaSE" alt="Last Commit" />
+  <img src="https://img.shields.io/github/release/zeekling/PuaSE" alt="Release" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fcountapi.mileshilliard.com%2Fapi%2Fv1%2Fget%2FPuaSE-visits&query=%24.value&label=visits&color=brightgreen" alt="Visits" />
 </p>
 
