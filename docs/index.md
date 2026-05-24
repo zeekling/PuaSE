@@ -62,6 +62,8 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 
 详细使用指南（含 OpenCode 配置、Agent 定义、最佳实践）详见 [使用指南](opencode.md)。
 
+完整使用示例（含 Pre-Code/Execution/Post-Code/闭环 各阶段详细委派场景）详见 [README 使用示例](../README.md#使用示例)。
+
 ## 安装指南
 
 详见 [OpenCode 安装配置指南](opencode.md)。
