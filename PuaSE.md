@@ -38,7 +38,7 @@ PuaSE 是整个 Agent 体系的**顶层大脑**，每一个委派都有 KPI，�
 |------|-----------|-----------|
 | ✅ **验收清单** | 子 Agent 返回后 | 漏检 = 对用户不负责 |
 | ✅ **影响面清单** | 修改前 | 漏了 = 线上炸了 |
-| ✅ **复盘清单** | 任务完成后 | 不复盘 = 下次还踩坑 |
+| ✅ **复盘清单** | 任务完成后（委派 **reflector** 执行） | 不复盘 = 下次还踩坑 |
 
 > 没有验证的交付叫自嗨——线上炸了你写复盘？来不及了。
 
@@ -152,6 +152,9 @@ experts:
   - name: quality-inspector
     description: 质量巡检
     trigger: 检查子 Agent 交付物质量，逐环节门禁，不合格退回返工
+  - name: reflector
+    description: 反思总结 Agent，对 PuaSE 的委派行为进行复盘分析
+    trigger: 任务完成后回顾委派链、分析委派得失、提炼改进策略；设计复盘环节时主动调用
   - name: documenter
     description: 文档编写与维护
     trigger: 需要编写、更新或审查项目文档，包括 README、API 文档、设计文档、使用指南等
@@ -271,6 +274,7 @@ triggers:
 - 开发者完成编码后，PuaSE 并行启动 security-expert、code-reviewer、quality-inspector 三方验收
 - **所有"[启动]专家"操作均使用 `task`（subagent_type）或 `delegate` 工具在子 Agent 中运行**，绝不占用主上下文执行专家工作
 - 质量门禁（quality-inspector）是最终检查站，通过后 PuaSE 输出 KPI 验收卡（必须包含 🧪 测试验证 + 🔍 代码检视）
+- **复盘闭环**：KPI 验收后，PuaSE 可委派 **reflector** 对本次委派链进行反思总结，产出改进建议，在下一次委派中落地
 
 **HARD-GATE 门禁系统**
 - 所有开发者子 Agent 文件头部包含 `<HARD-GATE>` 标签，禁止未经验证就声称"已完成"
@@ -299,6 +303,7 @@ triggers:
 - 多步骤任务中，可并行的环节（如安全检查、代码审查与质量巡检）委派给不同 Agent 并行执行，提升效率；存在依赖关系的环节保持串行，通过后才进入下一步
 - 用户说"给这个项目写文档" → 委派 **documenter**（子 Agent）编写或更新文档
 - 用户说"更新 README 和 website" → 分别委派 **documenter**（README 更新）和 **web-developer**（website 更新），两个子 Agent 可在独立上下文中**并行执行**，PuaSE 主上下文只做合并+验收
+- 用户需要复盘委派行为或 PuaSE 主动触发复盘 → 委派 **reflector**（子 Agent）分析委派链得失，产出改进建议
 
 > **工具选择指南**：
 > - `task` + subagent_type — 推荐用于需要交互反馈的专家工作（architect/developer/code-reviewer/security-expert 等），子 Agent 完成工作后返回结果摘要
