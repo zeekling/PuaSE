@@ -1,2 +1,6 @@
-.logs
-.idea
+ .logs
+ .idea
+ docs/specs
+ node_modules/
+ dist/
+ .superpowers/
