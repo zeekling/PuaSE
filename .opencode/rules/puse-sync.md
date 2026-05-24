@@ -43,3 +43,23 @@ globs: "PuaSE.md"
 ## 违反后果
 
 缺少对应同步的 PuaSE.md 变更提交会被标记为**不完整变更**，需补交同步更新。
+
+## 运行副本同步规范
+
+### 运行副本
+
+安装后的运行副本位于：
+- **Linux/macOS**：`~/.config/opencode/agents/PuaSE/`
+- **Windows**：`C:\Users\<user>\.config\opencode\agents\PuaSE\`
+
+### 同步方向
+
+**安装版 → 仓库**：安装版是被 OpenCode 实际加载的版本，仓库是配置的权威存储。
+
+### 同步方法
+
+比对 MD5 hash → 复制差异文件 → 提交。
+
+### 安装版文件数
+
+固定为 18（PuaSE.md + 17 个子 Agent .md）。
