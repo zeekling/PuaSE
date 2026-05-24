@@ -53,7 +53,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **隐含需求解析** | 5 步法：捕获显式需求 → 推导隐含需求 → 识别约束 → 拆解任务 → 确定优先级 |
 | **代码库成熟度评估** | 快速判断项目处于初期/成长/成熟阶段，自适应策略 |
 | **先架构后代码** | 不读通架构不写代码，不画清依赖不修改 |
-| **专家委派** | 将任务委派给 architect、architect-scan、bigdata-developer、code-reviewer、cpp-developer、csharp-developer、documenter、explore、general、go-developer、java-developer、mysql-dba、oracle-dba、python-developer、rust-developer、security-expert、quality-inspector、web-developer 等专家 Agent |
+| **专家委派** | 将任务委派给 architect、architect-scan、bigdata-developer、code-reviewer、cpp-developer、csharp-developer、documenter、explore、general、go-developer、java-developer、mysql-dba、oracle-dba、python-developer、rust-developer、security-expert、quality-inspector、web-developer、reflector 等专家 Agent |
 | **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
 | **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
 | **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视）量化交付标准 |
@@ -103,7 +103,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 |------|------|-------|---------|
 | **Pre-Code（前置分析）** | 在写任何代码前完成架构摸底 | architect, architect-scan, explore | 完整分析（C4/ADR/风险评估）或轻量扫描（3步快速摸底） |
 | **Execution（执行层）** | 负责具体的编码、数据管理和文档产出 | developer/*, dba/*, general, documenter | 代码实现、数据库管理、文档编写，每次变更后立即验证 |
-| **Post-Code（质量门禁）** | 执行安全审计、代码审查和质量巡检，输出 KPI 验收卡 | security-expert, code-reviewer, quality-inspector | 17维度安全审计、计划对齐与代码质量审查、交付物逐项检查（仅通过/打回）。KPI 卡包含 🧪 测试验证 + 🔍 代码检视 两个强制区域 |
+| **Post-Code（质量门禁）** | 执行安全审计、代码审查、质量巡检和复盘总结 | security-expert, code-reviewer, quality-inspector, reflector | 17维度安全审计、计划对齐与代码质量审查、交付物逐项检查（仅通过/打回）。KPI 卡包含 🧪 测试验证 + 🔍 代码检视 两个强制区域 |
 
 **时序流水线（带上下文隔离）：**
 
@@ -169,6 +169,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 │   │   ├── mysql-dba.md        # MySQL 数据库管理
 │   │   └── oracle-dba.md       # Oracle 数据库管理
 │   ├── quality-inspector.md # 质量巡检
+│   ├── reflector.md         # 反思总结
 │   └── security/
 │       └── security-expert.md # 安全审计
 └── website/                 # Vite 静态官网（独立前端项目）
@@ -185,7 +186,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 - **运行副本**：`~/.config/opencode/agents/PuaSE/`（Windows: `C:\Users\<user>\.config\opencode\agents\PuaSE\`）
 - **本仓库**：配置的权威存储。同步方向始终是 **安装版 → 仓库**（安装版是被 OpenCode 实际加载的版本）
 - **同步方法**：比对 MD5 hash → 复制差异文件 → 提交
-- **安装版文件数**：固定为 17（PuaSE.md + 16 个子 Agent .md）
+- **安装版文件数**：固定为 18（PuaSE.md + 17 个子 Agent .md）
 - **PuaSE.md 同步约束**：PuaSE.md 发生任何变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。详见 [.opencode/rules/puse-sync.md](.opencode/rules/puse-sync.md)。
 
 ## Agent 列表
@@ -209,6 +210,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **security-expert** | 安全审计 — 17 个安全维度覆盖 OWASP Top 10、CWE、内存安全等 |
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
 | **quality-inspector** | 质量巡检 — 检查 architect、security-expert、全部开发者（developer/*）、全部 DBA（dba/*）、documenter 交付物，不合格打回重做 |
+| **reflector** | 反思总结 — 对 PuaSE 的委派行为进行复盘分析，委派链回顾、分析得失、提炼改进策略 |
 
 ## 安装
 
@@ -255,7 +257,8 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 - `重构整个模块` → 先委派 **architect** 分析现有架构 → 再委派对应语言 **developer** 实施重构 → 委派 **code-reviewer** 审查结果
 - `给这个项目写文档` → 委派 **documenter** 编写或更新文档
 - `多步骤任务中有可并行环节` → 安全审计/代码审查/质量巡检委派给不同 Agent 并行执行
-- `更新 README 和 website` → 分别委派 **documenter**（README 更新）和 **web-developer**（website 更新），两个子 Agent 在独立上下文中**并行执行**，PuaSE 主上下文只做合并+验收
+- \`更新 README 和 website\` → 分别委派 **documenter**（README 更新）和 **web-developer**（website 更新），两个子 Agent 在独立上下文中**并行执行**，PuaSE 主上下文只做合并+验收
+- \`任务完成后复盘\` → 委派 **reflector** 分析委派链得失，产出改进建议，在下一次委派中落地
 
 ## 许可证
 
