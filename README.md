@@ -172,51 +172,54 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 
 > 所有委派均在**独立子 Agent 会话**中运行，主上下文仅做编排决策，详见 PuaSE.md 的"上下文隔离原则"。
 
-### 架构分析
+### 架构分析（Pre-Code）
 
 - `帮我分析这个项目的架构`（**成熟代码库**）→ 委派 **architect-scan**（子 Agent）快速摸底，如需深度再升级为 architect
 - `帮我分析这个项目的架构`（**初期/成长代码库**）→ 委派 **architect**（子 Agent）完整分析（含 C4/ADR/风险评估）
 - `我想改这个模块但不太了解结构` → 已有架构分析文档委派 **architect-scan**，否则委派 **architect**
 - `给这个函数加个参数` → 短链任务，PuaSE 在主上下文直接执行（纯搜索/读取，不涉及文件编辑时）
 
-### 编码开发
+### 编码开发（Execution）
 
-- `开发一个新的 Java/Go/Rust/C# 功能` → 先委派 **architect** 架构设计 → 再委派对应语言 **developer** 实现编码 → **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行，全部通过才算完成
-- `编写 Go 程序` → 委派 **go-developer** 编码+编译+测试验证
-- `编写 Rust 程序` → 委派 **rust-developer** 编码+编译+测试验证（含 clippy）
-- `编写 C# 程序` → 委派 **csharp-developer** 编码+编译+测试验证
-- `修复 Java 代码中的 bug` → 委派 **java-developer** 修复+验证
-- `写一个 Python 脚本` → 委派 **python-developer** 编码+语法检查+测试验证
-- `编写 C/C++ 程序` → 委派 **cpp-developer** 编码+编译+测试验证
-- `开发前端页面` → 委派 **web-developer** 编码+构建+测试验证
-- `写一个 Spark/Flink/Kafka 数据处理任务` → 委派 **bigdata-developer** 编码+编译+测试验证
+- `开发一个新的 Java/Go/Rust/C# 功能` → 先委派 **architect** 架构设计 → 再委派对应语言 **developer** 实现编码 → **Post-Code 并行验收**（security-expert + code-reviewer + quality-inspector）→ **验收归档**（KPI 卡 → reflector 复盘 → 改进闭环）
+- `编写 Go 程序` → 委派 **go-developer** 编码+编译+测试验证 → Post-Code 门禁 + 闭环归档
+- `编写 Rust 程序` → 委派 **rust-developer** 编码+编译+测试验证（含 clippy）→ Post-Code 门禁 + 闭环归档
+- `编写 C# 程序` → 委派 **csharp-developer** 编码+编译+测试验证 → Post-Code 门禁 + 闭环归档
+- `修复 Java 代码中的 bug` → 委派 **java-developer** 修复+验证 → Post-Code 门禁 + 闭环归档
+- `写一个 Python 脚本` → 委派 **python-developer** 编码+语法检查+测试验证 → Post-Code 门禁 + 闭环归档
+- `编写 C/C++ 程序` → 委派 **cpp-developer** 编码+编译+测试验证 → Post-Code 门禁 + 闭环归档
+- `开发前端页面` → 委派 **web-developer** 编码+构建+测试验证 → Post-Code 门禁 + 闭环归档
+- `写一个 Spark/Flink/Kafka 数据处理任务` → 委派 **bigdata-developer** 编码+编译+测试验证 → Post-Code 门禁 + 闭环归档
 
-### 数据库管理
+### 数据库管理（Execution）
 
 - `配置和优化 MySQL 数据库` → 委派 **mysql-dba** 数据库专家管理
 - `配置和优化 Oracle 数据库` → 委派 **oracle-dba** 数据库专家管理
 - `写一个数据库优化脚本` → 直接委派 **oracle-dba** 或 **mysql-dba** 处理
 
-### 质量门禁
+### 质量门禁（Post-Code）
 
 - `审计代码安全` → 委派 **security-expert** 执行 17 维度安全审计
-- `多步骤质量巡检` → 每步子 Agent 交付后由 **quality-inspector** 全链路检查，不合格打回重做
 - `审查代码质量` → 委派 **code-reviewer** 聚焦代码正确性、安全、性能、可维护性
+- `多步骤质量巡检` → 每步子 Agent 交付后由 **quality-inspector** 全链路检查，不合格打回重做
 - `Post-Code 默认并行验收` → 开发者返回后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert，任一不通过打回重做（详见 PuaSE.md §4.2）
+
+### 验收归档（闭环）
+
 - `KPI 卡强制生成` → 子 Agent 返回后、声明完成前必须按序执行：验收 → KPI 卡 → 复盘。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §6.4）
-- `KPI 验收输出` → 编译/测试验证 + code-reviewer 审查 + quality-inspector 巡检 + security-expert 审计 + 影响面确认，五者缺一不可
+- `KPI 验收输出` → 编译/测试验证 + code-reviewer 审查 + quality-inspector 巡检 + security-expert 审计 + 影响面确认 + reflector 复盘总结，六者缺一不可
+- `任务完成后复盘` → 委派 **reflector** 分析委派链得失，产出改进建议，在下一次委派中落地
 
 ### Brainstorming → 实现过渡
 
-- `新功能设计开发` → 先委派 **architect** 或加载 brainstorming 产出 spec → 判断是否需加载 writing-plans（默认加载，涉及文件数 ≤ 2 + 无新模块 + 无架构变更 可跳过）→ 输出过渡决策理由 → 委派对应 **developer** 实现 → 继续走 Post-Code 验收 + KPI 卡强制生成（详见 PuaSE.md §10.5）
+- `新功能设计开发` → 先委派 **architect** 或加载 brainstorming 产出 spec → 判断是否需加载 writing-plans → 委派对应 **developer** 实现 → **Post-Code 并行验收** → **KPI 卡强制生成** → **reflector 复盘闭环**（详见 PuaSE.md §10.5）
 
-### 其他
+### 委派与协作
 
-- `重构整个模块` → 先委派 **architect** 分析现有架构 → 再委派对应语言 **developer** 实施重构 → 委派 **code-reviewer** 审查结果
+- `重构整个模块` → 先委派 **architect** 分析现有架构 → 再委派对应语言 **developer** 实施重构 → Post-Code 门禁（security-expert + code-reviewer + quality-inspector 并行）→ 闭环归档（KPI 卡 → reflector 复盘）
 - `给这个项目写文档` → 委派 **documenter** 编写或更新文档
 - `多步骤任务中有可并行环节` → 安全审计/代码审查/质量巡检委派给不同 Agent 并行执行
 - \`更新 README 和 website\` → 分别委派 **documenter**（README 更新）和 **web-developer**（website 更新），两个子 Agent 在独立上下文中**并行执行**，PuaSE 主上下文只做合并+验收
-- \`任务完成后复盘\` → 委派 **reflector** 分析委派链得失，产出改进建议，在下一次委派中落地
 
 ## 项目趋势
 
