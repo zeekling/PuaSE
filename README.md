@@ -218,6 +218,8 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **security-expert** | 安全审计 — 17 个安全维度覆盖 OWASP Top 10、CWE、内存安全等 |
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
 | **quality-inspector** | 质量巡检 — 检查 architect、security-expert、全部开发者（developer/*）、全部 DBA（dba/*）、documenter 交付物，不合格打回重做 |
+| **explore** | OpenCode 内置 Agent — 代码库探索与信息收集，用于快速了解项目结构和文件内容 |
+| **general** | OpenCode 内置 Agent — 通用任务执行，适用于不需要特定领域专家的一般性工作 |
 | **reflector** | 反思总结 — 对 PuaSE 的委派行为进行复盘分析，委派链回顾、分析得失、提炼改进策略 |
 
 ## 安装

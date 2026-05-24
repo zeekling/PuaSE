@@ -32,11 +32,11 @@
 
 | 项目 | 数据 |
 |------|------|
-| 子 Agent 总数 | 18 个（16 个 `.md` 配置 + 2 内置：explore, general） |
+| 子 Agent 总数 | 19 个（17 个 `.md` 配置 + 2 内置：explore, general） |
 | 开发者语言 | 8 种：java, python, cpp, go, rust, csharp, bigdata, web |
 | 数据库专家 | 2 种：mysql-dba, oracle-dba |
 | 架构流 | **Pre-Code**(architect) → **Execution**(developer/dba) → **Post-Code**(security/code-review/quality) |
-| `PuaSE.md` 行数 | 449 行，末尾含 `subagents:` + `experts:` 列表 |
+| `PuaSE.md` 行数 | 624 行，末尾含 `subagents:` + `experts:` 列表 |
 | 使用指南 | `docs/`（OpenCode） |
 
 ## 同步规则
@@ -44,7 +44,7 @@
 - **运行副本**：`~/.config/opencode/agents/PuaSE/`（Windows: `C:\Users\<user>\.config\opencode\agents\PuaSE\`）
 - **本仓库**：配置的权威存储。同步方向始终是 **安装版 → 仓库**（安装版是被 OpenCode 实际加载的版本）
 - 同步方法：比对 MD5 hash → 复制差异文件 → 提交
-- 安装版文件数固定为 17（PuaSE.md + 16 个子 Agent .md）
+- 安装版文件数固定为 18（PuaSE.md + 17 个子 Agent .md）
 - **PuaSE.md 同步约束**（`.opencode/rules/puse-sync.md`）：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
 
 ## CI/CD & 仓库边界
