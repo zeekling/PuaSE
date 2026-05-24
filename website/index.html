@@ -226,6 +226,16 @@
           <p>18 位专家 Agent 覆盖架构、开发、DBA、安全、审查、巡检全链条</p>
         </div>
         <div class="cap-card reveal-left">
+          <div class="cap-icon">🧊</div>
+          <h3>上下文隔离原则</h3>
+          <p>所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层</p>
+        </div>
+        <div class="cap-card reveal-right">
+          <div class="cap-icon">🎯</div>
+          <h3>技能编排优化</h3>
+          <p>将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略交给对应 Agent，自身不执行技能中的"你来做"指令</p>
+        </div>
+        <div class="cap-card reveal-left">
           <div class="cap-icon">📋</div>
           <h3>KPI 验收卡</h3>
           <p>没有 KPI 卡的交付叫自嗨。编译/测试验证 + code-reviewer 审查 + quality-inspector 巡检 + security-expert 审计 + 影响面确认，五者缺一不可</p>
@@ -250,15 +260,19 @@
         </div>
         <div class="terminal-body" id="terminal-body">
           <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">@PuaSE 帮我分析项目架构</span></div>
-          <div class="terminal-line output">→ 委派 architect 进行完整架构分析...</div>
+          <div class="terminal-line output">→ 启动 architect 子 Agent（独立上下文）...</div>
           <div class="terminal-line output">  ├─ 目录结构 · 模块依赖 · 数据流</div>
-          <div class="terminal-line output">  └─ C4 模型 · ADR · 风险评估 ✅</div>
+          <div class="terminal-line output">  ├─ C4 模型 · ADR · 风险评估</div>
+          <div class="terminal-line output">  └─ 子 Agent 返回结果摘要 ✅</div>
           <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">@PuaSE 开发一个新的 Java 功能</span></div>
-          <div class="terminal-line output">→ 架构分析 → java-developer 编码</div>
-          <div class="terminal-line output">→ security-expert 审计 ✅</div>
-          <div class="terminal-line output">→ quality-inspector 巡检 ✅</div>
+          <div class="terminal-line output">→ 子 Agent 1: architect 架构设计</div>
+          <div class="terminal-line output">→ 子 Agent 2: java-developer 编码实现</div>
+          <div class="terminal-line output">→ 三家并行验收（各自独立上下文）:</div>
+          <div class="terminal-line output">  ├─ security-expert 审计 ✅</div>
+          <div class="terminal-line output">  ├─ code-reviewer 审查 ✅</div>
+          <div class="terminal-line output">  └─ quality-inspector 巡检 ✅</div>
           <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">@PuaSE 审计代码安全</span></div>
-          <div class="terminal-line output">→ 委派 security-expert...</div>
+          <div class="terminal-line output">→ 委派 security-expert 子 Agent...</div>
           <div class="terminal-line output">  17 维度安全审计 · OWASP Top 10 · CWE</div>
           <div class="terminal-line output">  🟢 全部通过</div>
         </div>

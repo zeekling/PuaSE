@@ -53,6 +53,8 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **代码库成熟度评估** | 快速判断项目处于初期/成长/成熟阶段，自适应策略 |
 | **先架构后代码** | 不读通架构不写代码，不画清依赖不修改 |
 | **专家委派** | 将任务委派给 architect、architect-scan、bigdata-developer、code-reviewer、cpp-developer、csharp-developer、documenter、explore、general、go-developer、java-developer、mysql-dba、oracle-dba、python-developer、rust-developer、security-expert、quality-inspector、web-developer 等专家 Agent |
+| **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
+| **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
 | **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视）量化交付标准 |
 | **异常处理** | 模型失败自动重试（指数退避）、Agent超时降级自执行、循环委派检测、关键路径保护 |
 
@@ -102,13 +104,24 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **Execution（执行层）** | 负责具体的编码、数据管理和文档产出 | developer/*, dba/*, general, documenter | 代码实现、数据库管理、文档编写，每次变更后立即验证 |
 | **Post-Code（质量门禁）** | 执行安全审计、代码审查和质量巡检，输出 KPI 验收卡 | security-expert, code-reviewer, quality-inspector | 17维度安全审计、计划对齐与代码质量审查、交付物逐项检查（仅通过/打回）。KPI 卡包含 🧪 测试验证 + 🔍 代码检视 两个强制区域 |
 
-**时序流水线：**
+**时序流水线（带上下文隔离）：**
 
 ```
-隐含需求解析 → 成熟度评估 → [架构分析] → [开发/DBA/文档] → [安全审计 | 代码审查 | 质量巡检] → KPI 验收
-    PuaSE           PuaSE          architect    developer/*     三者可并行                    🧪+🔍
-                                                     dba/*
-                                                 documenter
+┌─ PuaSE 主上下文（编排层）─────────────────────────────────────────────┐
+│ 隐含需求解析 → 成熟度评估 → 委派专家 → 冲突仲裁 → KPI 验收          │
+│  ❌ 不在此执行专家工作任务（仅做编排决策）                            │
+└──────────────────────────────────────────────────────────────────────┘
+       委派 ↓               子 Agent 独立上下文
+┌──────────────────────────────────────────────────────────────────────┐
+│ architect    [架构分析]   →   developer/*   [开发+DBA+文档]          │
+│                              dba/*         (独立上下文窗口)           │
+│                              documenter                              │
+│                              ↓                                       │
+│ security-expert · code-reviewer · quality-inspector [三方并行验收]    │
+└──────────────────────────────────────────────────────────────────────┘
+                                           ↓
+                                    🧪 测试验证 + 🔍 代码检视
+                                    KPI 验收卡（五者缺一不可）
 ```
 
 **KPI 验收标准（五者缺一不可）：**
@@ -192,24 +205,45 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 
 ## 使用示例
 
-- `帮我分析这个项目的架构`（成熟代码库）→ 委派 architect-scan Agent 快速摸底
-- `帮我分析这个项目的架构`（初期/成长代码库）→ 委派 architect Agent 完整分析
-- `开发一个新的 Java 功能` → 委派 java-developer Agent
-- `编写 Go 程序` → 委派 go-developer Agent
-- `编写 Rust 程序` → 委派 rust-developer Agent
-- `编写 C# 程序` → 委派 csharp-developer Agent
-- `修复 Java 代码中的 bug` → 委派 java-developer Agent
-- `写一个 Python 脚本` → 委派 python-developer Agent
-- `编写 C/C++ 程序` → 委派 cpp-developer Agent
-- `开发前端页面` → 委派 web-developer Agent
-- `写一个 Spark/Flink/Kafka 数据处理任务` → 委派 bigdata-developer Agent
-- `配置和优化 MySQL 数据库` → 委派 mysql-dba Agent
-- `配置和优化 Oracle 数据库` → 委派 oracle-dba Agent
-- `重构整个模块` → 架构分析 → 重构 → 代码审查
-- `审计代码安全` → 委派 security-expert Agent
-- `多步骤质量巡检` → 每步子 Agent 交付后由 quality-inspector 检查
+> 所有委派均在**独立子 Agent 会话**中运行，主上下文仅做编排决策，详见 PuaSE.md 的"上下文隔离原则"。
+
+### 架构分析
+
+- `帮我分析这个项目的架构`（**成熟代码库**）→ 委派 **architect-scan**（子 Agent）快速摸底，如需深度再升级为 architect
+- `帮我分析这个项目的架构`（**初期/成长代码库**）→ 委派 **architect**（子 Agent）完整分析（含 C4/ADR/风险评估）
+- `我想改这个模块但不太了解结构` → 已有架构分析文档委派 **architect-scan**，否则委派 **architect**
+- `给这个函数加个参数` → 短链任务，PuaSE 在主上下文直接执行
+
+### 编码开发
+
+- `开发一个新的 Java/Go/Rust/C# 功能` → 先委派 **architect** 架构设计 → 再委派对应语言 **developer** 实现编码 → **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行，全部通过才算完成
+- `编写 Go 程序` → 委派 **go-developer** 编码+编译+测试验证
+- `编写 Rust 程序` → 委派 **rust-developer** 编码+编译+测试验证（含 clippy）
+- `编写 C# 程序` → 委派 **csharp-developer** 编码+编译+测试验证
+- `修复 Java 代码中的 bug` → 委派 **java-developer** 修复+验证
+- `写一个 Python 脚本` → 委派 **python-developer** 编码+语法检查+测试验证
+- `编写 C/C++ 程序` → 委派 **cpp-developer** 编码+编译+测试验证
+- `开发前端页面` → 委派 **web-developer** 编码+构建+测试验证
+- `写一个 Spark/Flink/Kafka 数据处理任务` → 委派 **bigdata-developer** 编码+编译+测试验证
+
+### 数据库管理
+
+- `配置和优化 MySQL 数据库` → 委派 **mysql-dba** 数据库专家管理
+- `配置和优化 Oracle 数据库` → 委派 **oracle-dba** 数据库专家管理
+- `写一个数据库优化脚本` → 直接委派 **oracle-dba** 或 **mysql-dba** 处理
+
+### 质量门禁
+
+- `审计代码安全` → 委派 **security-expert** 执行 17 维度安全审计
+- `多步骤质量巡检` → 每步子 Agent 交付后由 **quality-inspector** 全链路检查，不合格打回重做
+- `审查代码质量` → 委派 **code-reviewer** 聚焦代码正确性、安全、性能、可维护性
 - `KPI 验收输出` → 编译/测试验证 + code-reviewer 审查 + quality-inspector 巡检 + security-expert 审计 + 影响面确认，五者缺一不可
-- `给这个项目写文档` → 委派 documenter Agent 编写或更新文档
+
+### 其他
+
+- `重构整个模块` → 先委派 **architect** 分析现有架构 → 再委派对应语言 **developer** 实施重构 → 委派 **code-reviewer** 审查结果
+- `给这个项目写文档` → 委派 **documenter** 编写或更新文档
+- `多步骤任务中有可并行环节` → 安全审计/代码审查/质量巡检委派给不同 Agent 并行执行
 
 ## 许可证
 
