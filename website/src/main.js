@@ -52,7 +52,7 @@ drawMatrix();
 
 // === Typewriter Effect ===
 const subtitleEl = document.getElementById('hero-subtitle');
-const text = '全局编排 Agent — 解析隐含需求 · 评估成熟度 · 委派专家 · 闭环交付';
+const text = '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付';
 
 function typeWriter(el, text, speed = 40) {
   let i = 0;

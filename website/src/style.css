@@ -227,21 +227,6 @@ a:hover {
   border-color: var(--neon-green);
   box-shadow: var(--glow-green);
 }
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  animation: bounce 2s infinite;
-  letter-spacing: 2px;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
-}
 
 /* === Flow Cards === */
 .flow-cards {
