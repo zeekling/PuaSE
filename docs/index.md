@@ -1,61 +1,86 @@
-# PuaSE 跨平台使用指南
+# PuaSE 使用指南
 
-PuaSE（全局编排 Agent）是**平台无关的** — 它的核心是一套编排工作流和子 Agent 配置，可以在多种 AI 编码工具中使用。
+PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，负责解析用户需求、评估代码库状态，并将任务委派给最合适的专家 Agent。
 
-选择你的平台：
-
-| 平台 | 类型 | 配置方式 | 适用人群 |
-|------|------|---------|---------|
-| [OpenCode](opencode.md) | CLI 工具 | `opencode.json` Agent 注册 | OpenCode 用户 |
-| [Claude Code](claude-code.md) | CLI 工具 | `CLAUDE.md` / `.claude/` 配置 | Anthropic Claude 用户 |
-| [GitHub Copilot CLI](copilot-cli.md) | CLI 工具 | `AGENTS.md` / `.github/copilot-instructions.md` | GitHub 生态用户 |
-| [Cursor](cursor.md) | AI IDE | `.cursorrules` / `cursor/rules/` | AI IDE 用户 |
-| [Cline](cline.md) | VS Code 扩展 | `CLINE.md` / MCP 配置 | VS Code 用户 |
-
-## PuaSE 跨平台架构图
+## PuaSE 架构
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                   你的开发环境                            │
-│  ┌──────────┐  ┌──────────┐  ┌────────┐  ┌──────────┐  │
-│  │ OpenCode │  │ClaudeCode│  │ Cursor │  │  Cline   │  │
-│  └─────┬────┘  └─────┬────┘  └───┬────┘  └─────┬────┘  │
-│        │              │           │              │       │
-│        └──────────────┼───────────┼──────────────┘       │
-│                       │           │                      │
-│              ┌────────▼───────────▼──────┐               │
-│              │     PuaSE 编排器           │               │
-│              │   (通过配置文件加载)        │               │
-│              └────────┬──────────────────┘               │
-│                       │                                  │
-│              ┌────────▼──────────────────┐               │
-│              │  subagent/ 子 Agent 池     │               │
-│              │  architect/developer/     │               │
-│              │  dba/security/...         │               │
-│              └───────────────────────────┘               │
+│                   你的开发环境（OpenCode）                 │
+│                          │                              │
+│                 ┌────────▼──────────┐                   │
+│                 │   PuaSE 编排器     │                   │
+│                 │  (全局编排 Agent)   │                   │
+│                 └────────┬──────────┘                   │
+│                          │                              │
+│        ┌─────────────────┼─────────────────┐            │
+│        │                 │                 │            │
+│ ┌──────▼──────┐  ┌──────▼───────┐  ┌──────▼──────┐     │
+│ │  Pre-Code   │  │  Execution   │  │  Post-Code  │     │
+│ │  前置分析    │  │   执行层      │  │  质量门禁   │     │
+│ └──────┬──────┘  └──────┬───────┘  └──────┬──────┘     │
+│        │                │                 │            │
+│ ┌──────▼──────┐  ┌──────▼───────┐  ┌──────▼──────┐     │
+│ │ architect   │  │ developer/*  │  │ security    │     │
+│ │ explore     │  │ dba/*        │  │ code-review │     │
+│ │             │  │ documenter   │  │ quality     │     │
+│ └─────────────┘  └──────────────┘  └─────────────┘     │
 └─────────────────────────────────────────────────────────┘
 ```
 
-## 平台能力对比
+## 三层架构
 
-| 能力 | OpenCode | Claude Code | Copilot CLI | Cursor | Cline |
-|------|----------|-------------|-------------|--------|-------|
-| 自定义 Agent 注册 | ✅ `opencode.json` | ✅ `.claude/agents.json` | ⚠️ 指令注入 | ⚠️ Rules 注入 | ⚠️ 指令注入 |
-| 子 Agent 配置目录 | ✅ 原生支持 | ✅ 可引用 | ⚠️ 手工合并 | ⚠️ 手工注入 | ✅ CLINE.md |
-| 权限模型 | ✅ `permission: * allow` | ❌ 无权限模型 | ❌ 无权限模型 | ❌ 无权限模型 | ✅ MCP 权限 |
-| 权限委派不降权 | ✅ 原生 | ✅ 可模拟 | ⚠️ 有限 | ⚠️ 有限 | ⚠️ 有限 |
-| 后台运行 | ✅ `run_in_background` | ❌ | ❌ | ❌ | ❌ |
+| 层级 | Agent | 职责 |
+|------|-------|------|
+| **Pre-Code（前置分析）** | architect, architect-scan, explore | 写代码前完成架构摸底 |
+| **Execution（执行层）** | developer/*, dba/*, general, documenter | 编码、数据库管理、文档编写 |
+| **Post-Code（质量门禁）** | security-expert, code-reviewer, quality-inspector | 安全审计、代码审查、质量巡检 |
 
-> ✅ = 原生支持 / ⚠️ = 需要额外配置 / ❌ = 不支持
+## 核心工作流
 
-## 选择建议
+```
+隐含需求解析 → 成熟度评估 → [架构分析] → [开发/DBA/文档] → [安全审计 | 代码审查 | 质量巡检] → 完成
+```
 
-- **已用 OpenCode** → 直接使用 [OpenCode 指南](opencode.md)，体验最佳
-- **已用 Claude Code** → 使用 [Claude Code 指南](claude-code.md)，将 PuaSE 注入为系统指令
-- **已用 GitHub Copilot CLI** → 使用 [Copilot CLI 指南](copilot-cli.md)，通过 AGENTS.md 或 copilot-instructions.md 注入
-- **已用 Cursor** → 使用 [Cursor 指南](cursor.md)，通过 .cursorrules 注入 PuaSE 核心指令
-- **已用 Cline** → 使用 [Cline 指南](cline.md)，通过 CLINE.md 或 MCP 配置注入
+## 使用方式
 
-## 版本更新
+### 直接对话
 
-各平台指南会随 PuaSE 版本同步更新。如果发现配置方式有变化，请参考各工具的官方文档。
+```
+帮我分析项目架构
+开发一个新的 Java 功能
+配置 MySQL 数据库
+审计代码安全
+```
+
+### @ 引用
+
+```
+@PuaSE 帮我分析这个项目的架构和风险
+```
+
+## 安装指南
+
+详见 [OpenCode 安装配置指南](opencode.md)。
+
+## Agent 列表
+
+| Agent | 职责 |
+|-------|------|
+| **PuaSE** | 全局编排 — 解析需求、评估成熟度、委派专家 |
+| **architect** | 完整架构分析 — C4 模型、ADR、风险评估 |
+| **architect-scan** | 轻量级架构扫描 — 3 步快速摸底 |
+| **code-reviewer** | 代码审查 — 正确性、安全、性能、可维护性 |
+| **go-developer** | Go 开发 — 编码、编译、测试验证 |
+| **rust-developer** | Rust 开发 — 编码、编译、测试验证 |
+| **csharp-developer** | C# 开发 — 编码、编译、测试验证 |
+| **java-developer** | Java 开发 — 编码、编译、测试验证 |
+| **python-developer** | Python 开发 — 编码、语法检查、测试验证 |
+| **cpp-developer** | C/C++ 开发 — 编码、编译、测试验证 |
+| **bigdata-developer** | 大数据开发 — Spark/Flink/Kafka/Hive/Airflow |
+| **web-developer** | Web 前端开发 — 编码、构建、测试验证 |
+| **mysql-dba** | MySQL 数据库管理 |
+| **oracle-dba** | Oracle 数据库管理 |
+| **security-expert** | 安全审计 — OWASP Top 10、CWE、内存安全 |
+| **documenter** | 文档编写 — README、API 文档、设计文档 |
+| **quality-inspector** | 质量巡检 — 所有子 Agent 交付检查 |

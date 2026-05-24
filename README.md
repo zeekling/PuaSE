@@ -75,13 +75,9 @@
 ```
 ├── PuaSE.md                 # 全局编排 Agent（主入口）
 ├── AGENTS.md                # 仓库规则与约定
-├── docs/                    # 跨平台使用指南
-│   ├── index.md             # 跨平台入口与能力对比
-│   ├── opencode.md          # OpenCode 安装配置指南
-│   ├── claude-code.md       # Claude Code 使用指南
-│   ├── copilot-cli.md       # GitHub Copilot CLI 使用指南
-│   ├── cursor.md            # Cursor IDE 使用指南
-│   └── cline.md             # Cline VS Code 扩展使用指南
+├── docs/                    # 使用指南
+│   ├── index.md             # PuaSE 使用指南
+│   └── opencode.md          # OpenCode 安装配置指南
 ├── subagent/                # 子 Agent 定义
 │   ├── architect-scan.md    # 轻量级架构扫描
 │   ├── architect.md         # 架构分析
@@ -130,33 +126,7 @@
 
 ## 安装
 
-PuaSE 支持多种 AI 编码工具，选择你的平台查看详细安装指南：
-
-| 平台 | 安装方式 | 指南 |
-|------|---------|------|
-| **OpenCode** | Agent 注册，原生支持 | [📖 OpenCode 安装指南](docs/opencode.md) |
-| **Claude Code** | CLAUDE.md 指令注入 | [📖 Claude Code 安装指南](docs/claude-code.md) |
-| **GitHub Copilot CLI** | AGENTS.md 指令注入 | [📖 Copilot CLI 安装指南](docs/copilot-cli.md) |
-| **Cursor** | .cursorrules 规则注入 | [📖 Cursor 安装指南](docs/cursor.md) |
-| **Cline** | CLINE.md 指令注入 | [📖 Cline 安装指南](docs/cline.md) |
-
-> 各平台能力对比详见[跨平台使用指南](docs/index.md)。
-
-## 跨平台使用
-
-PuaSE 的核心设计是**平台无关的** — 通过不同的配置方式（AGENTS.md / CLAUDE.md / .cursorrules / CLINE.md），可以在主流 AI 编码工具中使用相同的编排逻辑。
-
-各平台配置方式对比：
-
-| 平台 | 配置文件 | 配置方式 | 功能完整度 |
-|------|---------|---------|-----------|
-| **OpenCode** | `opencode.json` | Agent 注册 | ⭐⭐⭐⭐⭐ |
-| **Claude Code** | `CLAUDE.md` | 指令注入 | ⭐⭐⭐ |
-| **Copilot CLI** | `AGENTS.md` | 指令注入 | ⭐⭐⭐ |
-| **Cursor** | `.cursorrules` | 规则注入 | ⭐⭐⭐ |
-| **Cline** | `CLINE.md` | 指令注入 | ⭐⭐⭐ |
-
-> **最佳体验**：OpenCode 提供完整的 Agent 委派、权限模型、后台运行等高级功能。其他平台通过指令注入模拟 PuaSE 的编排逻辑，适合轻量使用。
+PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](docs/opencode.md)。
 
 ## 使用示例
 
