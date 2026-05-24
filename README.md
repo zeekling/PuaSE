@@ -24,6 +24,7 @@ PuaSE 的设计围绕一个核心原则：**AI 编程必须可验证、可审计
 | 交付物质量不合格蒙混过关 | **quality-inspector** — 全链路巡检，不合格打回重做 | 被 quality-inspector 拒绝 = 退回 developer |
 | 代码有安全漏洞但不说 | **security-expert** — 17 维度安全审计，阻断性报告优先级最高 | security-expert 的阻断报告可否决整个交付 |
 | KPI 卡里不写测试和检视结果 | **KPI 验收卡强制字段** — 🧪 测试验证 + 🔍 代码检视必须填写 | 不填 = KPI 卡标记为"⏳ 门禁未过" |
+| 用户说"这个很熟我自己改更快" | **反熟悉度偏误钩子** — 必须反问：涉及写文件？有子 Agent？不熟会委派？ | 三问任一为是 → 必须委派 |
 
 ### 核心防线（四道门禁）
 
@@ -212,7 +213,7 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 - `帮我分析这个项目的架构`（**成熟代码库**）→ 委派 **architect-scan**（子 Agent）快速摸底，如需深度再升级为 architect
 - `帮我分析这个项目的架构`（**初期/成长代码库**）→ 委派 **architect**（子 Agent）完整分析（含 C4/ADR/风险评估）
 - `我想改这个模块但不太了解结构` → 已有架构分析文档委派 **architect-scan**，否则委派 **architect**
-- `给这个函数加个参数` → 短链任务，PuaSE 在主上下文直接执行
+- `给这个函数加个参数` → 短链任务，PuaSE 在主上下文直接执行（纯搜索/读取，不涉及文件编辑时）
 
 ### 编码开发
 
@@ -244,6 +245,7 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 - `重构整个模块` → 先委派 **architect** 分析现有架构 → 再委派对应语言 **developer** 实施重构 → 委派 **code-reviewer** 审查结果
 - `给这个项目写文档` → 委派 **documenter** 编写或更新文档
 - `多步骤任务中有可并行环节` → 安全审计/代码审查/质量巡检委派给不同 Agent 并行执行
+- `更新 README 和 website` → 分别委派 **documenter**（README 更新）和 **web-developer**（website 更新），两个子 Agent 在独立上下文中**并行执行**，PuaSE 主上下文只做合并+验收
 
 ## 许可证
 
