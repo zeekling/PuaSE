@@ -142,11 +142,11 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 
 ## 项目结构
 
-项目目录树详见 [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)。
+项目目录树详见 [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)。
 
 ## Agent 列表
 
-全部 20 个 Agent 详见 [AGENT_LIST.md](AGENT_LIST.md)。
+全部 20 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
 
 ## 安装
 

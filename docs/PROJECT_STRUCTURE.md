@@ -4,7 +4,8 @@
 ├── PuaSE.md                 # 全局编排 Agent（主入口）
 ├── AGENTS.md                # 仓库规则与约定
 ├── README.md                # 本文件
-├── PROJECT_STRUCTURE.md     # 项目结构说明（本文件）
+├── docs/PROJECT_STRUCTURE.md     # 项目结构说明
+├── docs/AGENT_LIST.md       # Agent 列表
 ├── CONTRIBUTING.md          # 贡献指南（目录树过期，勿依赖）
 ├── LICENSE                  # MIT 许可证
 ├── .gitignore
