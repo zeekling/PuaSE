@@ -75,6 +75,14 @@
 ```
 ├── PuaSE.md                 # 全局编排 Agent（主入口）
 ├── AGENTS.md                # 仓库规则与约定
+├── README.md                # 本文件
+├── CONTRIBUTING.md          # 贡献指南（目录树过期，勿依赖）
+├── LICENSE                  # MIT 许可证
+├── .gitignore
+├── .github/
+│   ├── ISSUE_TEMPLATE/      # Issue 模板
+│   └── workflows/
+│       └── deploy.yml       # GitHub Pages 自动部署（push main → website/**）
 ├── docs/                    # 使用指南
 │   ├── index.md             # PuaSE 使用指南
 │   └── opencode.md          # OpenCode 安装配置指南
@@ -98,8 +106,14 @@
 │   ├── quality-inspector.md # 质量巡检
 │   └── security/
 │       └── security-expert.md # 安全审计
-├── .gitignore
-└── README.md
+└── website/                 # Vite 静态官网（独立前端项目）
+    ├── index.html           # 主页
+    ├── src/
+    │   ├── main.js          # 入口脚本
+    │   └── style.css        # 样式
+    ├── public/              # 静态资源
+    ├── package.json         # npm dev / build / preview
+    └── vite.config.js       # Vite 6 配置，base /PuaSE/
 ```
 
 ## Agent 列表
