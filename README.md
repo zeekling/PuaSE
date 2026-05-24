@@ -141,6 +141,9 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 ├── CONTRIBUTING.md          # 贡献指南（目录树过期，勿依赖）
 ├── LICENSE                  # MIT 许可证
 ├── .gitignore
+├── .opencode/
+│   └── rules/
+│       └── puse-sync.md      # PuaSE.md 变更同步约束
 ├── .github/
 │   ├── ISSUE_TEMPLATE/      # Issue 模板
 │   └── workflows/
@@ -176,7 +179,14 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
     ├── public/              # 静态资源
     ├── package.json         # npm dev / build / preview
     └── vite.config.js       # Vite 6 配置，base /PuaSE/
-```
+
+## 同步规则
+
+- **运行副本**：`~/.config/opencode/agents/PuaSE/`（Windows: `C:\Users\<user>\.config\opencode\agents\PuaSE\`）
+- **本仓库**：配置的权威存储。同步方向始终是 **安装版 → 仓库**（安装版是被 OpenCode 实际加载的版本）
+- **同步方法**：比对 MD5 hash → 复制差异文件 → 提交
+- **安装版文件数**：固定为 17（PuaSE.md + 16 个子 Agent .md）
+- **PuaSE.md 同步约束**：PuaSE.md 发生任何变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。详见 [.opencode/rules/puse-sync.md](.opencode/rules/puse-sync.md)。
 
 ## Agent 列表
 

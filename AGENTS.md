@@ -45,6 +45,7 @@
 - **本仓库**：配置的权威存储。同步方向始终是 **安装版 → 仓库**（安装版是被 OpenCode 实际加载的版本）
 - 同步方法：比对 MD5 hash → 复制差异文件 → 提交
 - 安装版文件数固定为 17（PuaSE.md + 16 个子 Agent .md）
+- **PuaSE.md 同步约束**（`.opencode/rules/puse-sync.md`）：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
 
 ## CI/CD & 仓库边界
 
