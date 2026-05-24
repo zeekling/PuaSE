@@ -68,9 +68,10 @@
         </div>
         <div class="flow-arrow reveal">→</div>
         <div class="flow-card reveal">
-          <div class="flow-icon">✅</div>
+          <div class="flow-icon">🛡️</div>
           <h3>闭环交付</h3>
-           <p>默认并行验收 → 强制生成 KPI 卡 → 复盘闭环。security-expert + code-reviewer + quality-inspector 并行，任一不通过立即打回。无 KPI 卡的完成声明视为 P0 违规</p>
+          <p><strong>Post-Code 并行验收</strong>：security-expert + code-reviewer + quality-inspector 三方并行，<br>任一不通过立即打回重做</p>
+          <p style="margin-top:8px;"><strong>验收归档</strong>：强制输出 KPI 卡（🧪+🔍+🛡️）→ <br>reflector 复盘总结 → 改进跟踪至闭环</p>
         </div>
       </div>
     </section>
@@ -208,6 +209,13 @@
             <div class="agent-card" data-agent="security-expert"><div class="agent-emoji">🔒</div><div class="agent-name">security-expert</div><div class="agent-desc">安全审计</div></div>
             <div class="agent-card" data-agent="code-reviewer"><div class="agent-emoji">👁️</div><div class="agent-name">code-reviewer</div><div class="agent-desc">代码审查</div></div>
             <div class="agent-card" data-agent="quality-inspector"><div class="agent-emoji">✅</div><div class="agent-name">quality-inspector</div><div class="agent-desc">质量巡检</div></div>
+          </div>
+        </div>
+        <!-- 闭环 -->
+        <div class="agent-group reveal">
+          <h3 class="agent-group-label">✅ 闭环 <span>交付验收</span></h3>
+          <div class="agent-cards">
+            <div class="agent-card"><div class="agent-emoji">📋</div><div class="agent-name">KPI 验收卡</div><div class="agent-desc">门禁强制输出</div></div>
             <div class="agent-card" data-agent="reflector"><div class="agent-emoji">🔄</div><div class="agent-name">reflector</div><div class="agent-desc">反思总结</div></div>
           </div>
         </div>
