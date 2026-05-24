@@ -130,7 +130,7 @@ async function loadVisitCount() {
   if (!visitEl) return;
 
   try {
-    const res = await fetch('https://api.countapi.xyz/hit/zeekling/PuaSE-visits');
+    const res = await fetch('https://countapi.mileshilliard.com/api/v1/hit/PuaSE-visits');
     if (!res.ok) throw new Error('CountAPI error');
     const data = await res.json();
     if (data && data.value !== undefined) {
