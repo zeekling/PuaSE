@@ -228,6 +228,20 @@ a:hover {
   box-shadow: var(--glow-green);
 }
 
+/* === Hero Stats === */
+.hero-stats {
+  margin-top: 32px;
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  text-align: center;
+  transition: color 0.3s;
+  min-height: 1.5em;
+}
+.hero-stats:hover {
+  color: var(--neon-green);
+}
+
 /* === Flow Cards === */
 .flow-cards {
   display: flex;
