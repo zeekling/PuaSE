@@ -298,8 +298,8 @@ triggers:
 - PuaSE 读取该指引，自动编排下一个环节
 - 开发者完成编码后，PuaSE 并行启动 security-expert、code-reviewer、quality-inspector 三方验收
 - **所有"[启动]专家"操作均使用 `task`（subagent_type）或 `delegate` 工具在子 Agent 中运行**，绝不占用主上下文执行专家工作
-- 质量门禁（quality-inspector）是最终检查站，通过后 PuaSE 输出 KPI 验收卡（必须包含 🧪 测试验证 + 🔍 代码检视）
-- **复盘闭环**：KPI 验收后，PuaSE 按规则委派 **reflector**（委派链 ≥ 2 跳 或 连续 3 次同类任务后强制；短链可选），对委派链进行反思总结，产出改进建议，在下一次委派中落地
+- 质量门禁（quality-inspector）通过后，进入复盘环节，然后输出 KPI 验收卡（必须包含 🧪 测试验证 + 🔍 代码检视）
+- **复盘闭环**：三项验收全部通过后，PuaSE 按规则委派 **reflector**（委派链 ≥ 2 跳 或 连续 3 次同类任务后强制；短链可选），对委派链进行反思总结，产出改进建议在下一次委派中落地。reflector 属于 Post-Code 阶段的最后一个环节，在 KPI 卡之前执行
 
 #### 4.2 默认并行验收规则（Post-Code 铁律）
 
@@ -315,7 +315,7 @@ triggers:
 - PuaSE 在开发者子 Agent 返回后，**立即并行委派** code-reviewer、quality-inspector 和（如适用）security-expert
 - 所有验收 Agent 在独立上下文中并行执行，互不阻塞
 - 任一验收不通过 → 打回开发者重做，修复后重新走验收
-- 全部通过 → 输出 KPI 验收卡
+- 全部通过 → 按规则委派 reflector 复盘总结（Post-Code 最后一环）→ 输出 KPI 验收卡
 - 跳过验收的决定必须有明确理由，并在 KPI 卡中注明（格式：`⏭️ <验收项> 跳过原因：<理由>`）
 
 **HARD-GATE 门禁系统**
