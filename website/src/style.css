@@ -342,6 +342,14 @@ a:hover {
   backdrop-filter: blur(var(--glass-blur));
 }
 .arch-postcode .arch-badge { background: rgba(255,23,68,0.15); border-color: rgba(255,23,68,0.3); }
+.arch-closure {
+  background: var(--glass-bg);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  min-width: 180px;
+  backdrop-filter: blur(var(--glass-blur));
+}
+.arch-closure:hover { border-color: rgba(245, 158, 11, 0.5); }
+.arch-closure .arch-badge { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.3); }
 .arch-agents { list-style: none; margin-top: 8px; }
 .arch-agents li { font-family: var(--font-code); font-size: 0.82rem; color: var(--text-secondary); padding: 3px 0; line-height: 1.5; }
 .arch-exec-subgroups { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
@@ -587,7 +595,7 @@ a:hover {
   .flow-arrow { transform: rotate(90deg); }
   .arch-columns { flex-direction: column; align-items: center; }
   .arch-orchestrator { min-width: unset; width: 100%; }
-  .arch-precode, .arch-postcode { min-width: unset; width: 100%; }
+  .arch-precode, .arch-postcode, .arch-closure { min-width: unset; width: 100%; }
   .arch-exec { min-width: unset; width: 100%; }
   .caps-grid { grid-template-columns: 1fr; }
   .agent-card { max-width: none; flex: 1 1 calc(50% - 12px); min-width: 100px; }

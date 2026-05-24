@@ -85,7 +85,7 @@
             <span>PuaSE</span>
             <span class="arch-badge">全局编排器</span>
           </div>
-            <div class="arch-layer-desc">解析需求 → 成熟度评估 → 委派专家 → 并行验收 → KPI 卡 → 复盘</div>
+            <div class="arch-layer-desc">解析需求 → 成熟度评估 → 委派专家 → Post-Code并行验收 → KPI卡 → 复盘闭环</div>
         </div>
         <div class="arch-connector">委派 ↓</div>
         <div class="arch-columns">
@@ -133,7 +133,18 @@
               <span>Post-Code</span>
               <span class="arch-badge">质量门禁</span>
             </div>
-            <ul class="arch-agents"><li>security-expert</li><li>code-reviewer</li><li>quality-inspector</li><li>reflector</li></ul>
+            <ul class="arch-agents"><li>security-expert</li><li>code-reviewer</li><li>quality-inspector</li></ul>
+          </div>
+          <div class="arch-layer arch-closure">
+            <div class="arch-layer-header">
+              <span class="arch-icon">✅</span>
+              <span>闭环</span>
+              <span class="arch-badge">交付验收</span>
+            </div>
+            <ul class="arch-agents">
+              <li>KPI 验收卡</li>
+              <li>reflector <span style="font-size:0.75rem;color:var(--text-dim);">复盘总结</span></li>
+            </ul>
           </div>
         </div>
       </div>
