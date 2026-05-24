@@ -102,14 +102,29 @@
               <span>Execution</span>
               <span class="arch-badge">执行层</span>
             </div>
-            <ul class="arch-agents">
-              <li>java-developer · python-developer</li>
-              <li>go-developer · rust-developer</li>
-              <li>csharp-developer · cpp-developer</li>
-              <li>bigdata-developer · web-developer</li>
-              <li>mysql-dba · oracle-dba</li>
-              <li>general · documenter</li>
-            </ul>
+            <div class="arch-exec-subgroups">
+              <div class="arch-exec-subgroup">
+                <div class="arch-exec-subgroup-label">Developer</div>
+                <ul class="arch-agents">
+                  <li>java-developer · python-developer</li>
+                  <li>go-developer · rust-developer</li>
+                  <li>csharp-developer · cpp-developer</li>
+                  <li>bigdata-developer · web-developer</li>
+                </ul>
+              </div>
+              <div class="arch-exec-subgroup">
+                <div class="arch-exec-subgroup-label">DBA</div>
+                <ul class="arch-agents">
+                  <li>mysql-dba · oracle-dba</li>
+                </ul>
+              </div>
+              <div class="arch-exec-subgroup">
+                <div class="arch-exec-subgroup-label">通用</div>
+                <ul class="arch-agents">
+                  <li>general · documenter</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="arch-layer arch-postcode">
             <div class="arch-layer-header">
@@ -140,19 +155,38 @@
         <!-- Execution -->
         <div class="agent-group reveal">
           <h3 class="agent-group-label">💻 Execution <span>执行层</span></h3>
-          <div class="agent-cards">
-            <div class="agent-card" data-agent="java-developer"><div class="agent-emoji">☕</div><div class="agent-name">java-developer</div><div class="agent-desc">Java 开发</div></div>
-            <div class="agent-card" data-agent="python-developer"><div class="agent-emoji">🐍</div><div class="agent-name">python-developer</div><div class="agent-desc">Python 开发</div></div>
-            <div class="agent-card" data-agent="go-developer"><div class="agent-emoji">🔵</div><div class="agent-name">go-developer</div><div class="agent-desc">Go 开发</div></div>
-            <div class="agent-card" data-agent="rust-developer"><div class="agent-emoji">🦀</div><div class="agent-name">rust-developer</div><div class="agent-desc">Rust 开发</div></div>
-            <div class="agent-card" data-agent="csharp-developer"><div class="agent-emoji">#️⃣</div><div class="agent-name">csharp-developer</div><div class="agent-desc">C# 开发</div></div>
-            <div class="agent-card" data-agent="cpp-developer"><div class="agent-emoji">⚡</div><div class="agent-name">cpp-developer</div><div class="agent-desc">C/C++ 开发</div></div>
-            <div class="agent-card" data-agent="bigdata-developer"><div class="agent-emoji">📊</div><div class="agent-name">bigdata-developer</div><div class="agent-desc">大数据开发</div></div>
-            <div class="agent-card" data-agent="web-developer"><div class="agent-emoji">🌐</div><div class="agent-name">web-developer</div><div class="agent-desc">Web 前端开发</div></div>
-            <div class="agent-card" data-agent="mysql-dba"><div class="agent-emoji">🗄️</div><div class="agent-name">mysql-dba</div><div class="agent-desc">MySQL 管理</div></div>
-            <div class="agent-card" data-agent="oracle-dba"><div class="agent-emoji">🏛️</div><div class="agent-name">oracle-dba</div><div class="agent-desc">Oracle 管理</div></div>
-            <div class="agent-card" data-agent="general"><div class="agent-emoji">🔧</div><div class="agent-name">general</div><div class="agent-desc">通用任务</div></div>
-            <div class="agent-card" data-agent="documenter"><div class="agent-emoji">📝</div><div class="agent-name">documenter</div><div class="agent-desc">文档编写</div></div>
+
+          <!-- Developer -->
+          <div class="agent-subgroup">
+            <h4 class="agent-subgroup-label">Developer <span>多语言开发者</span></h4>
+            <div class="agent-cards">
+              <div class="agent-card" data-agent="java-developer"><div class="agent-emoji">☕</div><div class="agent-name">java-developer</div><div class="agent-desc">Java 开发</div></div>
+              <div class="agent-card" data-agent="python-developer"><div class="agent-emoji">🐍</div><div class="agent-name">python-developer</div><div class="agent-desc">Python 开发</div></div>
+              <div class="agent-card" data-agent="go-developer"><div class="agent-emoji">🔵</div><div class="agent-name">go-developer</div><div class="agent-desc">Go 开发</div></div>
+              <div class="agent-card" data-agent="rust-developer"><div class="agent-emoji">🦀</div><div class="agent-name">rust-developer</div><div class="agent-desc">Rust 开发</div></div>
+              <div class="agent-card" data-agent="csharp-developer"><div class="agent-emoji">#️⃣</div><div class="agent-name">csharp-developer</div><div class="agent-desc">C# 开发</div></div>
+              <div class="agent-card" data-agent="cpp-developer"><div class="agent-emoji">⚡</div><div class="agent-name">cpp-developer</div><div class="agent-desc">C/C++ 开发</div></div>
+              <div class="agent-card" data-agent="bigdata-developer"><div class="agent-emoji">📊</div><div class="agent-name">bigdata-developer</div><div class="agent-desc">大数据开发</div></div>
+              <div class="agent-card" data-agent="web-developer"><div class="agent-emoji">🌐</div><div class="agent-name">web-developer</div><div class="agent-desc">Web 前端开发</div></div>
+            </div>
+          </div>
+
+          <!-- DBA -->
+          <div class="agent-subgroup">
+            <h4 class="agent-subgroup-label">DBA <span>数据库管理</span></h4>
+            <div class="agent-cards">
+              <div class="agent-card" data-agent="mysql-dba"><div class="agent-emoji">🗄️</div><div class="agent-name">mysql-dba</div><div class="agent-desc">MySQL 管理</div></div>
+              <div class="agent-card" data-agent="oracle-dba"><div class="agent-emoji">🏛️</div><div class="agent-name">oracle-dba</div><div class="agent-desc">Oracle 管理</div></div>
+            </div>
+          </div>
+
+          <!-- 通用 -->
+          <div class="agent-subgroup">
+            <h4 class="agent-subgroup-label">通用 <span>通用任务 & 文档</span></h4>
+            <div class="agent-cards">
+              <div class="agent-card" data-agent="general"><div class="agent-emoji">🔧</div><div class="agent-name">general</div><div class="agent-desc">通用任务</div></div>
+              <div class="agent-card" data-agent="documenter"><div class="agent-emoji">📝</div><div class="agent-name">documenter</div><div class="agent-desc">文档编写</div></div>
+            </div>
           </div>
         </div>
         <!-- Post-Code -->

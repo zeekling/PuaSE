@@ -334,14 +334,53 @@ a:hover {
 }
 .arch-postcode:hover { box-shadow: var(--glow-red); }
 .arch-postcode .arch-badge { background: rgba(255,23,68,0.15); border-color: rgba(255,23,68,0.3); }
-.arch-agents { list-style: none; margin-top: 12px; }
-.arch-agents li { font-family: var(--font-code); font-size: 0.82rem; color: var(--text-secondary); padding: 4px 0; line-height: 1.6; }
+.arch-agents { list-style: none; margin-top: 8px; }
+.arch-agents li { font-family: var(--font-code); font-size: 0.82rem; color: var(--text-secondary); padding: 3px 0; line-height: 1.5; }
+.arch-exec-subgroups { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.arch-exec-subgroup {
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: rgba(0, 255, 65, 0.03);
+  border: 1px solid rgba(0, 255, 65, 0.08);
+}
+.arch-exec-subgroup-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  text-align: left;
+}
+.arch-exec-subgroup .arch-agents { margin-top: 0; }
+.arch-exec-subgroup .arch-agents li { padding: 2px 0; }
 
 /* === Section Desc === */
 .section-desc { text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 0.95rem; }
 
 /* === Agent Groups === */
 .agent-group { margin-bottom: 40px; }
+.agent-subgroup {
+  margin-bottom: 24px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(0, 255, 65, 0.12);
+}
+.agent-subgroup:last-child { margin-bottom: 0; }
+.agent-subgroup-label {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding-left: 4px;
+  letter-spacing: 1px;
+}
+.agent-subgroup-label span {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-weight: 400;
+  margin-left: 6px;
+  letter-spacing: 0;
+}
 .agent-group-label {
   font-family: var(--font-heading);
   font-size: 1.1rem;
