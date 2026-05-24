@@ -35,7 +35,7 @@
 | 子 Agent 总数 | 19 个（17 个 `.md` 配置 + 2 内置：explore, general） |
 | 开发者语言 | 8 种：java, python, cpp, go, rust, csharp, bigdata, web |
 | 数据库专家 | 2 种：mysql-dba, oracle-dba |
-| 架构流 | **Pre-Code**(architect) → **Execution**(developer/dba) → **Post-Code**(security/code-review/quality) |
+| 架构流 | **Pre-Code**(architect) → **Execution**(developer/dba) → **Post-Code**(security/code-review/quality/reflector) |
 | `PuaSE.md` 行数 | 624 行，末尾含 `subagents:` + `experts:` 列表 |
 | 使用指南 | `docs/`（OpenCode） |
 

@@ -64,7 +64,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
 | **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
 | **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视）量化交付标准 |
-| **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做（详见 PuaSE.md §4.2） |
+| **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做；全部通过后由 reflector 复盘总结（详见 PuaSE.md §4.2） |
 | **KPI 卡强制生成钩子** | 子 Agent 返回后、声明完成前必须按序执行：验收 → KPI 卡 → 复盘。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §6.4） |
 | **Brainstorming → 实现过渡** | brainstorming 产出 spec 后自动判断是否加载 writing-plans（涉及文件数 ≤ 2 + 无新模块 + 无架构变更 可跳过），输出过渡决策理由，跳过 plan 不跳过验收（详见 PuaSE.md §10.5） |
 | **异常处理** | 模型失败自动重试（指数退避）、Agent超时降级自执行、循环委派检测、关键路径保护 |
@@ -129,6 +129,8 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 │                              documenter                              │
 │                              ↓                                       │
 │ security-expert · code-reviewer · quality-inspector [三方并行验收]    │
+│       ↓ 全部通过                                                      │
+│ reflector [复盘总结] — 改进跟踪至闭环                                 │
 └──────────────────────────────────────────────────────────────────────┘
                                            ↓
                                     🧪 测试验证 + 🔍 代码检视
@@ -141,6 +143,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 > 3. ✅ quality-inspector 全链路质量巡检
 > 4. ✅ security-expert 安全审计（敏感场景必须）
 > 5. ✅ 影响面清单已确认
+> 6. ✅ reflector 复盘总结 — 委派链 ≥ 2 跳 或 连续 3 次同类任务后强制
 >
 > **门禁执行顺序（§6.4 KPI 卡强制生成钩子）：**
 > 子 Agent 返回后 → 按 §4.2 并行启动 code-reviewer + quality-inspector +（如适用）security-expert

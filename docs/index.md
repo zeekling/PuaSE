@@ -24,7 +24,8 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 │ │ architect   │  │ developer/*  │  │ security    │     │
 │ │ explore     │  │ dba/*        │  │ code-review │     │
 │ │             │  │ documenter   │  │ quality     │     │
-│ └─────────────┘  └──────────────┘  └─────────────┘     │
+│ │             │  │              │  │ reflector   │     │
+│ └─────────────┘  └──────────────┘  └──────────────┘     │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -34,7 +35,7 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 |------|-------|------|
 | **Pre-Code（前置分析）** | architect, architect-scan, explore | 写代码前完成架构摸底 |
 | **Execution（执行层）** | developer/*, dba/*, general, documenter | 编码、数据库管理、文档编写 |
-| **Post-Code（质量门禁）** | security-expert, code-reviewer, quality-inspector | 安全审计、代码审查、质量巡检 |
+| **Post-Code（质量门禁）** | security-expert, code-reviewer, quality-inspector, reflector | 安全审计 → 代码审查 → 质量巡检 → 复盘总结 |
 
 ## 核心工作流
 
