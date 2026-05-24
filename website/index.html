@@ -71,7 +71,7 @@
         <div class="flow-card reveal">
           <div class="flow-icon">✅</div>
           <h3>闭环交付</h3>
-          <p>安全审计 + 代码审查 + 质量巡检并行验收，KPI 卡量化交付标准（🧪 测试验证 + 🔍 代码检视全覆盖）</p>
+           <p>默认并行验收 → 强制生成 KPI 卡 → 复盘闭环。security-expert + code-reviewer + quality-inspector 并行，任一不通过立即打回。无 KPI 卡的完成声明视为 P0 违规</p>
         </div>
       </div>
     </section>
@@ -86,7 +86,7 @@
             <span>PuaSE</span>
             <span class="arch-badge">全局编排器</span>
           </div>
-          <div class="arch-layer-desc">解析需求 → 评估成熟度 → 委派专家 → 综合验收</div>
+            <div class="arch-layer-desc">解析需求 → 成熟度评估 → 委派专家 → 并行验收 → KPI 卡 → 复盘</div>
         </div>
         <div class="arch-connector">委派 ↓</div>
         <div class="arch-columns">
@@ -240,8 +240,8 @@
         </div>
         <div class="cap-card reveal-left">
           <div class="cap-icon">📋</div>
-          <h3>KPI 验收卡</h3>
-          <p>没有 KPI 卡的交付叫自嗨。编译/测试验证 + code-reviewer 审查 + quality-inspector 巡检 + security-expert 审计 + 影响面确认，五者缺一不可</p>
+          <h3>KPI 验收卡 · 门禁铁律</h3>
+          <p>没有 KPI 卡的交付叫自嗨。Post-Code 默认并行 security-expert + code-reviewer + quality-inspector，任一不通过立即打回。子 Agent 声明完成前强制：验收 → KPI 卡 → 复盘，缺一视为 P0 流程违规</p>
         </div>
         <div class="cap-card reveal-right">
           <div class="cap-icon">⚡</div>
@@ -283,6 +283,14 @@
           <div class="terminal-line output">→ 委派 security-expert 子 Agent...</div>
           <div class="terminal-line output">  17 维度安全审计 · OWASP Top 10 · CWE</div>
           <div class="terminal-line output">  🟢 全部通过</div>
+          <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">@PuaSE brainstorm 新功能设计方案</span></div>
+          <div class="terminal-line output">→ brainstorming 产出 spec ✅</div>
+          <div class="terminal-line output">  └─ 判断: 涉及新模块 + 架构变更 → 加载 writing-plans</div>
+          <div class="terminal-line output">→ 按 plan 迭代执行 → 触发 Post-Code 门禁:</div>
+          <div class="terminal-line output">  ├─ security-expert + code-reviewer + quality-inspector 并行</div>
+          <div class="terminal-line output">  ├─ 强制生成 KPI 卡（验收标准量化）</div>
+          <div class="terminal-line output">  ├─ 全部通过 ✅</div>
+          <div class="terminal-line output">  └─ 复盘闭环 🔄</div>
         </div>
       </div>
     </section>
