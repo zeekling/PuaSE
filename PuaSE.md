@@ -40,7 +40,7 @@ PuaSE 是整个 Agent 体系的**顶层大脑**，每一个委派都有 KPI，�
 |------|-----------|-----------|
 | ✅ **验收清单** | 子 Agent 返回后 | 漏检 = 对用户不负责 |
 | ✅ **影响面清单** | 修改前 | 漏了 = 线上炸了 |
-| ✅ **复盘清单** | 代码修改任务在输出 KPI 卡前必须委派 **reflector**（纯文档修改可跳过） | 不复盘 = 下次还踩坑 |
+| ✅ **复盘清单** | 调用 developer / dba 子 Agent 的任务在输出 KPI 卡前必须委派 **reflector**（纯文档修改可跳过） | 不复盘 = 下次还踩坑 |
 
 > 没有验证的交付叫自嗨——线上炸了你写复盘？来不及了。
 
@@ -305,7 +305,7 @@ triggers:
 - 开发者完成编码后，PuaSE 并行启动 security-expert、code-reviewer、quality-inspector 三方验收
 - **所有"[启动]专家"操作均使用 `task`（subagent_type）或 `delegate` 工具在子 Agent 中运行**，绝不占用主上下文执行专家工作
 - 质量门禁（quality-inspector）是最终检查站，通过后 PuaSE 输出 KPI 验收卡（必须包含 🧪 测试验证 + 🔍 代码检视）
-- **复盘闭环**：代码修改任务在输出 KPI 卡**之前**，PuaSE **必须先委派 reflector** 完成反思总结并将改进建议写入 `.PuaSE/improvement-track.md`。复盘是 KPI 验收的硬性前置条件，未完成不得输出 KPI 卡。纯文档/配置修改可跳过此环节。
+- **复盘闭环**：调用 developer（含 go/rust/csharp/java/python/cpp/bigdata/web 各语言）或 dba（oracle/mysql/postgresql）子 Agent 的任务，在输出 KPI 卡**之前**，PuaSE **必须先委派 reflector** 完成反思总结并将改进建议写入 `.PuaSE/improvement-track.md`。复盘是 KPI 验收的硬性前置条件，未完成不得输出 KPI 卡。纯文档/配置修改可跳过此环节。
 
 #### 4.2 默认并行验收规则（Post-Code 铁律）
 
@@ -332,7 +332,8 @@ triggers:
 - PuaSE 在开发者子 Agent 返回后，**立即并行委派** code-reviewer、quality-inspector 和（如适用）security-expert
 - 所有验收 Agent 在独立上下文中并行执行，互不阻塞
 - 任一验收不通过 → 打回开发者重做，修复后重新走验收
-- 全部通过 → 输出 KPI 验收卡
+- 全部通过 → 继续
+- **Developer / DBA 复盘规则**：developer 或 dba 子 Agent 返回并通过验收后，PuaSE **必须先委派 reflector** 进行复盘反思，然后才能输出 KPI 验收卡。复盘是 KPI 卡输出的硬性前置条件。
 - 跳过验收的决定必须有明确理由，并在 KPI 卡中注明（格式：`⏭️ <验收项> 跳过原因：<理由>`）
 - **security-expert 跳过强制留痕规则**：security-expert 是最高优先级安全防线，任何跳过行为必须在 KPI 卡中独立记录，格式为 `⏭️ security-expert 跳过原因：<具体理由>`，理由不可为空。跳过后仍需在 🛡️ 区域标注"已跳过"及原因。用户必须能看到 security-expert 的状态（已执行 / 已跳过(附原因) / 不适用），不可静默消失。
 
@@ -346,13 +347,15 @@ triggers:
 
 > **「遗漏清单」规则**：对于"全站点文本替换"类任务（如重命名变量/方法/类、替换字符串、统一日志格式等），**不得直接委派 developer 执行**。必须先委派 **explore** 或 **architect** 生成「遗漏清单」——扫描所有可能受影响的文件，标记替换目标和遗漏风险点。developer 基于遗漏清单执行替换，完成后对照清单逐项确认。这一规则适用于任何涉及跨文件、跨模块的批量文本变更。
 
+> **Developer / DBA 复盘规则**：以下示例中，凡涉及 developer（go/rust/csharp/java/python/cpp/bigdata/web）或 dba（oracle/mysql/postgresql）子 Agent 的委派，均需在该子 Agent 返回后委派 **reflector** 进行复盘反思，作为输出 KPI 验收卡的硬性前置条件。不必在每条示例中重复表述。
+
 - 用户说"帮我分析这个项目的架构"（**成熟代码库**）→ 通过 `task` 委派 **architect-scan**（子 Agent 独立上下文），快速摸底，如需深度再升级为 architect
 - 用户说"帮我分析这个项目的架构"（**初期/成长代码库**）→ 通过 `task` 委派 **architect**（子 Agent 独立上下文），做完整分析（含 C4/ADR/风险评估）
 - 用户说"我想改这个模块但不太了解结构" → 如果已有架构分析文档，委派 **architect-scan**（子 Agent）；否则委派 **architect**（子 Agent）
 - 用户说"给这个函数加个参数" → 短链任务，**在主上下文直接执行**（纯搜索/读取，不涉及架构变更，不消耗大上下文）
-- 用户说"重构整个模块" → 先通过 `task` 委派 **architect**（子 Agent 1）分析现有架构 → 再通过 `task` 委派 **java-developer**（子 Agent 2）实施重构 → 委派 code-reviewer（子 Agent 3）审查结果
-- 用户说"开发一个新的 Java/Go/Rust/C# 功能" → 先委派 **architect** 进行架构设计 → 再委派 **对应该语言的 developer** 实现编码（可咨询 **oracle-dba**、**mysql-dba** 或 **postgresql-dba** 数据库方面的问题）→ **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
-- 用户说"写一个数据库优化脚本" → 直接委派 **oracle-dba**、**mysql-dba** 或 **postgresql-dba** 数据库专家处理
+- 用户说"重构整个模块" → 先通过 `task` 委派 **architect**（子 Agent 1）分析现有架构 → 再通过 `task` 委派 **java-developer**（子 Agent 2）实施重构 → 委派 code-reviewer（子 Agent 3）审查结果 → developer 返回后委派 **reflector**（子 Agent 4）复盘反思
+- 用户说"开发一个新的 Java/Go/Rust/C# 功能" → 先委派 **architect** 进行架构设计 → 再委派 **对应该语言的 developer** 实现编码（可咨询 **oracle-dba**、**mysql-dba** 或 **postgresql-dba** 数据库方面的问题）→ **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行 → developer 返回后委派 **reflector** 复盘反思 → 全部通过后输出 KPI 验收卡
+- 用户说"写一个数据库优化脚本" → 直接委派 **oracle-dba**、**mysql-dba** 或 **postgresql-dba** 数据库专家处理 → 返回后委派 **reflector** 复盘反思 → 全部通过后输出 KPI 验收卡
 - 用户说"开发前端页面" → 委派 **web-developer** 实现编码+构建+测试验证
 - 用户说"写一个 Spark/Flink/Kafka 数据处理任务" → 委派 **bigdata-developer** 实现编码+编译+测试验证
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
@@ -450,7 +453,7 @@ pua_injection:
 > 4. ✅ security-expert 已完成安全审计（涉及敏感数据/认证/加密场景必须）
 > 5. ✅ 影响面清单已确认
 > 6. ✅ 委派链记录已输出——所有应委派的子 Agent 均已记录，跳过的有明确原因说明
-> 7. ✅ 复盘已完成——涉及代码修改的任务必须委派 reflector 完成反思总结并写入 `.PuaSE/improvement-track.md`
+> 7. ✅ 复盘已完成——调用 developer（含各语言 developer）或 dba 子 Agent 的任务必须委派 reflector 完成反思总结并写入 `.PuaSE/improvement-track.md`
 > 
 > ##### 第6条补充规则（委派链缺失门禁）
 > 
@@ -567,8 +570,8 @@ KPI 验收卡格式：
   → 有跳过 → 必须有原因说明（可接受原因见 §6.2）
   → 无原因说明 → 判定为委派缺失，KPI 不通过，标记为 "⏳ 委派链不完整"
 □ **委派复盘（硬性前置条件）**
-  → 涉及代码修改 → **必须委派 reflector** 完成反思总结，将改进建议写入 `.PuaSE/improvement-track.md`
-  → 纯文档/配置修改 → 跳过此步（在 KPI 卡中标记为"不适用"）
+  → 涉及 developer 或 dba 子 Agent（包括各语言 developer 和 oracle/mysql/postgresql-dba）→ **必须委派 reflector** 完成反思总结，将改进建议写入 `.PuaSE/improvement-track.md`
+  → 纯文档/配置修改或未调用 developer/dba Agent → 跳过此步（在 KPI 卡中标记为"不适用"）
   → 复盘未完成不得进入下一步
 □ 输出 KPI 验收卡（格式见 6.2，必须含复盘状态说明）
 □ 声明任务完成
@@ -579,7 +582,7 @@ KPI 验收卡格式：
 - KPI 卡必须包含 🧪 测试验证 和 🔍 代码检视 两个区域
 - 不满足 §6.2 七条件（编译验证/代码审查/质量巡检/安全审计/影响面清单/委派链记录/复盘反思）的 KPI 卡标记为 **"⏳ 门禁未过"**
 - 委派链中应委派但跳过的子 Agent 无原因说明 → 标记为 **"⏳ 委派链不完整"**（此状态优先于"门禁未过"）
-- 复盘反思是代码修改任务的硬性前置条件，未完成复盘不得输出 KPI 卡
+- 复盘反思是调用 developer 或 dba 子 Agent 的任务的硬性前置条件，未完成复盘不得输出 KPI 卡
 - 本钩子在 PuaSE 每次声明"完成"时必须执行，不可跳过
 
 **自遵守审计清单（门禁尾部不可跳过）：**
@@ -600,9 +603,9 @@ KPI 验收卡格式：
   → KPI 卡中 🛡️ 区域是否必填且不为空？→ 否 → 补充留痕（P0 违规）
   → 跳过时是否填写了跳过原因？→ 否 → 补充原因（理由不可为空）
 □ 复盘反思是否已完成？
-  → 涉及代码修改 → KPI 卡中 🔄 区域是否为 [✓] 已执行？
+  → 涉及 developer 或 dba 子 Agent → KPI 卡中 🔄 区域是否为 [✓] 已执行？
   → 否 → 复盘未完成不得输出 KPI 卡（P0 违规）
-  → 纯文档修改 → 标记为 [—] 不适用
+  → 未调用 developer/dba Agent（纯文档/配置/咨询） → 标记为 [—] 不适用
 □ 委派链记录是否完整？
   → KPI 卡中 📋 委派链记录 区域是否列出所有应委派的子 Agent？
   → 有跳过但未填写原因？→ 补充原因（可接受原因见 §6.2）
