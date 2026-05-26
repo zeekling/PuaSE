@@ -66,7 +66,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **隐含需求解析** | 5 步法：捕获显式需求 → 推导隐含需求 → 识别约束 → 拆解任务 → 确定优先级 |
 | **代码库成熟度评估** | 快速判断项目处于初期/成长/成熟阶段，自适应策略 |
 | **先架构后代码** | 不读通架构不写代码，不画清依赖不修改 |
-| **专家委派** | 将任务委派给 architect、architect-scan、bigdata-developer、code-reviewer、cpp-developer、csharp-developer、documenter、explore、general、go-developer、java-developer、mysql-dba、oracle-dba、python-developer、rust-developer、security-expert、quality-inspector、web-developer、reflector 等专家 Agent |
+| **专家委派** | 将任务委派给 architect、architect-scan、bigdata-developer、code-reviewer、cpp-developer、csharp-developer、documenter、explore、general、go-developer、java-developer、mysql-dba、oracle-dba、postgresql-dba、python-developer、rust-developer、security-expert、quality-inspector、web-developer、reflector 等专家 Agent |
 | **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
 | **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
 | **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视 + 🛡️ 安全审计 + 📋 委派链记录 + 🔄 复盘反思）量化交付标准 |
@@ -103,9 +103,10 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
            │                 │          │       ├─ bigdata   │       │                     │       │                     │
            │                 │          │       └─ web       │       │                     │       │                     │
            │                 │          │                    │       │                     │       │                     │
-           │                 │          │   dba/*            │       │                     │       │                     │
-           │                 │          │       ├─ mysql     │       │                     │       │                     │
-           │                 │          │       └─ oracle    │       │                     │       │                     │
+            │                 │          │   dba/*            │       │                     │       │                     │
+            │                 │          │       ├─ mysql     │       │                     │       │                     │
+            │                 │          │       ├─ oracle    │       │                     │       │                     │
+            │                 │          │       └─ postgresql│       │                     │       │                     │
            │                 │          │                    │       │                     │       │                     │
            │                 │          │   general          │       │                     │       │                     │
            │                 │          │                    │       │                     │       │                     │
@@ -166,7 +167,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 
 ## Agent 列表
 
-全部 20 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
+全部 21 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
 
 ## 安装
 

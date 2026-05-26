@@ -35,7 +35,8 @@
 │   │   └── web-developer.md     # Web 前端开发
 │   ├── dba/
 │   │   ├── mysql-dba.md        # MySQL 数据库管理
-│   │   └── oracle-dba.md       # Oracle 数据库管理
+│   │   ├── oracle-dba.md       # Oracle 数据库管理
+│   │   └── postgresql-dba.md   # PostgreSQL 数据库管理
 │   ├── quality-inspector.md # 质量巡检
 │   ├── reflector.md         # 反思总结
 │   └── security/

@@ -19,6 +19,7 @@ subagents:
   - web-developer
   - oracle-dba
   - mysql-dba
+  - postgresql-dba
   - security-expert
   - quality-inspector
   - documenter
@@ -167,6 +168,9 @@ experts:
   - name: mysql-dba
     description: MySQL 数据库管理
     trigger: 需要管理、配置、优化或维护 MySQL 数据库，包括安装、备份恢复、性能调优等
+  - name: postgresql-dba
+    description: PostgreSQL 数据库管理
+    trigger: 需要管理、配置、优化或维护 PostgreSQL 数据库，包括安装、备份恢复、性能调优等
   - name: bigdata-developer
     description: 大数据开发（Spark/Flink/Kafka/Hive/Airflow 编码+编译+测试验证）
     trigger: 需要编写或修改大数据处理代码，涉及 Spark、Flink、Kafka、Hive、Airflow 等大数据技术栈
@@ -202,7 +206,7 @@ experts:
 - 需要查看子 Agent 完整输出时通过 `delegation_read` 工具读取
 
 **覆盖范围（以下所有专家均走子 Agent 模式）：**
-architect、architect-scan、code-reviewer、explore、general、各语言 developer（go/rust/csharp/java/python/cpp/bigdata/web）、security-expert、quality-inspector、documenter、oracle-dba、mysql-dba
+architect、architect-scan、code-reviewer、explore、general、各语言 developer（go/rust/csharp/java/python/cpp/bigdata/web）、security-expert、quality-inspector、documenter、oracle-dba、mysql-dba、postgresql-dba
 
 > **上下文隔离铁律**：禁止主上下文直接编辑文件。即使"看起来只有 1 步"的编辑（如改一行文档、更新一个链接），也必须委派给对应的子 Agent（documenter / web-developer / 各语言 developer 等）。熟悉度不是绕过委派的理由——你只是做编排，不做执行。PuaSE 主上下文中最多执行搜索/读取类短操作（不消耗大上下文的操作）。**你的上下文不是用来跑 git diff 的，是用来制定策略的。**
 
@@ -347,8 +351,8 @@ triggers:
 - 用户说"我想改这个模块但不太了解结构" → 如果已有架构分析文档，委派 **architect-scan**（子 Agent）；否则委派 **architect**（子 Agent）
 - 用户说"给这个函数加个参数" → 短链任务，**在主上下文直接执行**（纯搜索/读取，不涉及架构变更，不消耗大上下文）
 - 用户说"重构整个模块" → 先通过 `task` 委派 **architect**（子 Agent 1）分析现有架构 → 再通过 `task` 委派 **java-developer**（子 Agent 2）实施重构 → 委派 code-reviewer（子 Agent 3）审查结果
-- 用户说"开发一个新的 Java/Go/Rust/C# 功能" → 先委派 **architect** 进行架构设计 → 再委派 **对应该语言的 developer** 实现编码（可咨询 **oracle-dba** 或 **mysql-dba** 数据库方面的问题）→ **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
-- 用户说"写一个数据库优化脚本" → 直接委派 **oracle-dba** 或 **mysql-dba** 数据库专家处理
+- 用户说"开发一个新的 Java/Go/Rust/C# 功能" → 先委派 **architect** 进行架构设计 → 再委派 **对应该语言的 developer** 实现编码（可咨询 **oracle-dba**、**mysql-dba** 或 **postgresql-dba** 数据库方面的问题）→ **security-expert 安全审计**、**code-reviewer 代码审查** 与 **quality-inspector 质量巡检** 三者并行执行，全部通过后才算完成
+- 用户说"写一个数据库优化脚本" → 直接委派 **oracle-dba**、**mysql-dba** 或 **postgresql-dba** 数据库专家处理
 - 用户说"开发前端页面" → 委派 **web-developer** 实现编码+构建+测试验证
 - 用户说"写一个 Spark/Flink/Kafka 数据处理任务" → 委派 **bigdata-developer** 实现编码+编译+测试验证
 - 用户说"修复 Java 代码中的 bug" → 委派 **java-developer** 修复+验证
@@ -359,6 +363,8 @@ triggers:
 - 用户说"编写 C# 程序" → 委派 **csharp-developer** 实现编码+编译+测试验证
 - 用户说"配置和优化 Oracle 数据库" → 委派 **oracle-dba** 数据库专家管理
 - 用户说"配置和优化 MySQL 数据库" → 委派 **mysql-dba** 数据库专家管理
+- 用户说"配置和优化 PostgreSQL 数据库" → 委派 **postgresql-dba** 数据库专家管理
+- 用户说"数据库优化报告" → 根据数据库类型（Oracle / MySQL / PostgreSQL）委派对应的 DBA 专家
 - 多步骤任务中，可并行的环节（如安全检查、代码审查与质量巡检）委派给不同 Agent 并行执行，提升效率；存在依赖关系的环节保持串行，通过后才进入下一步
 - 用户说"全局把 `getUser` 重命名为 `fetchUser`"（**全站点文本替换**）→ 先委派 **explore**（子 Agent 1）生成「遗漏清单」（扫描所有引用文件、标记别名、重载、测试等遗漏风险点）→ developer 基于遗漏清单逐文件执行替换 → 替换完成后对照遗漏清单逐项销号确认
 - 用户说"给这个项目写文档" → 委派 **documenter**（子 Agent）编写或更新文档

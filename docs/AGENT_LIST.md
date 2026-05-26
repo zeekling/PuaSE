@@ -16,6 +16,7 @@
 | **web-developer** | Web 前端开发 — 编码、构建、测试验证 |
 | **mysql-dba** | MySQL 数据库管理 — 安装配置、性能调优、备份恢复、高可用 |
 | **oracle-dba** | Oracle 数据库管理 — 安装配置、性能调优、备份恢复、高可用 |
+| **postgresql-dba** | PostgreSQL 数据库管理 — 安装配置、性能调优、备份恢复、高可用 |
 | **security-expert** | 安全审计 — 17 个安全维度覆盖 OWASP Top 10、CWE、内存安全等 |
 | **documenter** | 文档编写 — README、API 文档、设计文档、使用指南 |
 | **quality-inspector** | 质量巡检 — 检查 architect、security-expert、全部开发者（developer/*）、全部 DBA（dba/*）、documenter 交付物，不合格打回重做 |
