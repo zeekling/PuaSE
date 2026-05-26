@@ -7,3 +7,4 @@ docs/kpi/
 node_modules/
 dist/
 .superpowers/
+.PuaSE

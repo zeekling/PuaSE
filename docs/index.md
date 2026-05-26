@@ -85,6 +85,10 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 | **web-developer** | Web 前端开发 — 编码、构建、测试验证 |
 | **mysql-dba** | MySQL 数据库管理 |
 | **oracle-dba** | Oracle 数据库管理 |
+| **postgresql-dba** | PostgreSQL 数据库管理 |
 | **security-expert** | 安全审计 — OWASP Top 10、CWE、内存安全 |
 | **documenter** | 文档编写 — README、API 文档、设计文档 |
 | **quality-inspector** | 质量巡检 — 所有子 Agent 交付检查 |
+| **explore** | 代码库探索 — 快速查找文件、搜索代码模式 |
+| **general** | 通用多步任务 — 独立上下文、长时间运行 |
+| **reflector** | 反思总结 — 委派链复盘、改进策略提炼 |

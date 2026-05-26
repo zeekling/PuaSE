@@ -116,7 +116,8 @@ const agentDetails = {
     'documenter': { name: 'documenter', desc: '文档编写与维护专家。负责 README、API 文档、设计文档、使用指南的生成和更新。适用于代码变更后同步更新文档。' },
     'security-expert': { name: 'security-expert', desc: '安全审计专家。开发者完成编码后强制执行安全审计。覆盖 OWASP Top 10、CWE、内存安全等 17 个安全维度。阻断性报告具有最高优先级。' },
     'code-reviewer': { name: 'code-reviewer', desc: '代码审查专家。聚焦代码逻辑正确性、安全性、性能和可维护性审查。适用于需要审查代码质量、设计评审、架构合规的场景。' },
-    'quality-inspector': { name: 'quality-inspector', desc: '全链路质量巡检员。检查所有子 Agent 的交付结果：覆盖架构分析完整性、代码质量门禁、安全审计覆盖、DBA 运维合规、文档覆盖率。不合格一律打回重做。' }
+    'quality-inspector': { name: 'quality-inspector', desc: '全链路质量巡检员。检查所有子 Agent 的交付结果：覆盖架构分析完整性、代码质量门禁、安全审计覆盖、DBA 运维合规、文档覆盖率。不合格一律打回重做。' },
+    'reflector': { name: 'reflector', desc: '反思总结 Agent。任务完成后对 PuaSE 的委派链进行复盘分析，回顾委派得失、分析委派链效率、提炼改进策略，并将建议写入 .PuaSE/improvement-track.md。' }
   },
   en: {
     'architect': { name: 'architect', desc: 'Complete architecture analysis expert. Responsible for C4 modeling, ADR (Architecture Decision Records), risk assessment, and fitness function analysis. Ideal for new project architecture design, first-time large module analysis, and architecture change review.' },
@@ -137,7 +138,8 @@ const agentDetails = {
     'documenter': { name: 'documenter', desc: 'Documentation writing and maintenance expert. Responsible for generating and updating README, API docs, design docs, and usage guides. Ideal for syncing documentation after code changes.' },
     'security-expert': { name: 'security-expert', desc: 'Security audit expert. Enforces security audit after code completion. Covers OWASP Top 10, CWE, memory safety, and 17 security dimensions. Blocking reports have the highest priority.' },
     'code-reviewer': { name: 'code-reviewer', desc: 'Code review expert. Focuses on code correctness, security, performance, and maintainability. Suitable for code quality review, design review, and architecture compliance checks.' },
-    'quality-inspector': { name: 'quality-inspector', desc: 'Full-chain quality inspector. Checks all sub-agent deliverables: architecture analysis completeness, code quality gates, security audit coverage, DBA compliance, and documentation coverage. Rejects any non-conforming delivery.' }
+    'quality-inspector': { name: 'quality-inspector', desc: 'Full-chain quality inspector. Checks all sub-agent deliverables: architecture analysis completeness, code quality gates, security audit coverage, DBA compliance, and documentation coverage. Rejects any non-conforming delivery.' },
+    'reflector': { name: 'reflector', desc: 'Retrospective analysis Agent. After task completion, reviews PuaSE\'s delegation chain — analyzing delegation decisions, identifying efficiency gaps, extracting improvement strategies, and writing recommendations to .PuaSE/improvement-track.md.' }
   }
 };
 
