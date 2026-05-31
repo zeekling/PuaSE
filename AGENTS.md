@@ -46,6 +46,7 @@
 - **本仓库**：既是源码仓库，也是运行副本（symlink 模式下直接引用）。
 - **同步方法**：symlink 直达仓库，无需手动同步。npm 安装时通过包管理更新。
 - **PuaSE.md 同步约束**（`.opencode/rules/puse-sync.md`）：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
+- **提交授权规则**（`.opencode/rules/commit-authorization.md`）：禁止未经用户明确允许提交本地代码（git commit / git push）。任何涉及 git 提交的操作必须先获得用户授权。
 
 ## CI/CD & 仓库边界
 
