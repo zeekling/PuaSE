@@ -23,7 +23,7 @@ globs: "PuaSE.md"
 | 时序流水线图 | 流水线步骤、角色、上下文隔离模型是否匹配新版 PuaSE.md |
 | 使用示例 | 委派示例是否匹配新版 experts 列表和触发规则 |
 | 防作弊表 | 是否存在 PuaSE.md 新增的"反熟悉度偏误"、"自执行归因宣言"等约束未收录 |
-| Agent 列表 | subagents/experts 数量、名称、分组是否与 PuaSE.md 一致 |
+| Agent 列表 | PuaSE 能力描述是否更新 |
 
 ### website/index.html — 以下区域需逐项检查
 
@@ -32,7 +32,7 @@ globs: "PuaSE.md"
 | 核心能力卡片 | 卡片数量和描述是否匹配最新核心能力 |
 | 架构图（Pre-Code / Execution / Post-Code） | 各列的 Agent 分组和名称是否对齐 |
 | Demo 终端区域 | 委派场景描述是否匹配 PuaSE.md 的编排流程 |
-| Agent 列表区 | 全部 18 个 Agent（16 配置 + 2 内置）是否列出，分组是否正确 |
+| Agent 列表区 | PuaSE 主 Agent 是否列出 |
 
 ## 例外
 
@@ -59,4 +59,4 @@ PuaSE 以 OpenCode 插件方式运行（`.opencode/plugins/puse.js`），不再�
 
 - symlink 模式下，修改 prompt 即时生效，无需手动同步。
 - npm 模式下，通过 `npm update` 更新。
-- 子 Agent 自动发现：`subagent/` 目录下的 `.md` 文件自动注册为内部子 Agent，无需手动维护 `opencode.json` 的 agent 条目。
+- 仅注册 PuaSE 主 Agent，不注册子 Agent（subagent/）。子 Agent 由 PuaSE 在运行时动态委派。

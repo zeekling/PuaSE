@@ -131,19 +131,6 @@ export const PusePlugin = async ({ client, directory }) => {
         prompt: PUSE_MD,
         permission: { '*': 'allow' }
       };
-
-      // 2. Register all subagents from subagent/ directory
-      registerSubagents(config, SUBAGENT_DIR);
-
-      // 3. Register explore separately (from subagent/explore.md)
-      const explorePath = path.join(SUBAGENT_DIR, 'explore.md');
-      if (fs.existsSync(explorePath)) {
-        config.agent.explore = {
-          description: extractDescription(explorePath),
-          prompt: explorePath,
-          permission: { '*': 'allow' }
-        };
-      }
     }
   };
 };

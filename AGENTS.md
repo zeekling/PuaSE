@@ -32,17 +32,17 @@
 
 | 项目 | 数据 |
 |------|------|
-| 子 Agent 总数 | 20 个（19 个 `.md` 配置 + 1 内置：general） |
+| 子 Agent 委派机制 | 插件仅注册 PuaSE 主 Agent，子 Agent 指令在 PuaSE.md 中定义，由 PuaSE 在运行时委派 |
 | 开发者语言 | 8 种：java, python, cpp, go, rust, csharp, bigdata, web |
 | 数据库专家 | 3 种：mysql-dba, oracle-dba, postgresql-dba |
 | 架构流 | **Pre-Code**(architect) → **Execution**(developer/dba) → **Post-Code**(security/code-review/quality/reflector) |
 | `PuaSE.md` 行数 | 462 行，末尾含 `subagents:` 列表 |
-| 插件入口 | `.opencode/plugins/puse.js` — 自动注册所有 Agent，无需维护 `opencode.json` |
+| 插件入口 | `.opencode/plugins/puse.js` — 仅注册 PuaSE 主 Agent，子 Agent 指令在 PuaSE.md 中定义 |
 | 使用指南 | `docs/`（OpenCode） |
 
 ## 同步规则（Plugin 模式）
 
-- **PuaSE 以插件方式运行** — 通过 `.opencode/plugins/puse.js` 加载，自动注册所有 Agent。
+- **PuaSE 以插件方式运行** — 通过 `.opencode/plugins/puse.js` 加载，仅注册 PuaSE 主 Agent。
 - **本仓库**：既是源码仓库，也是运行副本（symlink 模式下直接引用）。
 - **同步方法**：symlink 直达仓库，无需手动同步。npm 安装时通过包管理更新。
 - **PuaSE.md 同步约束**（`.opencode/rules/puse-sync.md`）：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。

@@ -222,7 +222,7 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 - **安装方式**：symlink 安装到 `~/.config/opencode/plugins/puse.js`，或 npm 全局安装。
 - **配置即代码**：仓库即运行副本，修改 prompt 即时生效（symlink 模式下无需手动同步）。
 - **PuaSE.md 同步约束**：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
-- **子 Agent 自动发现**：`subagent/` 目录下的 `.md` 文件会自动注册为内部子 Agent，不需要手动修改 opencode.json。
+- **子 Agent 委派机制**：插件仅注册 PuaSE 主 Agent，子 Agent 指令在 PuaSE.md 中定义，由 PuaSE 在运行时委派。
 
 ## 项目趋势
 
