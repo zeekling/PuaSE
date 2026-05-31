@@ -16,6 +16,45 @@
   <img src="https://img.shields.io/github/license/zeekling/PuaSE" alt="License" />
 </p>
 
+## 快速安装（插件模式）
+
+### 前置条件
+
+- [OpenCode](https://opencode.ai) 已安装并配置
+- Node.js >= 18
+
+### 安装 PuaSE 插件
+
+**推荐：symlink 安装（本地开发，修改即时生效）**
+
+```bash
+# Linux/macOS
+ln -sf ~/PuaSE/.opencode/plugins/puse.js ~/.config/opencode/plugins/puse.js
+
+# 或使用安装脚本
+bash PuaSE-install.sh
+```
+
+```powershell
+# Windows PowerShell
+.\PuaSE-install.ps1
+```
+
+**或者：npm 安装（版本管理）**
+
+```bash
+npm install -g puse
+# 然后将 "puse" 加到 opencode.json 的 plugin 数组
+```
+
+### 验证安装
+
+1. 重启 OpenCode
+2. 确认默认 Agent 为 "PuaSE"
+3. 运行编排任务测试
+
+> **注：** 插件模式下，所有子 Agent 由插件自动注册，无需手动维护 `opencode.json` 的 `agent` 条目。
+
 ## 设计理念：流程化编程，防欺诈架构
 
 > **AI 的最大风险不是"做错"，而是"假装做了"。**
@@ -176,6 +215,14 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 ## 使用示例
 
 详见[docs/index.md](docs/index.md)
+
+## 同步规则（Plugin 模式）
+
+- **PuaSE 以 OpenCode 插件方式运行**，不是自定义 Agent。
+- **安装方式**：symlink 安装到 `~/.config/opencode/plugins/puse.js`，或 npm 全局安装。
+- **配置即代码**：仓库即运行副本，修改 prompt 即时生效（symlink 模式下无需手动同步）。
+- **PuaSE.md 同步约束**：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
+- **子 Agent 自动发现**：`subagent/` 目录下的 `.md` 文件会自动注册为内部子 Agent，不需要手动修改 opencode.json。
 
 ## 项目趋势
 

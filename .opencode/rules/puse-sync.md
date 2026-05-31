@@ -44,22 +44,19 @@ globs: "PuaSE.md"
 
 缺少对应同步的 PuaSE.md 变更提交会被标记为**不完整变更**，需补交同步更新。
 
-## 运行副本同步规范
+## 插件模式说明
 
-### 运行副本
+PuaSE 以 OpenCode 插件方式运行（`.opencode/plugins/puse.js`），不再作为自定义 Agent 通过 `opencode.json` 手动注册。
 
-安装后的运行副本位于：
-- **Linux/macOS**：`~/.config/opencode/agents/PuaSE/`
-- **Windows**：`C:\Users\<user>\.config\opencode\agents\PuaSE\`
+### 运行方式
 
-### 同步方向
+- **symlink 模式（推荐开发）**：`puse.js` 通过 symlink 指向仓库，仓库即运行副本，修改 prompt 即时生效，无需手动同步。
+- **npm 模式（版本管理）**：通过 npm 全局安装，通过包管理更新。
 
-**安装版 → 仓库**：安装版是被 OpenCode 实际加载的版本，仓库是配置的权威存储。
+### 插件模式下的同步约束
 
-### 同步方法
+插件模式下，仓库本身就是运行副本（symlink）或版本管理源（npm），不存在"安装版→仓库"的双向同步问题：
 
-比对 MD5 hash → 复制差异文件 → 提交。
-
-### 安装版文件数
-
-固定为 18（PuaSE.md + 17 个子 Agent .md）。
+- symlink 模式下，修改 prompt 即时生效，无需手动同步。
+- npm 模式下，通过 `npm update` 更新。
+- 子 Agent 自动发现：`subagent/` 目录下的 `.md` 文件自动注册为内部子 Agent，无需手动维护 `opencode.json` 的 agent 条目。

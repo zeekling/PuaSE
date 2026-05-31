@@ -37,19 +37,19 @@
 | 数据库专家 | 3 种：mysql-dba, oracle-dba, postgresql-dba |
 | 架构流 | **Pre-Code**(architect) → **Execution**(developer/dba) → **Post-Code**(security/code-review/quality/reflector) |
 | `PuaSE.md` 行数 | 462 行，末尾含 `subagents:` 列表 |
+| 插件入口 | `.opencode/plugins/puse.js` — 自动注册所有 Agent，无需维护 `opencode.json` |
 | 使用指南 | `docs/`（OpenCode） |
 
-## 同步规则
+## 同步规则（Plugin 模式）
 
-- **运行副本**：`~/.config/opencode/agents/PuaSE/`（Windows: `C:\Users\<user>\.config\opencode\agents\PuaSE\`）
-- **本仓库**：配置的权威存储。同步方向始终是 **安装版 → 仓库**（安装版是被 OpenCode 实际加载的版本）
-- 同步方法：比对 MD5 hash → 复制差异文件 → 提交
-- 安装版文件数固定为 20（PuaSE.md + 19 个子 Agent .md）
+- **PuaSE 以插件方式运行** — 通过 `.opencode/plugins/puse.js` 加载，自动注册所有 Agent。
+- **本仓库**：既是源码仓库，也是运行副本（symlink 模式下直接引用）。
+- **同步方法**：symlink 直达仓库，无需手动同步。npm 安装时通过包管理更新。
 - **PuaSE.md 同步约束**（`.opencode/rules/puse-sync.md`）：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
 
 ## CI/CD & 仓库边界
 
 - **CI 部署**：`.github/workflows/deploy.yml` — push 到 main 且变更 `website/**` 或 workflow 文件时，自动构建 website 并部署到 GitHub Pages（通过 peaceiris/actions-gh-pages）。
-- **无** `opencode.json`（用户侧配置，不跟踪到仓库）、无 `.opencode/` 目录。
+- **无** `opencode.json`（用户侧配置，不跟踪到仓库）。`.opencode/` 目录包含插件入口和同步规则。
 - **.gitignore** 忽略 `.logs`、`.idea`、`docs/specs`、`docs/plans`、`node_modules/`、`dist/`、`.superpowers/`。
 - **CONTRIBUTING.md 目录树过期** — developer/ 列 4 个但实际有 8 个。不要依赖其文件树的精确性。

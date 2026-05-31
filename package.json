@@ -1,0 +1,14 @@
+{
+  "name": "puse",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PuaSE — 全局编排 Agent 插件。自动注册编排 Agent 及其子专家 Agent 到 OpenCode。",
+  "main": ".opencode/plugins/puse.js",
+  "files": [
+    ".opencode/plugins/puse.js",
+    "PuaSE.md",
+    "subagent/"
+  ],
+  "keywords": ["opencode", "plugin", "agent", "orchestration"],
+  "license": "MIT"
+}
