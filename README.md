@@ -223,6 +223,7 @@ PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](
 - **配置即代码**：仓库即运行副本，修改 prompt 即时生效（symlink 模式下无需手动同步）。
 - **PuaSE.md 同步约束**：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
 - **子 Agent 委派机制**：插件仅注册 PuaSE 主 Agent，子 Agent 指令在 PuaSE.md 中定义，由 PuaSE 在运行时委派。
+- **提交授权规则**（`.opencode/rules/commit-authorization.md`）：禁止未经用户明确允许提交本地代码（git commit / git push）。任何涉及 git 提交的操作必须先获得用户授权。
 
 ## 项目趋势
 
