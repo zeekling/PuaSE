@@ -55,6 +55,38 @@ npm install -g puse
 
 > **注：** 插件模式下，所有子 Agent 由插件自动注册，无需手动维护 `opencode.json` 的 `agent` 条目。
 
+### Agent 模型配置
+
+安装时支持为子 Agent 单独配置模型，也可不配置（继承全局模型）：
+
+| 配置方式 | 说明 | 适用场景 |
+|---------|------|---------|
+| **默认配置**（不配置） | 所有子 Agent 继承 `opencode.json` 中的全局模型 | 使用统一模型，简化配置 |
+| **使用配置模板** | 参考 `config_template.json` 配置每个 Agent 的模型 | 需要精细化控制各 Agent 成本与性能 |
+
+**配置模板 `config_template.json` 示例：**
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "architect": { "model": "anthropic/claude-sonnet-4-6" },
+    "security-expert": { "model": "anthropic/claude-sonnet-4-6" },
+    "java-developer": { "model": "openai/gpt-4o" },
+    "web-developer": { "model": "anthropic/claude-haiku-3-5" },
+    "python-developer": { "model": "inherit" }
+  }
+}
+```
+
+> **`model: inherit`** — 表示继承全局模型设置。如不填写，默认即为 `inherit`。
+
+每个 Agent 可配置：
+- `model: "provider/model-id"` — 使用指定模型
+- `model: "inherit"` — 继承全局模型（不填写效果一致）
+
+模型配置会在安装脚本中自动合并到 `opencode.json`。安装后如需修改，直接编辑 `opencode.json` 的 `agent` 字段后重启 OpenCode 即可生效。
+
 ## 设计理念：流程化编程，防欺诈架构
 
 > **AI 的最大风险不是"做错"，而是"假装做了"。**
