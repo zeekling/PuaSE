@@ -1,52 +1,83 @@
 # 项目结构
 
 ```
-├── PuaSE.md                 # 全局编排 Agent（主入口）
-├── AGENTS.md                # 仓库规则与约定
-├── README.md                # 本文件
-├── docs/PROJECT_STRUCTURE.md     # 项目结构说明
-├── docs/AGENT_LIST.md       # Agent 列表
-├── CONTRIBUTING.md          # 贡献指南（目录树过期，勿依赖）
-├── LICENSE                  # MIT 许可证
-├── .gitignore
-├── .opencode/
+├── AGENTS.md                 # 仓库规则与约定（给 Agent 看的）
+├── CONTRIBUTING.md            # 贡献指南（目录树过期，勿依赖文件列表）
+├── LICENSE                    # MIT 许可证
+├── README.md                  # 主 README（安装/设计/架构说明）
+├── PuaSE-install.ps1          # Windows 安装脚本（--symlink/--copy/--no-default/--model-config/--force）
+├── PuaSE-install.sh           # Linux/macOS 安装脚本（同上 CLI 参数）
+├── PuaSE-uninstall.ps1        # Windows 卸载脚本（清理 opencode.json 配置 + 删除目录）
+├── PuaSE-uninstall.sh         # Linux/macOS 卸载脚本
+├── PuaSE.md                   # 全局编排 Agent 主配置（766 行，含 subagents: 列表）
+├── config_template.json       # 子 Agent 模型配置模板（安装时合并到 opencode.json）
+├── package.json               # npm 包发布配置（name: puse, main: .opencode/plugins/puse.js）
+│
+├── .gitignore                 # 忽略：.logs .idea docs/specs docs/plans docs/superpowers docs/kpi/ node_modules/ dist/ .superpowers/ .PuaSE
+├── .opencode/                 # OpenCode 插件目录
+│   ├── .gitignore             # 忽略 node_modules 和锁文件（不上传）
+│   ├── package.json           # 依赖：@opencode-ai/plugin ^1.15.13
+│   ├── package-lock.json
+│   ├── node_modules/
+│   ├── plugins/
+│   │   └── puse.js            # 插件入口 — 仅注册 PuaSE 主 Agent，子 Agent 运行时委派
 │   └── rules/
-│       └── puse-sync.md      # PuaSE.md 变更同步约束
+│       ├── puse-sync.md       # PuaSE.md 变更 → 同步 README.md + website/index.html
+│       └── commit-authorization.md  # 禁止未经用户允许提交本地代码
+│
+├── .PuaSE/
+│   └── improvement-track.md   # reflector 复盘时追加的改进跟踪清单（P0/P1/P2）
+│
+├── .superpowers/
+│   └── brainstorm/            # OpenCode superpowers 组件
+│
 ├── .github/
-│   ├── ISSUE_TEMPLATE/      # Issue 模板
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
 │   └── workflows/
-│       └── deploy.yml       # GitHub Pages 自动部署（push main → website/**）
-├── docs/                    # 使用指南
-│   ├── index.md             # PuaSE 使用指南
-│   └── opencode.md          # OpenCode 安装配置指南
-├── subagent/                # 子 Agent 定义
-│   ├── architect-scan.md    # 轻量级架构扫描
-│   ├── architect.md         # 架构分析
-│   ├── code-reviewer.md     # 代码审查
-│   ├── documenter.md        # 文档编写
-│   ├── developer/
-│   │   ├── cpp-developer.md     # C/C++ 开发
-│   │   ├── csharp-developer.md  # C# 开发
-│   │   ├── go-developer.md      # Go 开发
-│   │   ├── java-developer.md    # Java 开发
-│   │   ├── bigdata-developer.md # 大数据开发
-│   │   ├── python-developer.md  # Python 开发
-│   │   ├── rust-developer.md    # Rust 开发
-│   │   └── web-developer.md     # Web 前端开发
-│   ├── dba/
-│   │   ├── mysql-dba.md        # MySQL 数据库管理
-│   │   ├── oracle-dba.md       # Oracle 数据库管理
-│   │   └── postgresql-dba.md   # PostgreSQL 数据库管理
-│   ├── quality-inspector.md # 质量巡检
-│   ├── reflector.md         # 反思总结
+│       ├── build.yml          # CI 构建检查：任意分支 push/PR 涉及 website/** 时 npm ci + build
+│       └── deploy.yml         # CI 部署：push main + website/** → GitHub Pages
+│
+├── docs/                      # 用户文档
+│   ├── AGENT_LIST.md          # 全部 Agent 列表与职责
+│   ├── PROJECT_STRUCTURE.md   # 本文件
+│   ├── index.md               # PuaSE 使用指南
+│   ├── opencode.md            # OpenCode 安装配置指南
+│   └── superpowers/           # OpenCode superpowers 文档
+│
+├── subagent/                  # 子 Agent 配置文件（19 个 .md）
+│   ├── architect-scan.md      # 轻量级架构扫描
+│   ├── architect.md           # 深度架构分析
+│   ├── code-reviewer.md       # 代码审查
+│   ├── documenter.md          # 文档编写
+│   ├── explore.md             # 代码库探索
+│   ├── quality-inspector.md   # 质量巡检
+│   ├── reflector.md           # 复盘分析
+│   ├── developer/             # 8 个语言开发者
+│   │   ├── bigdata-developer.md
+│   │   ├── cpp-developer.md
+│   │   ├── csharp-developer.md
+│   │   ├── go-developer.md
+│   │   ├── java-developer.md
+│   │   ├── python-developer.md
+│   │   ├── rust-developer.md
+│   │   └── web-developer.md
+│   ├── dba/                   # 3 个数据库专家
+│   │   ├── mysql-dba.md
+│   │   ├── oracle-dba.md
+│   │   └── postgresql-dba.md
 │   └── security/
 │       └── security-expert.md # 安全审计
-└── website/                 # Vite 静态官网（独立前端项目）
-    ├── index.html           # 主页
-    ├── src/
-    │   ├── main.js          # 入口脚本
-    │   └── style.css        # 样式
-    ├── public/              # 静态资源
-    ├── package.json         # npm dev / build / preview
-    └── vite.config.js       # Vite 6 配置，base /PuaSE/
+│
+├── opencode/                  # 预留（当前为空）
+│
+└── website/                   # Vite 6 静态前端项目（独立构建+CI）
+    ├── index.html             # 主页
+    ├── package.json           # npm dev / build / preview
+    ├── vite.config.js         # base /PuaSE/，输出到 dist/
+    ├── public/                # 静态资源
+    └── src/
+        ├── main.js
+        └── style.css
 ```

@@ -40,6 +40,28 @@ bash PuaSE-install.sh
 .\PuaSE-install.ps1
 ```
 
+### 安装脚本 CLI 参数
+
+| 参数 | 说明 |
+|------|------|
+| `--symlink` | symlink 安装（本地开发，修改即时生效，默认） |
+| `--copy` | 复制安装（适合 CI/生产环境） |
+| `--no-default` | 不设 PuaSE 为默认 Agent |
+| `--model-config <path>` | 使用 `config_template.json` 格式的模型配置模板 |
+| `--force` | 覆盖已存在的插件文件 |
+
+### 卸载 PuaSE
+
+```bash
+# Linux/macOS
+bash PuaSE-uninstall.sh
+
+# Windows PowerShell
+.\PuaSE-uninstall.ps1
+```
+
+卸载脚本会移除插件注册、清理相关配置，并可选恢复 OpenCode 默认 Agent。
+
 **或者：npm 安装（版本管理）**
 
 ```bash
@@ -236,13 +258,13 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 
 项目目录树详见 [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)。
 
+关键目录说明：
+- **`.opencode/`** — 插件入口、规则定义、依赖配置
+- **`.PuaSE/`** — 改进跟踪记录（`improvement-track.md`）
+
 ## Agent 列表
 
 全部 21 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
-
-## 安装
-
-PuaSE 基于 OpenCode Agent 机制运行，[查看 OpenCode 安装配置指南](docs/opencode.md)。
 
 ## 使用示例
 

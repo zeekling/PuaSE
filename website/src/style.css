@@ -579,6 +579,10 @@ a:hover {
 .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
 .contrib-list { padding-left: 20px; margin-bottom: 20px; }
 .contrib-list li { font-size: 0.9rem; color: var(--text-secondary); line-height: 2; }
+.install-params { padding-left: 20px; margin-bottom: 16px; }
+.install-params li { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.8; }
+.install-params code, .started-card code { background: #0d0d1a; padding: 2px 6px; border-radius: 4px; font-family: var(--font-code); color: var(--emerald); }
+.started-card h4 { font-size: 0.95rem; color: var(--text-primary); margin: 16px 0 8px; font-weight: 600; }
 
 /* === Footer === */
 .footer {
