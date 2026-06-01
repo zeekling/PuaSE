@@ -55,6 +55,11 @@ jobs:
       - name: Deploy to gh-pages
         run: |
           set -e
+
+          # Save built files before switching branches
+          BUILT_DIR=$(mktemp -d)
+          cp -r "${{ github.workspace }}/website/dist/"* "$BUILT_DIR/"
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
@@ -76,11 +81,11 @@ jobs:
               -not -name 'versions' \
               -not -name '.' \
               -exec rm -rf {} +
-            cp -r "${{ github.workspace }}/website/dist/"* .
+            cp -r "$BUILT_DIR/"* .
           else
             # Deploy version to subdirectory
             mkdir -p "versions/$VERSION_TAG"
-            cp -r "${{ github.workspace }}/website/dist/"* "versions/$VERSION_TAG/"
+            cp -r "$BUILT_DIR/"* "versions/$VERSION_TAG/"
 
             # Update versions.json
             mkdir -p versions
