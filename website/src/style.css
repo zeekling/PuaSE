@@ -169,6 +169,34 @@ a:hover {
   opacity: 0.4;
 }
 
+/* Version Selector */
+.nav-version {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--glass-border);
+}
+.version-select {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: var(--font-code);
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.version-select:hover {
+  border-color: var(--emerald);
+}
+.version-select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
 /* === Hero === */
 .hero {
   position: relative;
@@ -634,6 +662,14 @@ a:hover {
     margin-top: 10px;
     border-left: none;
     border-top: 1px solid var(--glass-border);
+    width: 100%;
+    justify-content: center;
+  }
+  .nav-version {
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 8px;
+    border-left: none;
     width: 100%;
     justify-content: center;
   }

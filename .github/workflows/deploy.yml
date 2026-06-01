@@ -3,19 +3,40 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    tags:
+      - 'v*.*.*'
     paths:
       - 'website/**'
       - '.github/workflows/deploy.yml'
 
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set deployment variables
+        id: vars
+        run: |
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+            echo "deploy_target=versions/$TAG" >> $GITHUB_OUTPUT
+            echo "base_path=/PuaSE/versions/$TAG/" >> $GITHUB_OUTPUT
+            echo "deploy_type=version" >> $GITHUB_OUTPUT
+            echo "version_tag=$TAG" >> $GITHUB_OUTPUT
+          else
+            echo "deploy_target=." >> $GITHUB_OUTPUT
+            echo "base_path=/PuaSE/" >> $GITHUB_OUTPUT
+            echo "deploy_type=latest" >> $GITHUB_OUTPUT
+            echo "version_tag=latest" >> $GITHUB_OUTPUT
+          fi
 
       - uses: actions/setup-node@v4
         with:
@@ -27,14 +48,64 @@ jobs:
         run: npm ci
         working-directory: ./website
 
-      - name: Build
-        run: npm run build
+      - name: Build with versioned base path
+        run: npx vite build --base "${{ steps.vars.outputs.base_path }}"
         working-directory: ./website
 
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./website/dist
-          force_orphan: true
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+      - name: Deploy to gh-pages
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git fetch origin gh-pages 2>/dev/null; then
+            # gh-pages exists — check it out
+            git checkout gh-pages
+          else
+            # First deploy — create orphan branch
+            git checkout --orphan gh-pages
+          fi
+
+          DEPLOY_TYPE="${{ steps.vars.outputs.deploy_type }}"
+          VERSION_TAG="${{ steps.vars.outputs.version_tag }}"
+
+          if [ "$DEPLOY_TYPE" = "latest" ]; then
+            # Deploy to root: remove old root files, preserve versions/
+            find . -maxdepth 1 \
+              -not -name '.git' \
+              -not -name 'versions' \
+              -not -name '.' \
+              -exec rm -rf {} +
+            cp -r "${{ github.workspace }}/website/dist/"* .
+          else
+            # Deploy version to subdirectory
+            mkdir -p "versions/$VERSION_TAG"
+            cp -r "${{ github.workspace }}/website/dist/"* "versions/$VERSION_TAG/"
+
+            # Update versions.json
+            mkdir -p versions
+            VERSIONS_FILE="versions/versions.json"
+            TODAY=$(date -I)
+
+            if [ -f "$VERSIONS_FILE" ]; then
+              # Prepend new version and deduplicate by tag (keeps first occurrence = newest)
+              jq --arg tag "$VERSION_TAG" \
+                 --arg date "$TODAY" \
+                 --arg url "/PuaSE/versions/$VERSION_TAG/" \
+                 '.latest = $tag | .versions = ([{"tag": $tag, "date": $date, "url": $url}] + .versions | unique_by(.tag))' \
+                 "$VERSIONS_FILE" > tmp.json && mv tmp.json "$VERSIONS_FILE"
+            else
+              cat > "$VERSIONS_FILE" << JSONEOF
+          {
+            "latest": "$VERSION_TAG",
+            "versions": [
+              {"tag": "$VERSION_TAG", "date": "$TODAY", "url": "/PuaSE/versions/$VERSION_TAG/"}
+            ]
+          }
+          JSONEOF
+            fi
+          fi
+
+          git add -A
+          git commit -m "deploy: $VERSION_TAG"
+          git push origin gh-pages
