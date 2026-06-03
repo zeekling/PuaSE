@@ -2,7 +2,7 @@ name: Publish to npm
 
 # 触发条件：
 # - 推送 v*.*.* 标签 → 发布正式版（@latest）
-# - 推送 main 分支 → 发布预发布版（@latest，版本号形如 0.0.0-next.0+sha）
+# - 推送 main 分支 → 发布预发布版（@latest，版本号形如 0.0.0-next.0.sha）
 # 仅在相关文件变更时触发，排除 website/**
 on:
   push:
@@ -66,7 +66,7 @@ jobs:
             BASE="${LATEST_TAG#v}"
             COMMITS=$(git rev-list --count "${LATEST_TAG}..HEAD" 2>/dev/null || echo "0")
             SHA=$(git rev-parse --short=7 HEAD)
-            VERSION="${BASE}-next.${COMMITS}+${SHA}"
+            VERSION="${BASE}-next.${COMMITS}.${SHA}"
             echo "type=next" >> "$GITHUB_OUTPUT"
             echo "version=$VERSION" >> "$GITHUB_OUTPUT"
             echo "tag=latest" >> "$GITHUB_OUTPUT"
