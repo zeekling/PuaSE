@@ -144,55 +144,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # ─── 9. 生成 Release Notes 并创建 GitHub Release ───
-      - name: Generate release notes
-        id: notes
-        shell: bash
-        run: |
-          # 尝试复制上一个 release 的说明作为模板
-          NOTES_FILE="release_notes.txt"
-          PREV_RELEASE=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
-          if [ -n "$PREV_RELEASE" ]; then
-            gh release view "$PREV_RELEASE" --json body --jq '.body' > "$NOTES_FILE" 2>/dev/null || true
-          fi
-          # 若获取失败，生成默认说明
-          if [ ! -s "$NOTES_FILE" ]; then
-            VERSION="${{ steps.release.outputs.version }}"
-            TYPE="${{ steps.release.outputs.type }}"
-            if [ "$TYPE" = "latest" ]; then
-              echo "Release @zeekling/puse@${VERSION}" > "$NOTES_FILE"
-            else
-              echo "Pre-release @zeekling/puse@${VERSION}" > "$NOTES_FILE"
-            fi
-            echo "" >> "$NOTES_FILE"
-            echo "Install: \`npm install @zeekling/puse@${{ steps.release.outputs.tag }}\`" >> "$NOTES_FILE"
-          fi
-          echo "file=$NOTES_FILE" >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create GitHub Release
-        shell: bash
-        run: |
-          VERSION="${{ steps.release.outputs.version }}"
-          if [[ "${{ steps.release.outputs.type }}" == "latest" ]]; then
-            # 正式版：tag 已存在，直接 attach release
-            gh release create "v${VERSION}" \
-              --title "v${VERSION}" \
-              --notes-file "${{ steps.notes.outputs.file }}" \
-              --target "${GITHUB_SHA}"
-          else
-            # 预发布版：创建以版本号命名的 tag
-            gh release create "v${VERSION}" \
-              --title "v${VERSION}" \
-              --notes-file "${{ steps.notes.outputs.file }}" \
-              --prerelease \
-              --target "${GITHUB_SHA}"
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # ─── 10. 更新 README.md 中的 npm 徽章 ───
+      # ─── 9. 更新 README.md 中的 npm 徽章 ───
       - name: Update README badges
         shell: bash
         run: |
