@@ -16,7 +16,7 @@ on:
       - '.github/workflows/publish.yml'
 
 permissions:
-  contents: read       # checkout 需要
+  contents: write      # checkout + gh release create + git push（README 徽章回写）
   id-token: write      # 预留：未来启用 provenance 时需要
 
 # 以 ref 为粒度串行发布，避免版本号冲突
