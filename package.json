@@ -1,5 +1,5 @@
 {
-  "name": "puse",
+  "name": "@zeekling/puse",
   "version": "1.0.0",
   "type": "module",
   "description": "PuaSE — 全局编排 Agent 插件。自动注册编排 Agent 及其子专家 Agent 到 OpenCode。",
@@ -9,6 +9,37 @@
     "PuaSE.md",
     "subagent/"
   ],
-  "keywords": ["opencode", "plugin", "agent", "orchestration"],
-  "license": "MIT"
+  "keywords": [
+    "opencode",
+    "plugin",
+    "agent",
+    "orchestration"
+  ],
+  "license": "MIT",
+  "author": "zeekling",
+  "contributors": [
+    {
+      "name": "zeekling"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeekling/PuaSE.git"
+  },
+  "homepage": "https://zeekling.github.io/PuaSE/",
+  "bugs": {
+    "url": "https://github.com/zeekling/PuaSE/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/zeekling"
+  }
 }

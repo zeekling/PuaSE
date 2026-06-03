@@ -1,0 +1,229 @@
+name: Publish to npm
+
+# 触发条件：
+# - 推送 v*.*.* 标签 → 发布正式版（@latest）
+# - 推送 main 分支 → 发布预发布版（@next）
+# 仅在相关文件变更时触发，排除 website/**
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+    paths:
+      - '.opencode/plugins/puse.js'
+      - 'PuaSE.md'
+      - 'subagent/**'
+      - 'package.json'
+      - '.github/workflows/publish.yml'
+
+permissions:
+  contents: read       # checkout 需要
+  id-token: write      # 预留：未来启用 provenance 时需要
+
+# 以 ref 为粒度串行发布，避免版本号冲突
+concurrency:
+  group: publish-npm-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    timeout-minutes: 10
+    steps:
+      # ─── 1. 检出代码（完整历史，用于 git describe） ───
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ─── 2. 设置 Node.js ───
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org/'
+
+      # ─── 3. 识别发布类型并计算版本号 ───
+      - name: Determine release type
+        id: release
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            # 正式版：从 tag 提取版本号
+            VERSION="${GITHUB_REF#refs/tags/v}"
+            # 校验 SemVer 格式（含可选 prerelease 和 build metadata）
+            if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+              echo "::error::Invalid SemVer tag: $VERSION"
+              exit 1
+            fi
+            echo "type=latest" >> "$GITHUB_OUTPUT"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "tag=latest" >> "$GITHUB_OUTPUT"
+            echo "::notice::Official release @latest (version=$VERSION)"
+          else
+            # 预发布版：基于最近 tag 计算
+            LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*.[0-9]*.[0-9]*' 2>/dev/null || echo "v0.0.0")
+            BASE="${LATEST_TAG#v}"
+            COMMITS=$(git rev-list --count "${LATEST_TAG}..HEAD" 2>/dev/null || echo "0")
+            SHA=$(git rev-parse --short HEAD=7)
+            VERSION="${BASE}-next.${COMMITS}+${SHA}"
+            echo "type=next" >> "$GITHUB_OUTPUT"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "tag=next" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pre-release @next (version=$VERSION, base=$BASE, commits=$COMMITS, sha=$SHA)"
+          fi
+
+      # ─── 4. 写入版本号（不污染 git） ───
+      - name: Set package version
+        shell: bash
+        run: npm version --no-git-tag-version --allow-same-version "${{ steps.release.outputs.version }}"
+
+      # ─── 5. Dry-run 验证包内容 ───
+      - name: Dry-run publish
+        run: npm publish --dry-run
+
+      # ─── 6. 校验包内容完整性 ───
+      - name: Verify package contents
+        shell: bash
+        run: |
+          set -e
+          # 校验 main 入口存在且非空
+          if [ ! -s .opencode/plugins/puse.js ]; then
+            echo "::error::Plugin entry missing or empty: .opencode/plugins/puse.js"
+            exit 1
+          fi
+          # 校验所有 subagent .md 文件存在且非空
+          # shellcheck disable=SC2044
+          for md in $(find subagent -name '*.md' -type f); do
+            if [ ! -s "$md" ]; then
+              echo "::error::Agent config missing or empty: $md"
+              exit 1
+            fi
+          done
+          # 输出包内容摘要
+          echo "::notice::Package contents validated"
+          echo "Plugin entry: $(wc -c < .opencode/plugins/puse.js) bytes"
+          echo "Agent configs: $(find subagent -name '*.md' | wc -l) files"
+
+      # ─── 7. （可选）运行 website 构建检查 ───
+      - name: Verify website build (non-blocking)
+        run: |
+          npm ci
+          npm run build
+        working-directory: ./website
+        continue-on-error: true
+
+      # ─── 8. 发布到 npm ───
+      - name: Publish to npm
+        run: npm publish --access public --tag ${{ steps.release.outputs.tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # ─── 9. 生成 Release Notes 并创建 GitHub Release ───
+      - name: Generate release notes
+        id: notes
+        shell: bash
+        run: |
+          # 尝试复制上一个 release 的说明作为模板
+          NOTES_FILE="release_notes.txt"
+          PREV_RELEASE=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || echo "")
+          if [ -n "$PREV_RELEASE" ]; then
+            gh release view "$PREV_RELEASE" --json body --jq '.body' > "$NOTES_FILE" 2>/dev/null || true
+          fi
+          # 若获取失败，生成默认说明
+          if [ ! -s "$NOTES_FILE" ]; then
+            VERSION="${{ steps.release.outputs.version }}"
+            TYPE="${{ steps.release.outputs.type }}"
+            if [ "$TYPE" = "latest" ]; then
+              echo "Release @zeekling/puse@${VERSION}" > "$NOTES_FILE"
+            else
+              echo "Pre-release @zeekling/puse@${VERSION}" > "$NOTES_FILE"
+            fi
+            echo "" >> "$NOTES_FILE"
+            echo "Install: \`npm install @zeekling/puse@${{ steps.release.outputs.tag }}\`" >> "$NOTES_FILE"
+          fi
+          echo "file=$NOTES_FILE" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        shell: bash
+        run: |
+          VERSION="${{ steps.release.outputs.version }}"
+          if [[ "${{ steps.release.outputs.type }}" == "latest" ]]; then
+            # 正式版：tag 已存在，直接 attach release
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --notes-file "${{ steps.notes.outputs.file }}" \
+              --target "${GITHUB_SHA}"
+          else
+            # 预发布版：创建以版本号命名的 tag
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --notes-file "${{ steps.notes.outputs.file }}" \
+              --prerelease \
+              --target "${GITHUB_SHA}"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ─── 10. 更新 README.md 中的 npm 徽章 ───
+      - name: Update README badges
+        shell: bash
+        run: |
+          # 确保 README 中有 npm 徽章段（幂等插入）
+          MARKER_BEGIN="<!-- NPM-BADGES:BEGIN -->"
+          MARKER_END="<!-- NPM-BADGES:END -->"
+
+          BADGES_BLOCK="${MARKER_BEGIN}
+          <img src=\"https://img.shields.io/npm/v/@zeekling/puse.svg\" alt=\"npm version\" />
+          <img src=\"https://img.shields.io/npm/dm/@zeekling/puse.svg\" alt=\"npm downloads\" />
+          <img src=\"https://img.shields.io/npm/l/@zeekling/puse.svg\" alt=\"license\" />
+          ${MARKER_END}"
+
+          if grep -q "${MARKER_BEGIN}" README.md; then
+            # 已存在：替换两个 marker 之间的内容
+            awk -v beg="${MARKER_BEGIN}" -v end="${MARKER_END}" -v block="${BADGES_BLOCK}" '
+              $0 == beg { print block; in_block=1; next }
+              $0 == end { in_block=0; next }
+              !in_block { print }
+            ' README.md > README.md.tmp && mv README.md.tmp README.md
+          else
+            # 不存在：在第一个 </p>（徽章段结束）之后插入
+            awk -v block="${BADGES_BLOCK}" '
+              /<\/p>/ && !inserted { print; print ""; print block; inserted=1; next }
+              { print }
+            ' README.md > README.md.tmp && mv README.md.tmp README.md
+          fi
+
+          # 提交 README 更新
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: update npm badges for ${{ steps.release.outputs.version }}"
+            git push
+          else
+            echo "::notice::README already up-to-date"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ─── 11. 输出发布摘要 ───
+      - name: Summary
+        shell: bash
+        run: |
+          VERSION="${{ steps.release.outputs.version }}"
+          TAG="${{ steps.release.outputs.tag }}"
+          TYPE="${{ steps.release.outputs.type }}"
+          URL="https://www.npmjs.com/package/@zeekling/puse/v/${VERSION}"
+          {
+            echo "## npm publish :rocket:"
+            echo ""
+            echo "- **Package**: \`@zeekling/puse\`"
+            echo "- **Version**: \`${VERSION}\`"
+            echo "- **Dist-tag**: \`${TAG}\`"
+            echo "- **Type**: \`${TYPE}\`"
+            echo "- **npm URL**: ${URL}"
+            echo "- **Install**: \`npm install @zeekling/puse@${TAG}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
