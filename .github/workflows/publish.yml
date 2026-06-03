@@ -144,8 +144,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # ─── 9. 更新 README.md 中的 npm 徽章 ───
+      # ─── 9. 更新 README.md 中的 npm 徽章（仅在 tag 推送时执行，避免 main 推送时的冗余更新） ───
       - name: Update README badges
+        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
           # 确保 README 中有 npm 徽章段（幂等插入）
@@ -179,7 +180,7 @@ jobs:
           git add README.md
           if ! git diff --cached --quiet; then
             git commit -m "docs: update npm badges for ${{ steps.release.outputs.version }}"
-            git push
+            git push origin HEAD:main
           else
             echo "::notice::README already up-to-date"
           fi
