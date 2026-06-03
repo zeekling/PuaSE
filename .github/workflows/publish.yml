@@ -113,7 +113,32 @@ jobs:
         working-directory: ./website
         continue-on-error: true
 
-      # ─── 8. 发布到 npm ───
+      # ─── 8. 诊断 npm 认证状态（不泄露 token 内容） ───
+      - name: Diagnose npm auth
+        shell: bash
+        run: |
+          echo "::group::npm auth diagnostics"
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "::error::NODE_AUTH_TOKEN is empty or not set. Configure NPM_TOKEN secret in repo settings."
+            exit 1
+          else
+            echo "::notice::NODE_AUTH_TOKEN is set (length=${#NODE_AUTH_TOKEN})"
+          fi
+          # 显示 .npmrc 中的 registry 配置（不显示 token 内容）
+          echo "--- .npmrc keys (token redacted) ---"
+          if [ -f "$HOME/.npmrc" ]; then
+            # 仅显示键名和值长度，避免泄露 token 本身
+            awk -F'=' '{ if ($0 ~ /^@/ || $0 ~ /^registry=/ || $0 ~ /_authToken=/) print $1"=<value, len="length($2)">"; else print $0 }' "$HOME/.npmrc"
+          else
+            echo "(no .npmrc found at $HOME/.npmrc)"
+          fi
+          echo "--- npm whoami ---"
+          npm whoami --registry=https://registry.npmjs.org/ 2>&1 || echo "(whoami failed)"
+          echo "::endgroup::"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # ─── 9. 发布到 npm ───
       - name: Publish to npm
         run: npm publish --access public --tag ${{ steps.release.outputs.tag }}
         env:
