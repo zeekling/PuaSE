@@ -16,6 +16,12 @@
   <img src="https://img.shields.io/github/license/zeekling/PuaSE" alt="License" />
 </p>
 
+<!-- NPM-BADGES:BEGIN -->
+<img src="https://img.shields.io/npm/v/@zeekling/puse.svg" alt="npm version" />
+<img src="https://img.shields.io/npm/dm/@zeekling/puse.svg" alt="npm downloads" />
+<img src="https://img.shields.io/npm/l/@zeekling/puse.svg" alt="license" />
+<!-- NPM-BADGES:END -->
+
 ## 快速安装（插件模式）
 
 ### 前置条件
