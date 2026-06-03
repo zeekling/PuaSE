@@ -2,7 +2,7 @@ name: Publish to npm
 
 # 触发条件：
 # - 推送 v*.*.* 标签 → 发布正式版（@latest）
-# - 推送 main 分支 → 发布预发布版（@next）
+# - 推送 main 分支 → 发布预发布版（@latest，版本号形如 0.0.0-next.0+sha）
 # 仅在相关文件变更时触发，排除 website/**
 on:
   push:
@@ -69,8 +69,8 @@ jobs:
             VERSION="${BASE}-next.${COMMITS}+${SHA}"
             echo "type=next" >> "$GITHUB_OUTPUT"
             echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-            echo "tag=next" >> "$GITHUB_OUTPUT"
-            echo "::notice::Pre-release @next (version=$VERSION, base=$BASE, commits=$COMMITS, sha=$SHA)"
+            echo "tag=latest" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pre-release @latest (version=$VERSION, base=$BASE, commits=$COMMITS, sha=$SHA)"
           fi
 
       # ─── 4. 写入版本号（不污染 git） ───
