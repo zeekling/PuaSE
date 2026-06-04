@@ -31,19 +31,24 @@
 
 ### 安装 PuaSE 插件
 
-**推荐：symlink 安装（本地开发，修改即时生效）**
+**推荐：npm 安装（版本管理）**
+
+```bash
+npm install @zeekling/puse
+```
+
+npm 包会自动注册 PuaSE 主 Agent 和所有 19 个子 Agent 到 OpenCode，无需手动配置。
+
+**备选：symlink 安装（本地开发）**
+
+适合需要在开发时即时修改 prompt 的场景：
 
 ```bash
 # Linux/macOS
 ln -sf ~/PuaSE/.opencode/plugins/puse.js ~/.config/opencode/plugins/puse.js
 
-# 或使用安装脚本
-bash PuaSE-install.sh
-```
-
-```powershell
 # Windows PowerShell
-.\PuaSE-install.ps1
+.\PuaSE-install.ps1 --symlink
 ```
 
 ### 安装脚本 CLI 参数
@@ -67,13 +72,6 @@ bash PuaSE-uninstall.sh
 ```
 
 卸载脚本会移除插件注册、清理相关配置，并可选恢复 OpenCode 默认 Agent。
-
-**或者：npm 安装（版本管理）**
-
-```bash
-npm install -g puse
-# 然后将 "puse" 加到 opencode.json 的 plugin 数组
-```
 
 ### 验证安装
 
