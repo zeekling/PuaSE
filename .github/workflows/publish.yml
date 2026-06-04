@@ -6,7 +6,6 @@ name: Publish to npm
 # 仅在相关文件变更时触发，排除 website/**
 on:
   push:
-    branches: [main]
     tags: ['v*.*.*']
     paths:
       - '.opencode/plugins/puse.js'
