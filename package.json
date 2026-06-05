@@ -38,8 +38,11 @@
     "node": ">=18"
   },
   "sideEffects": false,
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/zeekling"
+   "funding": {
+      "type": "github",
+      "url": "https://github.com/sponsors/zeekling"
+    },
+   "scripts": {
+      "postinstall": "node scripts/puse-postinstall.js"
+    }
   }
-}
