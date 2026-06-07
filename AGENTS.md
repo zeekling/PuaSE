@@ -52,7 +52,7 @@
 - **同步方法**：symlink 直达仓库，无需手动同步。npm 安装时通过包管理更新。
 - **PuaSE.md 同步约束**（`.opencode/rules/puse-sync.md`）：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
 - **提交授权规则**（`.opencode/rules/commit-authorization.md`）：禁止未经用户明确允许提交本地代码（git commit / git push）。任何涉及 git 提交的操作必须先获得用户授权。
-- **安装脚本**：`PuaSE-install.ps1`（Windows）/ `PuaSE-install.sh`（Linux/macOS）带 CLI 参数（--symlink/--copy/--no-default/--model-config/--force）；`PuaSE-uninstall.ps1` / `PuaSE-uninstall.sh` 对应卸载。
+- **安装脚本**：`PuaSE-install.ps1`（Windows）/ `PuaSE-install.sh`（Linux/macOS）带 CLI 参数（--symlink/--copy/--no-default/--model-config/--force）；提供卸载机制（见 `PuaSE-uninstall.ps1` / `PuaSE-uninstall.sh`）。
 - **模型配置模板**：`config_template.json`，安装时可由脚本合并到 opencode.json。
 
 ---

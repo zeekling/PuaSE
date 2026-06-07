@@ -1,45 +1,44 @@
 {
   "name": "@zeekling/puse",
   "version": "1.0.0",
-  "type": "module",
-  "description": "PuaSE — 全局编排 Agent 插件。自动注册编排 Agent 及其子专家 Agent 到 OpenCode。",
+  "description": "PuaSE - 全局编排 Agent，把 AI 编程流程化，阻止 AI 偷奸耍滑、欺骗人类",
   "main": ".opencode/plugins/puse.js",
-  "files": [
-    ".opencode/plugins/puse.js",
-    "PuaSE.md",
-    "subagent/"
-  ],
+  "scripts": {
+    "install": "node scripts/install.js",
+    "uninstall": "node scripts/uninstall.js",
+    "build": "echo \"No build needed\""
+  },
   "keywords": [
     "opencode",
-    "plugin",
     "agent",
-    "orchestration"
+    "ai-programming",
+    "workflow",
+    "automation"
   ],
-  "license": "MIT",
   "author": "zeekling",
-  "contributors": [
-    {
-      "name": "zeekling"
-    }
-  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zeekling/PuaSE.git"
   },
-  "homepage": "https://zeekling.github.io/PuaSE/",
   "bugs": {
     "url": "https://github.com/zeekling/PuaSE/issues"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
+  "homepage": "https://github.com/zeekling/PuaSE#readme",
+  "files": [
+    ".opencode/",
+    "subagent/",
+    "docs/",
+    "PuaSE.md",
+    "PuaSE-install.ps1",
+    "PuaSE-install.sh",
+    "PuaSE-uninstall.ps1",
+    "PuaSE-uninstall.sh",
+    "config_template.json",
+    "README.md",
+    "CONTRIBUTING.md"
+  ],
   "engines": {
     "node": ">=18"
-  },
-  "sideEffects": false,
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/zeekling"
   }
 }
