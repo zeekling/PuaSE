@@ -18,7 +18,7 @@ echo "       完成"
 echo
 
 echo "[2/3] 执行 npm pack (使用 latest 作为包名和版本)..."
-npm pack --package-name "latest" --package-version "latest"
+npm pack --package-name "@zeekling/puse" --package-version "latest"
 echo "       完成"
 echo
 

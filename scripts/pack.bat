@@ -7,7 +7,7 @@ echo done
 echo.
 
 echo [2/3] Running npm pack (using latest for package name and version)...
-npm pack --package-name "latest" --package-version "latest"
+npm pack --package-name "@zeekling/puse" --package-version "latest"
 echo done
 echo.
 
