@@ -57,13 +57,18 @@ subagent/
 ├── documenter.md             # 文档编写
 ├── quality-inspector.md      # 质量巡检
 ├── developer/
-│   ├── cpp-developer.md
-│   ├── java-developer.md
-│   ├── python-developer.md
-│   └── web-developer.md
+│ ├── cpp-developer.md
+│ ├── java-developer.md
+│ ├── python-developer.md
+│ ├── go-developer.md
+│ ├── rust-developer.md
+│ ├── csharp-developer.md
+│ ├── bigdata-developer.md
+│ └── web-developer.md
 ├── dba/
-│   ├── mysql-dba.md
-│   └── oracle-dba.md
+│ ├── mysql-dba.md
+│ ├── oracle-dba.md
+│ └── postgresql-dba.md
 └── security/
     └── security-expert.md
 ```

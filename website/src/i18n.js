@@ -57,8 +57,7 @@ const i18n = {
     'agents.group.closure': '✅ 闭环 交付验收',
 
     // === Agent Descriptions ===
-    'agent.architect.desc': '完整架构分析',
-    'agent.architect-scan.desc': '轻量级架构扫描',
+'agent.architect.desc': '架构分析（full 深度设计 / quick 轻量扫描）',
     'agent.explore.desc': '代码库探索',
     'agent.java-developer.desc': 'Java 开发',
     'agent.python-developer.desc': 'Python 开发',
@@ -216,8 +215,7 @@ const i18n = {
     'agents.group.closure': '✅ Closure Delivery Review',
 
     // === Agent Descriptions ===
-    'agent.architect.desc': 'Architecture Analysis',
-    'agent.architect-scan.desc': 'Lightweight Scan',
+'agent.architect.desc': 'Architecture Analysis (full depth design / quick light scan)',
     'agent.explore.desc': 'Codebase Search',
     'agent.java-developer.desc': 'Java Development',
     'agent.python-developer.desc': 'Python Development',

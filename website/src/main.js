@@ -98,8 +98,7 @@ const modalClose = document.querySelector('.modal-close');
 
 const agentDetails = {
   zh: {
-    'architect': { name: 'architect', desc: '完整架构分析专家。负责 C4 模型建模、ADR 架构决策记录、风险评估、适应度函数分析。适用于新项目架构设计、大型模块首次分析、架构变更评审。' },
-    'architect-scan': { name: 'architect-scan', desc: '轻量级架构扫描 Agent。3 步快速摸底：读目录结构、辨识模块依赖、标注核心数据流。适用于成熟代码库常规维护、小范围变更前的快速摸底。' },
+'architect': { name: 'architect', desc: '架构分析专家。full 模式：C4 模型、ADR、风险评估；quick 模式：3 步快速摸底。适用：新项目架构设计、首次分析、成熟库增量扫描。' },
     'explore': { name: 'explore', desc: '代码库探索与搜索专家。快速查找文件、搜索代码模式、理解代码结构。适用于需要理解不熟悉代码库时的快速摸底。' },
     'java-developer': { name: 'java-developer', desc: 'Java 软件开发 Agent。负责 Maven/Gradle 项目的功能开发和 Bug 修复，涵盖 Spring Boot / Jakarta EE 应用。每次修改后执行编译+测试验证。' },
     'python-developer': { name: 'python-developer', desc: 'Python 软件开发 Agent。负责 Django/Flask/FastAPI 等 Web 框架应用、数据处理脚本和自动化工具。每次修改后执行语法检查+测试验证。' },
@@ -120,8 +119,7 @@ const agentDetails = {
     'reflector': { name: 'reflector', desc: '反思总结 Agent。任务完成后对 PuaSE 的委派链进行复盘分析，回顾委派得失、分析委派链效率、提炼改进策略，并将建议写入 .PuaSE/improvement-track.md。' }
   },
   en: {
-    'architect': { name: 'architect', desc: 'Complete architecture analysis expert. Responsible for C4 modeling, ADR (Architecture Decision Records), risk assessment, and fitness function analysis. Ideal for new project architecture design, first-time large module analysis, and architecture change review.' },
-    'architect-scan': { name: 'architect-scan', desc: 'Lightweight architecture scanning Agent. 3-step quick assessment: read directory structure, identify module dependencies, map core data flow. Suitable for routine maintenance of mature codebases and quick pre-change assessment.' },
+'architect': { name: 'architect', desc: 'Architecture analysis expert. full mode: C4 modeling, ADR, risk assessment; quick mode: 3-step quick assessment. For new projects, first-time analysis, mature codebase incremental scan.' },
     'explore': { name: 'explore', desc: 'Codebase exploration and search expert. Quickly find files, search code patterns, understand code structure. Ideal for rapid orientation when working with unfamiliar codebases.' },
     'java-developer': { name: 'java-developer', desc: 'Java software development Agent. Responsible for feature development and bug fixes in Maven/Gradle projects including Spring Boot / Jakarta EE apps. Runs compilation + tests after every change.' },
     'python-developer': { name: 'python-developer', desc: 'Python software development Agent. Handles Django/Flask/FastAPI web frameworks, data processing scripts, and automation tools. Runs syntax checks + tests after every change.' },

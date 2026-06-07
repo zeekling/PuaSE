@@ -6,8 +6,8 @@ del /q *.tgz 2>nul
 echo done
 echo.
 
-echo [2/3] Running npm pack...
-npm pack
+echo [2/3] Running npm pack (using latest for package name and version)...
+npm pack --package-name "latest" --package-version "latest"
 echo done
 echo.
 
