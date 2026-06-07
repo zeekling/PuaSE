@@ -45,39 +45,79 @@ npm install @zeekling/puse
 }
 ```
 
-**备选：本地脚本安装（开发模式）**
+### 验证安装
 
-适用于需要在本地修改 Agent 配置并即时生效的场景：
+### 本地打包
 
-```bash
-# Linux/macOS
-./PuaSE-install.sh --symlink
-
-# Windows PowerShell
-.\PuaSE-install.ps1 --symlink
-```
-
-### 安装脚本 CLI 参数
-
-| 参数 | 说明 |
-|------|------|
-| `--symlink` | symlink 安装（本地开发，修改即时生效，默认） |
-| `--copy` | 复制安装（适合 CI/生产环境） |
-| `--no-default` | 不设 PuaSE 为默认 Agent |
-| `--model-config <path>` | 使用 `config_template.json` 格式的模型配置模板 |
-| `--force` | 覆盖已存在的插件文件 |
-
-### 卸载 PuaSE
+使用 `npm pack` 在本地打包为 tarball 文件：
 
 ```bash
-# Linux/macOS
-./PuaSE-uninstall.sh
-
-# Windows PowerShell
-.\PuaSE-uninstall.ps1
+npm pack
+# 输出：+ @zeekling/puse-1.0.0.tgz
 ```
 
-卸载脚本会移除插件注册、清理相关配置，并可选恢复 OpenCode 默认 Agent。
+**验证包内容：**
+
+```bash
+# 预览打包内容（不实际打包）
+npm pack --dry-run
+
+# 解压查看
+tar -tzf @zeekling/puse-1.0.0.tgz
+
+# 解压到临时目录
+tar -xzf @zeekling/puse-1.0.0.tgz -C temp-directory
+```
+
+**包内容：**
+- `.opencode/plugins/puse.js` (插件入口)
+- `subagent/` (19 个子 Agent 配置)
+- `docs/` (文档)
+- `PuaSE.md`, `README.md`, `CONTRIBUTING.md`
+- `config_template.json`
+
+
+### 使用快捷脚本打包
+
+仓库提供 `scripts/` 内置打包脚本，自动清理旧包、执行打包并输出安装命令。
+
+**Windows (`scripts/pack.bat`)：**
+
+```bash
+# 在项目根目录双击或命令行运行
+scripts\pack.bat
+```
+
+**Linux/macOS (`scripts/pack.sh`)：**
+
+```bash
+# 首次使用需授予执行权限
+chmod +x scripts/pack.sh
+
+# 运行
+./scripts/pack.sh
+```
+
+脚本功能：
+1. 自动清理旧 `.tgz` 包文件
+2. 执行 `npm pack` 生成新的 tarball
+3. 输出包文件名、大小及安装命令
+
+脚本输出类似：
+
+```text
+========================================
+  打包完成
+========================================
+使用以下命令安装本地包:
+  npm install ./zeekling-puse-1.0.0.tgz
+
+预览包内容(不安装):
+  tar -tzf zeekling-puse-1.0.0.tgz
+========================================
+```
+
+> **注意：** 脚本执行时仍在项目根目录，生成的 `.tgz` 文件位于项目根目录，不会被 git 跟踪（`.gitignore` 已排除 `*.tgz`）。
 
 ### 验证安装
 
@@ -105,9 +145,7 @@ npm install @zeekling/puse
     "architect": { "model": "anthropic/claude-sonnet-4-6" },
     "security-expert": { "model": "anthropic/claude-sonnet-4-6" },
     "java-developer": { "model": "openai/gpt-4o" },
-    "web-developer": { "model": "anthropic/claude-haiku-3-5" },
-    "python-developer": { "model": "inherit" }
-  }
+    "web-developer": { "model": "anthropic/claude-haiku-3-5" }
 }
 ```
 
