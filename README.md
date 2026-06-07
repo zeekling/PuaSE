@@ -37,15 +37,21 @@
 npm install @zeekling/puse
 ```
 
-npm 包会自动注册 PuaSE 主 Agent 和所有 19 个子 Agent 到 OpenCode，无需手动配置。
+安装后，在 `opencode.json` 的 `plugins` 数组中添加：
 
-**备选：symlink 安装（本地开发）**
+```json
+{
+  "plugins": ["@zeekling/puse"]
+}
+```
 
-适合需要在开发时即时修改 prompt 的场景：
+**备选：本地脚本安装（开发模式）**
+
+适用于需要在本地修改 Agent 配置并即时生效的场景：
 
 ```bash
 # Linux/macOS
-ln -sf ~/PuaSE/.opencode/plugins/puse.js ~/.config/opencode/plugins/puse.js
+./PuaSE-install.sh --symlink
 
 # Windows PowerShell
 .\PuaSE-install.ps1 --symlink
@@ -65,7 +71,7 @@ ln -sf ~/PuaSE/.opencode/plugins/puse.js ~/.config/opencode/plugins/puse.js
 
 ```bash
 # Linux/macOS
-bash PuaSE-uninstall.sh
+./PuaSE-uninstall.sh
 
 # Windows PowerShell
 .\PuaSE-uninstall.ps1
@@ -143,7 +149,7 @@ PuaSE 的设计围绕一个核心原则：**AI 编程必须可验证、可审计
 ┌──────────────┐     ┌────────────────┐     ┌──────────────────┐     ┌───────────┐
 │ 架构分析通过？ │  →  │ 编译+测试通过？  │  →  │ 安全审计 + 代码   │  →  │ 🧪测试    │
 │ 数据流走通了？ │     │ 影响面已确认？   │     │ 审查 + 质量巡检   │     │ 🔍检视    │
-    │ 依赖关系清晰？ │     │ 验证证据已贴出？ │     │ 三者全部通过？    │     │ 七者齐全  │
+│ 依赖关系清晰？ │     │ 验证证据已贴出？ │     │ 三者全部通过？    │     │ 七者齐全  │
 └──────────────┘     └────────────────┘     └──────────────────┘     └───────────┘
   不过 → 退回分析      不过 → 退回修改        不过 → 退回重做        不全 → ⏳ 未过
 ```

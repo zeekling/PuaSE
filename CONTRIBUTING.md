@@ -13,6 +13,32 @@ PuaSE 是一个 OpenCode Agent 配置仓库，包含编排器（PuaSE）和多�
 3. **同步更新 `PuaSE.md` 的 `subagents:` 列表**（如新增或删除子 Agent）
 4. **提交 Pull Request**，描述变更内容
 
+## 安装方式更新
+
+PuaSE 支持两种安装方式：
+
+### npm 安装（推荐）
+
+```bash
+npm install @zeekling/puse
+```
+
+此方式自动将 PuaSE 插件注册到 OpenCode 配置目录，并安装所有必要的脚本和配置文件。安装完成后，重启 OpenCode 即可使用。
+
+### 本地脚本安装（开发模式）
+
+适用于需要在本地修改 Agent 配置并即时生效的场景：
+
+```bash
+# Linux/macOS
+./PuaSE-install.sh --symlink
+
+# Windows PowerShell
+.\PuaSE-install.ps1 --symlink
+```
+
+> 本地脚本安装仅用于开发调试，生产环境推荐使用 npm 安装。
+
 ## Agent 配置规则
 
 ### 文件约定
