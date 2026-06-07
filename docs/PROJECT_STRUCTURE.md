@@ -47,8 +47,7 @@
 │   └── superpowers/           # OpenCode superpowers 文档
 │
 ├── subagent/                  # 子 Agent 配置文件（19 个 .md）
-│   ├── architect-scan.md      # 轻量级架构扫描
-│   ├── architect.md           # 深度架构分析
+│ ├── architect.md # 架构分析（full 深度设计 / quick 轻量扫描）
 │   ├── code-reviewer.md       # 代码审查
 │   ├── documenter.md          # 文档编写
 │   ├── explore.md             # 代码库探索

@@ -1,9 +1,9 @@
 {
   "name": "@zeekling/puse",
-  "version": "1.0.0",
+  "version": "latest",
   "description": "PuaSE - 全局编排 Agent，把 AI 编程流程化，阻止 AI 偷奸耍滑、欺骗人类",
   "main": ".opencode/plugins/puse.js",
-"scripts": {
+  "scripts": {
     "build": "echo \"No build needed\"",
     "pack": "npm pack",
     "pack:win": "scripts\\pack.bat",
@@ -26,15 +26,15 @@
     "url": "https://github.com/zeekling/PuaSE/issues"
   },
   "homepage": "https://github.com/zeekling/PuaSE#readme",
-"files": [
-  ".opencode/",
-  "subagent/",
-  "docs/",
-  "PuaSE.md",
-  "config_template.json",
-  "README.md",
-  "CONTRIBUTING.md"
-],
+  "files": [
+    ".opencode/",
+    "subagent/",
+    "docs/",
+    "PuaSE.md",
+    "config_template.json",
+    "README.md",
+    "CONTRIBUTING.md"
+  ],
   "engines": {
     "node": ">=18"
   }
