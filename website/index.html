@@ -333,39 +333,45 @@
     <section id="get-started" class="section">
       <h2 class="section-title reveal" data-i18n="started.title">快速开始</h2>
       <div class="started-grid">
-        <div class="started-card reveal-left">
-          <h3 data-i18n="started.install.title">📦 安装</h3>
-          <p>PuaSE 基于 OpenCode Agent 机制运行，支持自动化安装。</p>
+<div class="started-card reveal-left">
+  <h3 data-i18n="started.install.title">📦 安装</h3>
 
-          <h4>推荐：npm 安装（版本管理）</h4>
-          <div class="code-block">npm install @zeekling/puse</div>
-          <p class="text-dim">npm 包会自动注册 PuaSE 主 Agent 和所有子 Agent，无需手动配置。</p>
+  <h4>前置条件</h4>
+  <ul class="install-params">
+    <li><a href="https://opencode.ai" target="_blank">OpenCode</a> 已安装并配置</li>
+    <li>Node.js >= 18</li>
+  </ul>
 
-          <h4>备选：symlink 安装（本地开发）</h4>
-          <p class="text-dim">适合需要在开发时即时修改 prompt 的场景：</p>
-          <div class="code-block">ln -sf ~/PuaSE/.opencode/plugins/puse.js ~/.config/opencode/plugins/puse.js</div>
-          <p class="text-dim">Linux / macOS</p>
-          <div class="code-block">.\PuaSE-install.ps1 --symlink</div>
-          <p class="text-dim">Windows PowerShell</p>
+  <h4>推荐：npm 安装（版本管理）</h4>
+  <div class="code-block">npm install @zeekling/puse</div>
+  <p class="text-dim">安装后，在 opencode.json 的 plugins 数组中添加：</p>
+  <div class="code-block">{"plugins": ["@zeekling/puse"]}</div>
 
-          <h4>CLI 参数（仅 symlink/copy 模式）</h4>
-          <ul class="install-params">
-            <li><code>--symlink</code> 使用符号链接（本地开发，默认）</li>
-            <li><code>--copy</code> 复制安装（适合 CI/生产环境）</li>
-            <li><code>--no-default</code> 不设 PuaSE 为默认 Agent</li>
-            <li><code>--model-config</code> 使用模型配置模板</li>
-            <li><code>--force</code> 强制覆盖已有安装</li>
-          </ul>
+  <h4>验证安装</h4>
+  <ol class="install-params">
+    <li>重启 OpenCode</li>
+    <li>确认默认 Agent 为 "PuaSE"</li>
+    <li>运行编排任务测试（如 <code>@PuaSE 帮我分析项目架构</code>）</li>
+  </ol>
+  <p class="text-dim">插件模式下，所有子 Agent 由插件自动注册，无需手动维护 opencode.json 的 agent 条目。</p>
 
-          <h4>模型配置</h4>
-          <p>支持通过 <code>config_template.json</code> 为不同子 Agent 单独配置模型，实现最优成本效益。</p>
+  <h4>本地打包</h4>
+  <p class="text-dim">使用 npm pack 在本地打包为 tarball 文件：</p>
+  <div class="code-block">npm pack</div>
+  <p class="text-dim"># 输出：+ @zeekling/puse-1.0.0.tgz</p>
+  <p class="text-dim">预览打包内容：<code>npm pack --dry-run</code></p>
+  <p class="text-dim">包内容：.opencode/plugins/puse.js、subagent/、docs/、PuaSE.md、README.md、CONTRIBUTING.md、config_template.json</p>
 
-          <h4>卸载</h4>
-          <div class="code-block">bash PuaSE-uninstall.sh</div>
-          <p class="text-dim">Linux / macOS</p>
-          <div class="code-block">.\PuaSE-uninstall.ps1</div>
-          <p class="text-dim">Windows PowerShell</p>
-        </div>
+  <h4>模型配置</h4>
+  <p>支持通过 <code>config_template.json</code> 为不同子 Agent 单独配置模型，实现最优成本效益。</p>
+  <p class="text-dim">安装后如需修改，直接编辑 opencode.json 的 agent 字段后重启 OpenCode 即可生效。</p>
+
+  <h4>卸载</h4>
+  <div class="code-block">bash PuaSE-uninstall.sh</div>
+  <p class="text-dim">Linux / macOS</p>
+  <div class="code-block">.\PuaSE-uninstall.ps1</div>
+  <p class="text-dim">Windows PowerShell</p>
+</div>
         <div class="started-card reveal-right">
           <h3 data-i18n="started.contrib.title">🤝 贡献</h3>
           <p data-i18n="started.contrib.desc">欢迎为 PuaSE 贡献！流程简单透明：</p>

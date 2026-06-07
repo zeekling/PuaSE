@@ -142,12 +142,9 @@ const i18n = {
     'demo.out5g': '  └─ 全部通过 ✅',
     'demo.terminal-title': 'PuaSE — 终端',
 
-    // === Get Started ===
-    'started.title': '快速开始',
-    'started.install.title': '📦 安装',
-    'started.install.desc': 'PuaSE 基于 OpenCode Agent 机制运行。',
-    'started.install.tip': '克隆到 OpenCode agents 目录后重启即可使用',
-    'started.install.guide': '查看完整指南 →',
+// === Get Started ===
+  'started.title': '快速开始',
+  'started.install.title': '📦 安装',
     'started.contrib.title': '🤝 贡献',
     'started.contrib.desc': '欢迎为 PuaSE 贡献！流程简单透明：',
     'started.contrib.step1': 'Fork 本仓库',
@@ -304,12 +301,9 @@ const i18n = {
     'demo.out5g': '  └─ All passed ✅',
     'demo.terminal-title': 'PuaSE — Terminal',
 
-    // === Get Started ===
-    'started.title': 'Get Started',
-    'started.install.title': '📦 Install',
-    'started.install.desc': 'PuaSE runs on the OpenCode Agent mechanism.',
-    'started.install.tip': 'Clone to OpenCode agents directory and restart to use',
-    'started.install.guide': 'View full guide →',
+// === Get Started ===
+  'started.title': 'Get Started',
+  'started.install.title': '📦 Install',
     'started.contrib.title': '🤝 Contribute',
     'started.contrib.desc': 'Contributions welcome! Simple and transparent process:',
     'started.contrib.step1': 'Fork this repo',
