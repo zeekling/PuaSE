@@ -11,20 +11,7 @@
 ├── PuaSE-uninstall.sh         # Linux/macOS 卸载脚本
 ├── PuaSE.md                   # 全局编排 Agent 主配置（766 行，含 subagents: 列表）
 ├── config_template.json       # 子 Agent 模型配置模板（安装时合并到 opencode.json）
-├── package.json               # npm 包发布配置（name: puse, main: .opencode/plugins/puse.js）
-│
 ├── .gitignore                 # 忽略：.logs .idea docs/specs docs/plans docs/superpowers docs/kpi/ node_modules/ dist/ .superpowers/ .PuaSE
-├── .opencode/                 # OpenCode 插件目录
-│   ├── .gitignore             # 忽略 node_modules 和锁文件（不上传）
-│   ├── package.json           # 依赖：@opencode-ai/plugin ^1.15.13
-│   ├── package-lock.json
-│   ├── node_modules/
-│   ├── plugins/
-│   │   └── puse.js            # 插件入口 — 仅注册 PuaSE 主 Agent，子 Agent 运行时委派
-│   └── rules/
-│       ├── puse-sync.md       # PuaSE.md 变更 → 同步 README.md + website/index.html
-│       └── commit-authorization.md  # 禁止未经用户允许提交本地代码
-│
 ├── .PuaSE/
 │   └── improvement-track.md   # reflector 复盘时追加的改进跟踪清单（P0/P1/P2）
 │
@@ -73,7 +60,7 @@
 │
 └── website/                   # Vite 6 静态前端项目（独立构建+CI）
     ├── index.html             # 主页
-    ├── package.json           # npm dev / build / preview
+    ├── package.json           # dev / build / preview
     ├── vite.config.js         # base /PuaSE/，输出到 dist/
     ├── public/                # 静态资源
     └── src/

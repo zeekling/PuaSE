@@ -90,7 +90,7 @@ temperature: 0.1
 | QI-SEC-03 | 修复方案 | 每个问题是否附带可操作的修复方案（而非空泛的"修复安全问题"） | Blocker |
 | QI-SEC-04 | 证据支撑 | 审计结论是否有代码行级证据支撑（而非凭感觉判断） | Blocker |
 | QI-SEC-05 | 零误报校验 | 每个问题是否能追溯到具体代码行，无凭空虚报 | Major |
-| QI-SEC-06 | 依赖漏洞 | 是否检查了项目依赖的已知安全漏洞（CVE / Snyk / npm audit） | Major |
+| QI-SEC-06 | 依赖漏洞 | 是否检查了项目依赖的已知安全漏洞（CVE / Snyk） | Major |
 
 ### QI-DBA — dba/*（数据库专家 — Oracle / MySQL）
 
