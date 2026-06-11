@@ -16,146 +16,40 @@
   <img src="https://img.shields.io/github/license/zeekling/PuaSE" alt="License" />
 </p>
 
-<!-- NPM-BADGES:BEGIN -->
-<img src="https://img.shields.io/npm/v/@zeekling/puse.svg" alt="npm version" />
-<img src="https://img.shields.io/npm/dm/@zeekling/puse.svg" alt="npm downloads" />
-<img src="https://img.shields.io/npm/l/@zeekling/puse.svg" alt="license" />
-<!-- NPM-BADGES:END -->
 
-## 快速安装（插件模式）
+## 安装
 
 ### 前置条件
 
 - [OpenCode](https://opencode.ai) 已安装并配置
-- Node.js >= 18
 
-### 安装 PuaSE 插件
+### 手动安装
 
-**推荐：npm 安装（版本管理）**
+将仓库中的 Agent 配置拷贝到 OpenCode 的 agents 目录：
 
-```bash
-npm install @zeekling/puse
+```powershell
+# Windows PowerShell
+git clone https://github.com/zeekling/PuaSE.git
+Copy-Item -Recurse -Force .\PuaSE\subagent, .\PuaSE\PuaSE.md "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
 ```
 
-安装后，在 `opencode.json` 的 `plugins` 数组中添加：
+```bash
+# Linux/macOS
+git clone https://github.com/zeekling/PuaSE.git
+cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ~/.config/opencode/agents/PuaSE/
+```
+
+重启 OpenCode 后即可使用 PuaSE 编排器及全部 19 个子 Agent。
+
+### 配置 opencode.json
+
+在 `opencode.json` 中注册 PuaSE 为主 Agent：
 
 ```json
-{
-  "plugins": ["@zeekling/puse"]
-}
+"default_agent": "PuaSE"
 ```
 
-### 验证安装
-
-### 本地打包
-
-使用 `npm pack` 在本地打包为 tarball 文件：
-
-```bash
-npm pack
-# 输出：+ @zeekling/puse-1.0.0.tgz
-```
-
-**验证包内容：**
-
-```bash
-# 预览打包内容（不实际打包）
-npm pack --dry-run
-
-# 解压查看
-tar -tzf @zeekling/puse-1.0.0.tgz
-
-# 解压到临时目录
-tar -xzf @zeekling/puse-1.0.0.tgz -C temp-directory
-```
-
-**包内容：**
-- `.opencode/plugins/puse.js` (插件入口)
-- `subagent/` (19 个子 Agent 配置)
-- `docs/` (文档)
-- `PuaSE.md`, `README.md`, `CONTRIBUTING.md`
-- `config_template.json`
-
-
-### 使用快捷脚本打包
-
-仓库提供 `scripts/` 内置打包脚本，自动清理旧包、执行打包并输出安装命令。
-
-**Windows (`scripts/pack.bat`)：**
-
-```bash
-# 在项目根目录双击或命令行运行
-scripts\pack.bat
-```
-
-**Linux/macOS (`scripts/pack.sh`)：**
-
-```bash
-# 首次使用需授予执行权限
-chmod +x scripts/pack.sh
-
-# 运行
-./scripts/pack.sh
-```
-
-脚本功能：
-1. 自动清理旧 `.tgz` 包文件
-2. 执行 `npm pack` 生成新的 tarball
-3. 输出包文件名、大小及安装命令
-
-脚本输出类似：
-
-```text
-========================================
-  打包完成
-========================================
-使用以下命令安装本地包:
-  npm install ./zeekling-puse-1.0.0.tgz
-
-预览包内容(不安装):
-  tar -tzf zeekling-puse-1.0.0.tgz
-========================================
-```
-
-> **注意：** 脚本执行时仍在项目根目录，生成的 `.tgz` 文件位于项目根目录，不会被 git 跟踪（`.gitignore` 已排除 `*.tgz`）。
-
-### 验证安装
-
-1. 重启 OpenCode
-2. 确认默认 Agent 为 "PuaSE"
-3. 运行编排任务测试
-
-> **注：** 插件模式下，所有子 Agent 由插件自动注册，无需手动维护 `opencode.json` 的 `agent` 条目。
-
-### Agent 模型配置
-
-安装时支持为子 Agent 单独配置模型，也可不配置（继承全局模型）：
-
-| 配置方式 | 说明 | 适用场景 |
-|---------|------|---------|
-| **默认配置**（不配置） | 所有子 Agent 继承 `opencode.json` 中的全局模型 | 使用统一模型，简化配置 |
-| **使用配置模板** | 参考 `config_template.json` 配置每个 Agent 的模型 | 需要精细化控制各 Agent 成本与性能 |
-
-**配置模板 `config_template.json` 示例：**
-
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "agent": {
-    "architect": { "model": "anthropic/claude-sonnet-4-6" },
-    "security-expert": { "model": "anthropic/claude-sonnet-4-6" },
-    "java-developer": { "model": "openai/gpt-4o" },
-    "web-developer": { "model": "anthropic/claude-haiku-3-5" }
-}
-```
-
-> **`model: inherit`** — 表示继承全局模型设置。如不填写，默认即为 `inherit`。
-
-每个 Agent 可配置：
-- `model: "provider/model-id"` — 使用指定模型
-- `model: "inherit"` — 继承全局模型（不填写效果一致）
-
-模型配置会在安装脚本中自动合并到 `opencode.json`。安装后如需修改，直接编辑 `opencode.json` 的 `agent` 字段后重启 OpenCode 即可生效。
+使用时在对话中通过 `@PuaSE` 引用即可(opencode 高版本不支持)。
 
 ## 设计理念：流程化编程，防欺诈架构
 
@@ -233,25 +127,25 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
            │    （前置分析）  │          │    （执行层）       │       │    （质量门禁）      │       │     （交付验收）     │
            └────────┬────────┘          └─────────┬──────────┘       └──────────┬──────────┘       └──────────┬──────────┘
                     │                             │                             │                             │
-           ┌────────┴────────┐          ┌─────────┴──────────┐       ┌──────────┴──────────┐       ┌──────────┴──────────┐
-│ architect │ │ developer/* │ │ security-expert │ │ KPI 验收卡 │
-│ explore │ │ ├─ java │ │ code-reviewer │ │ reflector │
-           │                 │          │       ├─ cpp       │       │                     │       │                     │
-           │                 │          │       ├─ go        │       │                     │       │                     │
-           │                 │          │       ├─ rust      │       │                     │       │                     │
-           │                 │          │       ├─ csharp    │       │                     │       │                     │
-           │                 │          │       ├─ bigdata   │       │                     │       │                     │
-           │                 │          │       └─ web       │       │                     │       │                     │
-           │                 │          │                    │       │                     │       │                     │
-            │                 │          │   dba/*            │       │                     │       │                     │
-            │                 │          │       ├─ mysql     │       │                     │       │                     │
-            │                 │          │       ├─ oracle    │       │                     │       │                     │
-            │                 │          │       └─ postgresql│       │                     │       │                     │
-           │                 │          │                    │       │                     │       │                     │
-           │                 │          │   general          │       │                     │       │                     │
-           │                 │          │                    │       │                     │       │                     │
-           │                 │          │   documenter       │       │                     │       │                     │
-           └─────────────────┘          └────────────────────┘       └─────────────────────┘       └─────────────────────┘
+            ┌────────┴────────┐          ┌─────────┴──────────┐       ┌──────────┴──────────┐       ┌──────────┴──────────┐
+            │ architect       │          │ developer/*        │       │ security-expert     │       │ KPI 验收卡          │
+            │ explore         │          │  ├─ java           │       │ code-reviewer       │       │ reflector           │
+            │                 │          │  ├─ cpp            │       │                     │       │                     │
+            │                 │          │  ├─ go             │       │                     │       │                     │
+            │                 │          │  ├─ rust           │       │                     │       │                     │
+            │                 │          │  ├─ csharp         │       │                     │       │                     │
+            │                 │          │  ├─ bigdata        │       │                     │       │                     │
+            │                 │          │  └─ web            │       │                     │       │                     │
+            │                 │          │                    │       │                     │       │                     │
+            │                 │          │  dba/*             │       │                     │       │                     │
+            │                 │          │  ├─ mysql          │       │                     │       │                     │
+            │                 │          │  ├─ oracle         │       │                     │       │                     │
+            │                 │          │  └─ postgresql     │       │                     │       │                     │
+            │                 │          │                    │       │                     │       │                     │
+            │                 │          │  general           │       │                     │       │                     │
+            │                 │          │                    │       │                     │       │                     │
+            │                 │          │  documenter        │       │                     │       │                     │
+            └─────────────────┘          └────────────────────┘       └─────────────────────┘       └─────────────────────┘
 ```
 
 **三层结构说明：**
@@ -306,7 +200,6 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 项目目录树详见 [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)。
 
 关键目录说明：
-- **`.opencode/`** — 插件入口、规则定义、依赖配置
 - **`.PuaSE/`** — 改进跟踪记录（`improvement-track.md`）
 
 ## Agent 列表
@@ -317,14 +210,6 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 
 详见[docs/index.md](docs/index.md)
 
-## 同步规则（Plugin 模式）
-
-- **PuaSE 以 OpenCode 插件方式运行**，不是自定义 Agent。
-- **安装方式**：symlink 安装到 `~/.config/opencode/plugins/puse.js`，或 npm 全局安装。
-- **配置即代码**：仓库即运行副本，修改 prompt 即时生效（symlink 模式下无需手动同步）。
-- **PuaSE.md 同步约束**：PuaSE.md 发生变更后，必须同步更新 README.md 和 website/index.html。提交 PuaSE.md 时必须同时包含对应 README 和 website 的同步修改。
-- **子 Agent 委派机制**：插件仅注册 PuaSE 主 Agent，子 Agent 指令在 PuaSE.md 中定义，由 PuaSE 在运行时委派。
-- **提交授权规则**（`.opencode/rules/commit-authorization.md`）：禁止未经用户明确允许提交本地代码（git commit / git push）。任何涉及 git 提交的操作必须先获得用户授权。
 
 ## 项目趋势
 

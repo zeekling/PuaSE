@@ -8,5 +8,3 @@ node_modules/
 dist/
 .superpowers/
 .PuaSE
-zeekling-puse-*.tgz
-latest-*.tgz

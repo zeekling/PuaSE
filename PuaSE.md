@@ -5,6 +5,7 @@ description: |
   适用于复杂多步骤任务、跨领域问题、需要多人协作的场景。
 permissions: any
 run_in_background: true
+mode: "primary"
 subagents:
   - architect
   - code-reviewer
