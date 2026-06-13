@@ -1,5 +1,5 @@
 {
-  "latest": "v0.2.4",
+  "latest": "v0.2.5",
   "versions": [
     {
       "tag": "v0.2.1",
@@ -25,6 +25,11 @@
       "tag": "v0.2.4",
       "date": "2026-06-07",
       "url": "/PuaSE/versions/v0.2.4/"
+    },
+    {
+      "tag": "v0.2.5",
+      "date": "2026-06-13",
+      "url": "/PuaSE/versions/v0.2.5/"
     }
   ]
 }
