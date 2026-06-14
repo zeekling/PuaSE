@@ -7,6 +7,7 @@ import i18n from './i18n.js';
 
 let currentLang = localStorage.getItem('puase_lang') || 'zh';
 let lastClickedAgent = null;
+let lastFocusedElement = null;
 
 function switchLang(lang) {
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
@@ -51,14 +52,14 @@ const subtitleEl = document.getElementById('hero-subtitle');
 function typeWriter(el, text, speed = 40) {
   let i = 0;
   el.textContent = '';
-  function type() {
+  const timer = setInterval(() => {
     if (i < text.length) {
       el.textContent += text.charAt(i);
       i++;
-      setTimeout(type, speed);
+    } else {
+      clearInterval(timer);
     }
-  }
-  type();
+  }, speed);
 }
 
 // Typewriter is initialized by switchLang() below
@@ -141,19 +142,50 @@ const agentDetails = {
   }
 };
 
+function openModal(agentName) {
+  lastClickedAgent = agentName;
+  lastFocusedElement = document.activeElement;
+  const detail = agentDetails[currentLang]?.[agentName] || agentDetails.zh[agentName] || { name: agentName, desc: 'No details available.' };
+  modalBody.innerHTML = `<h3>${detail.name}</h3><p>${detail.desc}</p>`;
+  agentModal.classList.add('show');
+  setTimeout(() => modalClose.focus(), 50);
+}
+
+function closeModal() {
+  agentModal.classList.remove('show');
+  if (lastFocusedElement) lastFocusedElement.focus();
+}
+
 document.querySelectorAll('.agent-card').forEach(card => {
   card.addEventListener('click', () => {
     const agentName = card.dataset.agent;
-    lastClickedAgent = agentName;
-    const detail = agentDetails[currentLang]?.[agentName] || agentDetails.zh[agentName] || { name: agentName, desc: 'No details available.' };
-    modalBody.innerHTML = `<h3>${detail.name}</h3><p>${detail.desc}</p>`;
-    agentModal.classList.add('show');
+    if (agentName) openModal(agentName);
   });
 });
 
-modalClose.addEventListener('click', () => agentModal.classList.remove('show'));
+modalClose.addEventListener('click', closeModal);
 agentModal.addEventListener('click', (e) => {
-  if (e.target === agentModal) agentModal.classList.remove('show');
+  if (e.target === agentModal) closeModal();
+});
+
+// Focus trap: keep Tab cycling within modal elements
+agentModal.addEventListener('keydown', (e) => {
+  if (e.key !== 'Tab') return;
+  const focusable = agentModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (focusable.length === 0) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.shiftKey) {
+    if (document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    }
+  } else {
+    if (document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 });
 
 // === Hero Stats (Stars + Visits) ===
@@ -179,7 +211,7 @@ async function loadStarCount() {
         return;
       }
     }
-  } catch (_) {}
+  } catch (e) { console.warn('[PuaSE] Star cache parse failed:', e); }
 
   try {
     const res = await fetch('https://api.github.com/repos/zeekling/PuaSE');
@@ -188,9 +220,7 @@ async function loadStarCount() {
     const count = data.stargazers_count || 0;
     starEl.textContent = formatCount(count);
     localStorage.setItem(STAR_CACHE_KEY, JSON.stringify({ count, timestamp: Date.now() }));
-  } catch (_) {
-    // Silent fallback — keep showing —
-  }
+  } catch (e) { console.warn('[PuaSE] Failed to load star count:', e.message); }
 }
 
 async function loadVisitCount() {
@@ -204,9 +234,7 @@ async function loadVisitCount() {
     if (data && data.value !== undefined) {
       visitEl.textContent = formatCount(data.value);
     }
-  } catch (_) {
-    // Silent fallback — keep showing —
-  }
+  } catch (e) { console.warn('[PuaSE] Failed to load visit count:', e.message); }
 }
 
 async function loadStats() {
@@ -217,8 +245,12 @@ loadStats();
 
 // === Version Switcher ===
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 function detectCurrentVersion() {
-  const match = window.location.pathname.match(/\/PuaSE\/versions\/(v[\d.]+)/);
+  const basePath = BASE_URL.replace(/\/$/, '');
+  const regex = new RegExp(`^${basePath}/versions/(v[\\d.]+)`);
+  const match = window.location.pathname.match(regex);
   return match ? match[1] : 'latest';
 }
 
@@ -229,14 +261,14 @@ async function initVersionSwitcher() {
   const current = detectCurrentVersion();
 
   try {
-    const res = await fetch('/PuaSE/versions/versions.json');
+    const res = await fetch(BASE_URL + 'versions/versions.json');
     if (!res.ok) throw new Error('versions.json not found');
     const manifest = await res.json();
 
     // Build ordered version list: latest first, then all other versions
     select.innerHTML = '';
     const allVersions = [
-      { tag: 'latest', label: manifest.latest + ' (latest)', url: '/PuaSE/' },
+      { tag: 'latest', label: manifest.latest + ' (latest)', url: BASE_URL },
       ...manifest.versions
         .filter(v => v.tag !== manifest.latest)
         .map(v => ({ tag: v.tag, label: v.tag, url: v.url }))
@@ -258,7 +290,7 @@ async function initVersionSwitcher() {
         window.location.href = selected.url;
       }
     });
-  } catch (_) {
+  } catch (e) { console.warn('[PuaSE] Failed to load version manifest:', e.message);
     // Silent fallback — keep default "latest" option, hide if fetch fails
     select.style.display = 'none';
   }
