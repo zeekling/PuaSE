@@ -6,6 +6,15 @@
   <meta name="description" content="PuaSE — 全局编排 Agent，赛博PUA风格的AI编排引擎">
   <title>PuaSE — 全局编排 Agent</title>
 
+  <!-- Open Graph / Twitter Card -->
+  <meta property="og:title" content="PuaSE — 全局编排 Agent">
+  <meta property="og:description" content="全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付">
+  <meta property="og:url" content="https://zeekling.github.io/PuaSE/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://zeekling.github.io/PuaSE/favicon.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0f0f1a">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +24,22 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/PuaSE/assets/favicon-D1cC25WZ.svg">
-  <script type="module" crossorigin src="/PuaSE/assets/index-0-xuVXlw.js"></script>
-  <link rel="stylesheet" crossorigin href="/PuaSE/assets/index-Bvqjkkt3.css">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "PuaSE",
+    "description": "全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付",
+    "url": "https://zeekling.github.io/PuaSE/",
+    "programmingLanguage": "JavaScript",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, Linux, macOS"
+  }
+  </script>
+  <script type="module" crossorigin src="/PuaSE/assets/index-DidOi0Zr.js"></script>
+  <link rel="stylesheet" crossorigin href="/PuaSE/assets/index-5RQgua0F.css">
 </head>
 <body>
   <div id="app">
@@ -57,7 +80,7 @@
           <a href="https://github.com/zeekling/PuaSE" target="_blank" class="btn btn-secondary" data-i18n="hero.btn-github">★ GitHub</a>
         </div>
         <div class="hero-stats" id="hero-stats">
-          ⭐ <span id="star-count">—</span> <span data-i18n="hero.stars">Stars</span>  ·  👁 <span id="visit-count">—</span> <span data-i18n="hero.visits">Visits</span>
+          <span aria-hidden="true">⭐</span> <span id="star-count">—</span> <span data-i18n="hero.stars">Stars</span>  ·  <span aria-hidden="true">👁</span> <span id="visit-count">—</span> <span data-i18n="hero.visits">Visits</span>
         </div>
       </div>
     </section>
@@ -66,26 +89,26 @@
     <section id="about" class="section">
       <h2 class="section-title reveal" data-i18n="about.title">PuaSE 是什么</h2>
       <div class="flow-cards">
-        <div class="flow-card reveal">
-          <div class="flow-icon">📋</div>
+        <div class="flow-card glass-card reveal">
+          <div class="flow-icon" aria-hidden="true">📋</div>
           <h3 data-i18n="about.step1.title">解析需求</h3>
           <p data-i18n="about.step1.desc">捕获显式需求 → 推导隐含需求 → 识别约束 → 拆解任务 → 确定优先级</p>
         </div>
-        <div class="flow-arrow reveal">→</div>
-        <div class="flow-card reveal">
-          <div class="flow-icon">🤖</div>
+        <div class="flow-arrow reveal" aria-hidden="true">→</div>
+        <div class="flow-card glass-card reveal">
+          <div class="flow-icon" aria-hidden="true">🤖</div>
           <h3 data-i18n="about.step2.title">委派专家</h3>
           <p data-i18n="about.step2.desc">根据任务类型选择最合适的专家 Agent，传递完整上下文，注入行为协议</p>
         </div>
-        <div class="flow-arrow reveal">→</div>
-        <div class="flow-card reveal">
-          <div class="flow-icon">🛡️</div>
+        <div class="flow-arrow reveal" aria-hidden="true">→</div>
+        <div class="flow-card glass-card reveal">
+          <div class="flow-icon" aria-hidden="true">🛡️</div>
           <h3 data-i18n="about.step3.title">质量门禁</h3>
           <p data-i18n="about.step3.desc">security-expert + code-reviewer + quality-inspector 三方并行，任一不通过立即打回重做</p>
         </div>
-        <div class="flow-arrow reveal">→</div>
-        <div class="flow-card reveal">
-          <div class="flow-icon">📋</div>
+        <div class="flow-arrow reveal" aria-hidden="true">→</div>
+        <div class="flow-card glass-card reveal">
+          <div class="flow-icon" aria-hidden="true">📋</div>
           <h3 data-i18n="about.step4.title">验收归档</h3>
           <p data-i18n="about.step4.desc">输出委派链记录 → reflector 复盘前置（硬性条件）→ 强制输出 KPI 卡（🧪+🔍+🛡️+📋+🔄）→ 改进跟踪至闭环</p>
         </div>
@@ -98,7 +121,7 @@
       <div class="arch-container reveal">
         <div class="arch-layer arch-orchestrator">
           <div class="arch-layer-header">
-            <span class="arch-icon">⚙</span>
+            <span class="arch-icon" aria-hidden="true">⚙</span>
             <span>PuaSE</span>
             <span class="arch-badge" data-i18n="arch.orchestrator.badge">全局编排器</span>
           </div>
@@ -108,7 +131,7 @@
         <div class="arch-columns">
           <div class="arch-layer arch-precode">
             <div class="arch-layer-header">
-              <span class="arch-icon">🔍</span>
+              <span class="arch-icon" aria-hidden="true">🔍</span>
               <span data-i18n="arch.precode">Pre-Code</span>
               <span class="arch-badge" data-i18n="arch.precode.badge">前置分析</span>
             </div>
@@ -116,7 +139,7 @@
           </div>
           <div class="arch-layer arch-exec">
             <div class="arch-layer-header">
-              <span class="arch-icon">💻</span>
+              <span class="arch-icon" aria-hidden="true">💻</span>
               <span data-i18n="arch.execution">Execution</span>
               <span class="arch-badge" data-i18n="arch.execution.badge">执行层</span>
             </div>
@@ -146,7 +169,7 @@
           </div>
           <div class="arch-layer arch-postcode">
             <div class="arch-layer-header">
-              <span class="arch-icon">🛡</span>
+              <span class="arch-icon" aria-hidden="true">🛡</span>
               <span data-i18n="arch.postcode">Post-Code</span>
               <span class="arch-badge" data-i18n="arch.postcode.badge">质量门禁</span>
             </div>
@@ -154,7 +177,7 @@
           </div>
           <div class="arch-layer arch-closure">
             <div class="arch-layer-header">
-              <span class="arch-icon">✅</span>
+              <span class="arch-icon" aria-hidden="true">✅</span>
               <span data-i18n="arch.closure">闭环</span>
               <span class="arch-badge" data-i18n="arch.closure.badge">交付验收</span>
             </div>
@@ -176,8 +199,8 @@
         <div class="agent-group reveal">
           <h3 class="agent-group-label" data-i18n="agents.group.precode">🔍 Pre-Code 前置分析</h3>
           <div class="agent-cards">
-<div class="agent-card" data-agent="architect"><div class="agent-emoji">🏗️</div><div class="agent-name">architect</div><div class="agent-desc" data-i18n="agent.architect.desc">架构分析（full 深度设计 / quick 轻量扫描）</div></div>
-            <div class="agent-card" data-agent="explore"><div class="agent-emoji">📂</div><div class="agent-name">explore</div><div class="agent-desc" data-i18n="agent.explore.desc">代码库探索</div></div>
+<div class="agent-card glass-card" data-agent="architect"><div class="agent-emoji" aria-hidden="true">🏗️</div><div class="agent-name">architect</div><div class="agent-desc" data-i18n="agent.architect.desc">架构分析（full 深度设计 / quick 轻量扫描）</div></div>
+            <div class="agent-card glass-card" data-agent="explore"><div class="agent-emoji" aria-hidden="true">📂</div><div class="agent-name">explore</div><div class="agent-desc" data-i18n="agent.explore.desc">代码库探索</div></div>
           </div>
         </div>
         <!-- Execution -->
@@ -188,14 +211,14 @@
           <div class="agent-subgroup">
             <h4 class="agent-subgroup-label" data-i18n="agents.group.dev">Developer 多语言开发者</h4>
             <div class="agent-cards">
-              <div class="agent-card" data-agent="java-developer"><div class="agent-emoji">☕</div><div class="agent-name">java-developer</div><div class="agent-desc" data-i18n="agent.java-developer.desc">Java 开发</div></div>
-              <div class="agent-card" data-agent="python-developer"><div class="agent-emoji">🐍</div><div class="agent-name">python-developer</div><div class="agent-desc" data-i18n="agent.python-developer.desc">Python 开发</div></div>
-              <div class="agent-card" data-agent="go-developer"><div class="agent-emoji">🔵</div><div class="agent-name">go-developer</div><div class="agent-desc" data-i18n="agent.go-developer.desc">Go 开发</div></div>
-              <div class="agent-card" data-agent="rust-developer"><div class="agent-emoji">🦀</div><div class="agent-name">rust-developer</div><div class="agent-desc" data-i18n="agent.rust-developer.desc">Rust 开发</div></div>
-              <div class="agent-card" data-agent="csharp-developer"><div class="agent-emoji">#️⃣</div><div class="agent-name">csharp-developer</div><div class="agent-desc" data-i18n="agent.csharp-developer.desc">C# 开发</div></div>
-              <div class="agent-card" data-agent="cpp-developer"><div class="agent-emoji">⚡</div><div class="agent-name">cpp-developer</div><div class="agent-desc" data-i18n="agent.cpp-developer.desc">C/C++ 开发</div></div>
-              <div class="agent-card" data-agent="bigdata-developer"><div class="agent-emoji">📊</div><div class="agent-name">bigdata-developer</div><div class="agent-desc" data-i18n="agent.bigdata-developer.desc">大数据开发</div></div>
-              <div class="agent-card" data-agent="web-developer"><div class="agent-emoji">🌐</div><div class="agent-name">web-developer</div><div class="agent-desc" data-i18n="agent.web-developer.desc">Web 前端开发</div></div>
+              <div class="agent-card glass-card" data-agent="java-developer"><div class="agent-emoji" aria-hidden="true">☕</div><div class="agent-name">java-developer</div><div class="agent-desc" data-i18n="agent.java-developer.desc">Java 开发</div></div>
+              <div class="agent-card glass-card" data-agent="python-developer"><div class="agent-emoji" aria-hidden="true">🐍</div><div class="agent-name">python-developer</div><div class="agent-desc" data-i18n="agent.python-developer.desc">Python 开发</div></div>
+              <div class="agent-card glass-card" data-agent="go-developer"><div class="agent-emoji" aria-hidden="true">🔵</div><div class="agent-name">go-developer</div><div class="agent-desc" data-i18n="agent.go-developer.desc">Go 开发</div></div>
+              <div class="agent-card glass-card" data-agent="rust-developer"><div class="agent-emoji" aria-hidden="true">🦀</div><div class="agent-name">rust-developer</div><div class="agent-desc" data-i18n="agent.rust-developer.desc">Rust 开发</div></div>
+              <div class="agent-card glass-card" data-agent="csharp-developer"><div class="agent-emoji" aria-hidden="true">#️⃣</div><div class="agent-name">csharp-developer</div><div class="agent-desc" data-i18n="agent.csharp-developer.desc">C# 开发</div></div>
+              <div class="agent-card glass-card" data-agent="cpp-developer"><div class="agent-emoji" aria-hidden="true">⚡</div><div class="agent-name">cpp-developer</div><div class="agent-desc" data-i18n="agent.cpp-developer.desc">C/C++ 开发</div></div>
+              <div class="agent-card glass-card" data-agent="bigdata-developer"><div class="agent-emoji" aria-hidden="true">📊</div><div class="agent-name">bigdata-developer</div><div class="agent-desc" data-i18n="agent.bigdata-developer.desc">大数据开发</div></div>
+              <div class="agent-card glass-card" data-agent="web-developer"><div class="agent-emoji" aria-hidden="true">🌐</div><div class="agent-name">web-developer</div><div class="agent-desc" data-i18n="agent.web-developer.desc">Web 前端开发</div></div>
             </div>
           </div>
 
@@ -203,9 +226,9 @@
           <div class="agent-subgroup">
             <h4 class="agent-subgroup-label" data-i18n="agents.group.dba">DBA 数据库管理</h4>
             <div class="agent-cards">
-              <div class="agent-card" data-agent="mysql-dba"><div class="agent-emoji">🗄️</div><div class="agent-name">mysql-dba</div><div class="agent-desc" data-i18n="agent.mysql-dba.desc">MySQL 管理</div></div>
-              <div class="agent-card" data-agent="oracle-dba"><div class="agent-emoji">🏛️</div><div class="agent-name">oracle-dba</div><div class="agent-desc" data-i18n="agent.oracle-dba.desc">Oracle 管理</div></div>
-              <div class="agent-card" data-agent="postgresql-dba"><div class="agent-emoji">🐘</div><div class="agent-name">postgresql-dba</div><div class="agent-desc" data-i18n="agent.postgresql-dba.desc">PostgreSQL 管理</div></div>
+              <div class="agent-card glass-card" data-agent="mysql-dba"><div class="agent-emoji" aria-hidden="true">🗄️</div><div class="agent-name">mysql-dba</div><div class="agent-desc" data-i18n="agent.mysql-dba.desc">MySQL 管理</div></div>
+              <div class="agent-card glass-card" data-agent="oracle-dba"><div class="agent-emoji" aria-hidden="true">🏛️</div><div class="agent-name">oracle-dba</div><div class="agent-desc" data-i18n="agent.oracle-dba.desc">Oracle 管理</div></div>
+              <div class="agent-card glass-card" data-agent="postgresql-dba"><div class="agent-emoji" aria-hidden="true">🐘</div><div class="agent-name">postgresql-dba</div><div class="agent-desc" data-i18n="agent.postgresql-dba.desc">PostgreSQL 管理</div></div>
             </div>
           </div>
 
@@ -213,8 +236,8 @@
           <div class="agent-subgroup">
             <h4 class="agent-subgroup-label" data-i18n="agents.group.general">通用 通用任务 & 文档</h4>
             <div class="agent-cards">
-              <div class="agent-card" data-agent="general"><div class="agent-emoji">🔧</div><div class="agent-name">general</div><div class="agent-desc" data-i18n="agent.general.desc">通用任务</div></div>
-              <div class="agent-card" data-agent="documenter"><div class="agent-emoji">📝</div><div class="agent-name">documenter</div><div class="agent-desc" data-i18n="agent.documenter.desc">文档编写</div></div>
+              <div class="agent-card glass-card" data-agent="general"><div class="agent-emoji" aria-hidden="true">🔧</div><div class="agent-name">general</div><div class="agent-desc" data-i18n="agent.general.desc">通用任务</div></div>
+              <div class="agent-card glass-card" data-agent="documenter"><div class="agent-emoji" aria-hidden="true">📝</div><div class="agent-name">documenter</div><div class="agent-desc" data-i18n="agent.documenter.desc">文档编写</div></div>
             </div>
           </div>
         </div>
@@ -222,17 +245,17 @@
         <div class="agent-group reveal">
           <h3 class="agent-group-label" data-i18n="agents.group.postcode">🛡️ Post-Code 质量门禁</h3>
           <div class="agent-cards">
-            <div class="agent-card" data-agent="security-expert"><div class="agent-emoji">🔒</div><div class="agent-name">security-expert</div><div class="agent-desc" data-i18n="agent.security-expert.desc">安全审计</div></div>
-            <div class="agent-card" data-agent="code-reviewer"><div class="agent-emoji">👁️</div><div class="agent-name">code-reviewer</div><div class="agent-desc" data-i18n="agent.code-reviewer.desc">代码审查</div></div>
-            <div class="agent-card" data-agent="quality-inspector"><div class="agent-emoji">✅</div><div class="agent-name">quality-inspector</div><div class="agent-desc" data-i18n="agent.quality-inspector.desc">质量巡检</div></div>
+            <div class="agent-card glass-card" data-agent="security-expert"><div class="agent-emoji" aria-hidden="true">🔒</div><div class="agent-name">security-expert</div><div class="agent-desc" data-i18n="agent.security-expert.desc">安全审计</div></div>
+            <div class="agent-card glass-card" data-agent="code-reviewer"><div class="agent-emoji" aria-hidden="true">👁️</div><div class="agent-name">code-reviewer</div><div class="agent-desc" data-i18n="agent.code-reviewer.desc">代码审查</div></div>
+            <div class="agent-card glass-card" data-agent="quality-inspector"><div class="agent-emoji" aria-hidden="true">✅</div><div class="agent-name">quality-inspector</div><div class="agent-desc" data-i18n="agent.quality-inspector.desc">质量巡检</div></div>
           </div>
         </div>
         <!-- 闭环 -->
         <div class="agent-group reveal">
           <h3 class="agent-group-label" data-i18n="agents.group.closure">✅ 闭环 交付验收</h3>
           <div class="agent-cards">
-            <div class="agent-card"><div class="agent-emoji">📋</div><div class="agent-name">KPI 验收卡</div><div class="agent-desc" data-i18n="agent.kpi.desc">门禁强制输出</div></div>
-            <div class="agent-card" data-agent="reflector"><div class="agent-emoji">🔄</div><div class="agent-name">reflector</div><div class="agent-desc" data-i18n="agent.reflector.desc">反思总结</div></div>
+            <div class="agent-card glass-card"><div class="agent-emoji" aria-hidden="true">📋</div><div class="agent-name">KPI 验收卡</div><div class="agent-desc" data-i18n="agent.kpi.desc">门禁强制输出</div></div>
+            <div class="agent-card glass-card" data-agent="reflector"><div class="agent-emoji" aria-hidden="true">🔄</div><div class="agent-name">reflector</div><div class="agent-desc" data-i18n="agent.reflector.desc">反思总结</div></div>
           </div>
         </div>
       </div>
@@ -242,43 +265,43 @@
     <section id="capabilities" class="section">
       <h2 class="section-title reveal" data-i18n="caps.title">核心能力</h2>
       <div class="caps-grid">
-        <div class="cap-card reveal-left">
-          <div class="cap-icon">🔍</div>
+        <div class="cap-card glass-card reveal-left">
+          <div class="cap-icon" aria-hidden="true">🔍</div>
           <h3 data-i18n="caps.1.title">隐含需求解析</h3>
           <p data-i18n="caps.1.desc">5 步法：捕获显式需求 → 推导隐含需求 → 识别约束 → 拆解任务 → 确定优先级</p>
         </div>
-        <div class="cap-card reveal-right">
-          <div class="cap-icon">📊</div>
+        <div class="cap-card glass-card reveal-right">
+          <div class="cap-icon" aria-hidden="true">📊</div>
           <h3 data-i18n="caps.2.title">代码库成熟度评估</h3>
           <p data-i18n="caps.2.desc">快速判断项目处于初期/成长/成熟阶段，自动适配策略</p>
         </div>
-        <div class="cap-card reveal-left">
-          <div class="cap-icon">🏗️</div>
+        <div class="cap-card glass-card reveal-left">
+          <div class="cap-icon" aria-hidden="true">🏗️</div>
           <h3 data-i18n="caps.3.title">先架构后代码</h3>
           <p data-i18n="caps.3.desc">不读通架构不写代码，不画清依赖不修改。架构分析作为所有决策的上下文基础</p>
         </div>
-        <div class="cap-card reveal-right">
-          <div class="cap-icon">🔄</div>
+        <div class="cap-card glass-card reveal-right">
+          <div class="cap-icon" aria-hidden="true">🔄</div>
           <h3 data-i18n="caps.4.title">专家委派体系</h3>
            <p data-i18n="caps.4.desc">20 位专家 Agent 覆盖架构、开发、DBA、安全、审查、巡检、复盘全链条</p>
         </div>
-        <div class="cap-card reveal-left">
-          <div class="cap-icon">🧊</div>
+        <div class="cap-card glass-card reveal-left">
+          <div class="cap-icon" aria-hidden="true">🧊</div>
           <h3 data-i18n="caps.5.title">上下文隔离原则</h3>
           <p data-i18n="caps.5.desc">所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层</p>
         </div>
-        <div class="cap-card reveal-right">
-          <div class="cap-icon">🎯</div>
+        <div class="cap-card glass-card reveal-right">
+          <div class="cap-icon" aria-hidden="true">🎯</div>
           <h3 data-i18n="caps.6.title">技能编排优化</h3>
           <p data-i18n="caps.6.desc">将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略交给对应 Agent，自身不执行技能中的"你来做"指令</p>
         </div>
-        <div class="cap-card reveal-left">
-          <div class="cap-icon">📋</div>
+        <div class="cap-card glass-card reveal-left">
+          <div class="cap-icon" aria-hidden="true">📋</div>
           <h3 data-i18n="caps.7.title">KPI 验收卡 · 门禁铁律</h3>
           <p data-i18n="caps.7.desc">没有 KPI 卡的交付叫自嗨。Post-Code 默认并行 security-expert + code-reviewer + quality-inspector，任一不通过立即打回</p>
         </div>
-        <div class="cap-card reveal-right">
-          <div class="cap-icon">⚡</div>
+        <div class="cap-card glass-card reveal-right">
+          <div class="cap-icon" aria-hidden="true">⚡</div>
           <h3 data-i18n="caps.8.title">异常处理 · 压力升级</h3>
           <p data-i18n="caps.8.desc">指数退避重试、Agent 熔断降级、L0-L4 压力升级、关键路径保护</p>
         </div>
@@ -333,8 +356,8 @@
     <section id="get-started" class="section">
       <h2 class="section-title reveal" data-i18n="started.title">快速开始</h2>
       <div class="started-grid">
-<div class="started-card reveal-left">
-  <h3 data-i18n="started.install.title">📦 安装</h3>
+<div class="started-card glass-card reveal-left">
+  <h3 data-i18n="started.install.title"><span aria-hidden="true">📦</span> 安装</h3>
 
   <h4>前置条件</h4>
   <ul class="install-params">
@@ -362,8 +385,8 @@ cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ~/.config/opencode/agents/PuaSE/</div>
   <p>支持通过 <code>config_template.json</code> 为不同子 Agent 单独配置模型，实现最优成本效益。</p>
   <p class="text-dim">安装后如需修改，直接编辑 opencode.json 的 agent 字段后重启 OpenCode 即可生效。</p>
 </div>
-        <div class="started-card reveal-right">
-          <h3 data-i18n="started.contrib.title">🤝 贡献</h3>
+        <div class="started-card glass-card reveal-right">
+          <h3 data-i18n="started.contrib.title"><span aria-hidden="true">🤝</span> 贡献</h3>
           <p data-i18n="started.contrib.desc">欢迎为 PuaSE 贡献！流程简单透明：</p>
           <ol class="contrib-list">
             <li data-i18n="started.contrib.step1">Fork 本仓库</li>
@@ -390,9 +413,9 @@ cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ~/.config/opencode/agents/PuaSE/</div>
     </footer>
 
     <!-- Modal -->
-    <div id="agent-modal" class="modal">
+    <div id="agent-modal" class="modal" role="dialog" aria-modal="true" aria-label="Agent details">
       <div class="modal-content">
-        <span class="modal-close">&times;</span>
+        <button class="modal-close" aria-label="Close">&times;</button>
         <div id="modal-body"></div>
       </div>
     </div>
