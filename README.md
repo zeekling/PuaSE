@@ -49,7 +49,7 @@ cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ~/.config/opencode/agents/PuaSE/
 "default_agent": "PuaSE"
 ```
 
-使用时在对话中通过 `@PuaSE` 引用即可(opencode 高版本不支持)。
+使用时在对话中通过 `@PuaSE` 引用即可。
 
 ## 设计理念：流程化编程，防欺诈架构
 
@@ -105,8 +105,8 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
 | **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
 | **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视 + 🛡️ 安全审计 + 📋 委派链记录 + 🔄 复盘反思）量化交付标准 |
-| **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做；全部通过后输出委派链记录 → 复盘前置（硬性条件）→ KPI 验收卡（详见 PuaSE.md §4.2） |
-| **KPI 卡强制生成钩子** | 子 Agent 返回后、声明完成前必须按序执行：并行验收 → 委派链记录 → 复盘前置（调用 developer/dba 子 Agent 的任务必须委派 reflector）→ KPI 卡。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §6.4） |
+| **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做；全部通过后输出委派链记录 → 复盘前置（硬性条件）→ KPI 验收卡（详见 PuaSE.md §4.2）；developer 返回后必须先输出 Handover Gate 声明再处理交付（详见 PuaSE.md §4.2.1） |
+| **KPI 卡强制生成钩子** | 子 Agent 返回后、声明完成前必须按序执行：并行验收 → 委派链记录 → 复盘前置（调用 developer/dba 子 Agent 的任务必须委派 reflector）→ KPI 卡。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §6.4）；声明完成前必须在最后输出 security-expert 状态行（详见 PuaSE.md §6.4 §4.2） |
 | **Brainstorming → 实现过渡** | brainstorming 产出 spec 后自动判断是否加载 writing-plans（涉及文件数 ≤ 2 + 无新模块 + 无架构变更 可跳过），输出过渡决策理由，跳过 plan 不跳过验收（详见 PuaSE.md §10.5） |
 | **异常处理** | 模型失败自动重试（指数退避）、Agent超时降级自执行、循环委派检测、关键路径保护 |
 
@@ -204,7 +204,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 
 ## Agent 列表
 
-全部 21 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
+全部 20 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
 
 ## 使用示例
 

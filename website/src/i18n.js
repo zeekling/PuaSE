@@ -81,13 +81,6 @@ const i18n = {
     // === Agents ===
     'agents.title': '20 个子 Agent',
     'agents.desc': '三层架构，各司其职 — 点击卡片查看详情',
-    'agents.precode': '前置分析',
-    'agents.execution': '执行层',
-    'agents.dev': '多语言开发者',
-    'agents.dba': '数据库管理',
-    'agents.general': '通用任务 & 文档',
-    'agents.postcode': '质量门禁',
-    'agents.closure': '交付验收',
 
     // === Capabilities ===
     'caps.title': '核心能力',
@@ -239,13 +232,6 @@ const i18n = {
     // === Agents ===
     'agents.title': '20 Sub-Agents',
     'agents.desc': 'Three layers, each with its own role — Click cards for details',
-    'agents.precode': 'Pre-Analysis',
-    'agents.execution': 'Execution Layer',
-    'agents.dev': 'Multi-Language Developers',
-    'agents.dba': 'Database Admin',
-    'agents.general': 'General & Docs',
-    'agents.postcode': 'Quality Gates',
-    'agents.closure': 'Delivery Review',
 
     // === Capabilities ===
     'caps.title': 'Core Capabilities',
