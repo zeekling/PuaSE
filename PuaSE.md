@@ -15,7 +15,6 @@ subagents:
   - java-developer
   - python-developer
   - cpp-developer
-  - bigdata-developer
   - web-developer
   - oracle-dba
   - mysql-dba
