@@ -26,11 +26,11 @@ const i18n = {
     'about.step3.title': '质量门禁',
     'about.step3.desc': 'security-expert + code-reviewer + quality-inspector 三方并行，任一不通过立即打回重做',
     'about.step4.title': '验收归档',
-    'about.step4.desc': '输出委派链记录 → reflector 复盘前置（硬性条件）→ 强制输出 KPI 卡（🧪+🔍+🛡️+📋+🔄）→ 改进跟踪至闭环',
+    'about.step4.desc': '输出委派链记录 → reflector 复盘（条件触发）→ 强制输出 KPI 卡（🧪+🔍+🛡️+📋+🔄）→ 改进跟踪至闭环',
 
     // === Architecture ===
     'arch.title': '系统架构',
-    'arch.orchestrator.desc': '解析需求 → 成熟度评估 → 委派专家 → Post-Code并行验收 → 委派链记录 → 复盘前置 → KPI卡',
+    'arch.orchestrator.desc': '解析需求 → 成熟度评估 → 委派专家 → Post-Code并行验收 → 委派链记录 → 复盘（条件触发）→ KPI卡',
     'arch.connector': '委派 ↓',
     'arch.precode': 'Pre-Code',
     'arch.precode.badge': '前置分析',
@@ -96,7 +96,7 @@ const i18n = {
     'caps.6.title': '技能编排优化',
     'caps.6.desc': '将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略交给对应 Agent，自身不执行技能中的"你来做"指令',
     'caps.7.title': 'KPI 验收卡 · 门禁铁律',
-    'caps.7.desc': '没有 KPI 卡的交付叫自嗨。Post-Code 默认并行 security-expert + code-reviewer + quality-inspector，任一不通过立即打回。复盘是 KPI 出卡硬性前置条件',
+    'caps.7.desc': '没有 KPI 卡的交付叫自嗨。Post-Code 默认并行 security-expert + code-reviewer + quality-inspector，任一不通过立即打回。复盘仅当 subagent 被多次打回时触发',
     'caps.8.title': '异常处理 · 压力升级',
     'caps.8.desc': '指数退避重试、Agent 熔断降级、L0-L4 压力升级、关键路径保护',
 
@@ -128,7 +128,7 @@ const i18n = {
     'demo.out5b': '  └─ 判断: 涉及新模块 + 架构变更 → 加载 writing-plans',
     'demo.out5c': '→ 按 plan 迭代执行 → 触发 Post-Code 门禁:',
     'demo.out5d': '  ├─ security-expert + code-reviewer + quality-inspector 并行',
-    'demo.out5e': '  ├─ 输出委派链记录 + reflector 复盘前置',
+    'demo.out5e': '  ├─ 输出委派链记录 + reflector 复盘（条件触发）',
     'demo.out5f': '  ├─ 强制生成 KPI 卡（七条件：🧪+🔍+🛡️+📋+🔄+影响面+委派链）',
     'demo.out5g': '  └─ 全部通过 ✅',
     'demo.terminal-title': 'PuaSE — 终端',
@@ -176,11 +176,11 @@ const i18n = {
     'about.step3.title': 'Quality Gates',
     'about.step3.desc': 'security-expert + code-reviewer + quality-inspector run in parallel. Any rejection = rework immediately',
     'about.step4.title': 'Review & Archive',
-    'about.step4.desc': 'Delegation chain record → reflector retrospective (hard precondition) → Force KPI card output (🧪+🔍+🛡️+📋+🔄) → improvement tracking to closure',
+    'about.step4.desc': 'Delegation chain record → reflector retrospective (conditional, on repeated rejections) → Force KPI card output (🧪+🔍+🛡️+📋+🔄) → improvement tracking to closure',
 
     // === Architecture ===
     'arch.title': 'System Architecture',
-    'arch.orchestrator.desc': 'Parse needs → Maturity assess → Delegate experts → Post-Code parallel review → Delegation chain record → Retrospective precondition → KPI card',
+    'arch.orchestrator.desc': 'Parse needs → Maturity assess → Delegate experts → Post-Code parallel review → Delegation chain record → Retrospective (conditional) → KPI card',
     'arch.connector': 'Delegate ↓',
     'arch.precode': 'Pre-Code',
     'arch.precode.badge': 'Pre-Analysis',
@@ -246,7 +246,7 @@ const i18n = {
     'caps.6.title': 'Skill Orchestration Optimization',
     'caps.6.desc': 'Translate execution Skills (brainstorming/TDD/debugging) into delegation strategies for target Agents. Never execute skill instructions directly',
     'caps.7.title': 'KPI Card · Gate Iron Law',
-    'caps.7.desc': 'No KPI card = no delivery. Post-Code runs security-expert + code-reviewer + quality-inspector in parallel by default. Any rejection = immediate rework. Retrospective is a hard precondition before KPI card output',
+    'caps.7.desc': 'No KPI card = no delivery. Post-Code runs security-expert + code-reviewer + quality-inspector in parallel by default. Any rejection = immediate rework. Retrospective triggers only when a subagent faces repeated rejections (≥2)',
     'caps.8.title': 'Error Handling · Escalation',
     'caps.8.desc': 'Exponential backoff retry, Agent circuit breaker, L0-L4 escalation, critical path protection',
 
@@ -278,7 +278,7 @@ const i18n = {
     'demo.out5b': '  └─ Judgment: new module + arch change → load writing-plans',
     'demo.out5c': '→ Execute plan iteratively → trigger Post-Code gates:',
     'demo.out5d': '  ├─ security-expert + code-reviewer + quality-inspector in parallel',
-    'demo.out5e': '  ├─ Delegation chain record + reflector precondition',
+    'demo.out5e': '  ├─ Delegation chain record + reflector retrospective (conditional)',
     'demo.out5f': '  ├─ Force KPI card output (7 conditions: 🧪+🔍+🛡️+📋+🔄+impact+chain)',
     'demo.out5g': '  └─ All passed ✅',
     'demo.terminal-title': 'PuaSE — Terminal',
