@@ -34,7 +34,6 @@
 │   ├── quality-inspector.md   # 质量巡检
 │   ├── reflector.md           # 复盘分析
 │   ├── developer/             # 8 个语言开发者
-│   │   ├── bigdata-developer.md
 │   │   ├── cpp-developer.md
 │   │   ├── csharp-developer.md
 │   │   ├── go-developer.md

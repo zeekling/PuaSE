@@ -73,7 +73,6 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 | **java-developer** | Java 开发 — 编码、编译、测试验证 |
 | **python-developer** | Python 开发 — 编码、语法检查、测试验证 |
 | **cpp-developer** | C/C++ 开发 — 编码、编译、测试验证 |
-| **bigdata-developer** | 大数据开发 — Spark/Flink/Kafka/Hive/Airflow |
 | **web-developer** | Web 前端开发 — 编码、构建、测试验证 |
 | **mysql-dba** | MySQL 数据库管理 |
 | **oracle-dba** | Oracle 数据库管理 |

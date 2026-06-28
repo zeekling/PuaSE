@@ -51,7 +51,6 @@ subagent/
 │ ├── go-developer.md
 │ ├── rust-developer.md
 │ ├── csharp-developer.md
-│ ├── bigdata-developer.md
 │ └── web-developer.md
 ├── dba/
 │ ├── mysql-dba.md
