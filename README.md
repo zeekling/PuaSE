@@ -204,7 +204,7 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 
 ## Agent 列表
 
-全部 20 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
+全部 19 个 Agent 详见 [docs/AGENT_LIST.md](docs/AGENT_LIST.md)。
 
 ## 使用示例
 

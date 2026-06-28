@@ -78,7 +78,7 @@ const i18n = {
     'agent.reflector.desc': '反思总结',
 
     // === Agents ===
-    'agents.title': '20 个子 Agent',
+    'agents.title': '19 个子 Agent',
     'agents.desc': '三层架构，各司其职 — 点击卡片查看详情',
 
     // === Capabilities ===
@@ -90,7 +90,7 @@ const i18n = {
     'caps.3.title': '先架构后代码',
     'caps.3.desc': '不读通架构不写代码，不画清依赖不修改。架构分析作为所有决策的上下文基础',
     'caps.4.title': '专家委派体系',
-    'caps.4.desc': '20 位专家 Agent 覆盖架构、开发、DBA、安全、审查、巡检、复盘全链条',
+    'caps.4.desc': '19 位专家 Agent 覆盖架构、开发、DBA、安全、审查、巡检、复盘全链条',
     'caps.5.title': '上下文隔离原则',
     'caps.5.desc': '所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层',
     'caps.6.title': '技能编排优化',
@@ -228,7 +228,7 @@ const i18n = {
     'agent.reflector.desc': 'Retrospective',
 
     // === Agents ===
-    'agents.title': '20 Sub-Agents',
+    'agents.title': '19 Sub-Agents',
     'agents.desc': 'Three layers, each with its own role — Click cards for details',
 
     // === Capabilities ===
@@ -240,7 +240,7 @@ const i18n = {
     'caps.3.title': 'Architecture Before Code',
     'caps.3.desc': 'No code before understanding architecture. No modification without clear dependencies. Architecture analysis is the context foundation for all decisions',
     'caps.4.title': 'Expert Delegation System',
-    'caps.4.desc': '20 expert Agents covering architecture, development, DBA, security, review, inspection, and retrospective',
+    'caps.4.desc': '19 expert Agents covering architecture, development, DBA, security, review, inspection, and retrospective',
     'caps.5.title': 'Context Isolation Principle',
     'caps.5.desc': 'All expert tasks run in independent sub-agent sessions. Main context only keeps minimal orchestration decision info, preventing expert work logs from polluting the orchestration layer',
     'caps.6.title': 'Skill Orchestration Optimization',
