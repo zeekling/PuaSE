@@ -590,6 +590,7 @@ a:hover {
   color: var(--emerald);
   margin-bottom: 12px;
   overflow-x: auto;
+  white-space: pre-wrap;
 }
 .text-dim { font-size: 0.8rem !important; color: var(--text-dim) !important; }
 .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
