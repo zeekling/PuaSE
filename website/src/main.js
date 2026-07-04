@@ -100,7 +100,6 @@ const modalClose = document.querySelector('.modal-close');
 const agentDetails = {
   zh: {
 'architect': { name: 'architect', desc: '架构分析专家。full 模式：C4 模型、ADR、风险评估；quick 模式：3 步快速摸底。适用：新项目架构设计、首次分析、成熟库增量扫描。' },
-    'explore': { name: 'explore', desc: '代码库探索与搜索专家。快速查找文件、搜索代码模式、理解代码结构。适用于需要理解不熟悉代码库时的快速摸底。' },
     'java-developer': { name: 'java-developer', desc: 'Java 软件开发 Agent。负责 Maven/Gradle 项目的功能开发和 Bug 修复，涵盖 Spring Boot / Jakarta EE 应用。每次修改后执行编译+测试验证。' },
     'python-developer': { name: 'python-developer', desc: 'Python 软件开发 Agent。负责 Django/Flask/FastAPI 等 Web 框架应用、数据处理脚本和自动化工具。每次修改后执行语法检查+测试验证。' },
     'go-developer': { name: 'go-developer', desc: 'Go 软件开发 Agent。负责 Go modules 项目的后端服务、CLI 工具和并发系统开发。每次修改后执行编译+测试验证（含 -race 检测）。' },
@@ -111,7 +110,6 @@ const agentDetails = {
     'mysql-dba': { name: 'mysql-dba', desc: 'MySQL 数据库管理专家。负责安装配置、性能调优、备份恢复、数据库安全审计、高可用/容灾方案设计。' },
     'oracle-dba': { name: 'oracle-dba', desc: 'Oracle 数据库管理专家。负责安装配置、性能调优、备份恢复、数据库安全审计、高可用/容灾（RAC/Data Guard）方案设计。' },
     'postgresql-dba': { name: 'postgresql-dba', desc: 'PostgreSQL 数据库管理专家。负责安装配置、性能调优、备份恢复、数据库安全审计、高可用/容灾（流复制/逻辑复制/Patroni）方案设计。' },
-    'general': { name: 'general', desc: '通用多步任务 Agent。适用于需独立上下文运行的任务、长时间运行脚本、与当前会话无共享状态的批处理任务。' },
     'documenter': { name: 'documenter', desc: '文档编写与维护专家。负责 README、API 文档、设计文档、使用指南的生成和更新。适用于代码变更后同步更新文档。' },
     'security-expert': { name: 'security-expert', desc: '安全审计专家。开发者完成编码后强制执行安全审计。覆盖 OWASP Top 10、CWE、内存安全等 17 个安全维度。阻断性报告具有最高优先级。' },
     'code-reviewer': { name: 'code-reviewer', desc: '代码审查专家。聚焦代码逻辑正确性、安全性、性能和可维护性审查。适用于需要审查代码质量、设计评审、架构合规的场景。' },
@@ -120,7 +118,6 @@ const agentDetails = {
   },
   en: {
 'architect': { name: 'architect', desc: 'Architecture analysis expert. full mode: C4 modeling, ADR, risk assessment; quick mode: 3-step quick assessment. For new projects, first-time analysis, mature codebase incremental scan.' },
-    'explore': { name: 'explore', desc: 'Codebase exploration and search expert. Quickly find files, search code patterns, understand code structure. Ideal for rapid orientation when working with unfamiliar codebases.' },
     'java-developer': { name: 'java-developer', desc: 'Java software development Agent. Responsible for feature development and bug fixes in Maven/Gradle projects including Spring Boot / Jakarta EE apps. Runs compilation + tests after every change.' },
     'python-developer': { name: 'python-developer', desc: 'Python software development Agent. Handles Django/Flask/FastAPI web frameworks, data processing scripts, and automation tools. Runs syntax checks + tests after every change.' },
     'go-developer': { name: 'go-developer', desc: 'Go software development Agent. Handles backend services, CLI tools, and concurrent systems for Go module projects. Runs compilation + tests (with -race detection) after every change.' },
@@ -131,7 +128,6 @@ const agentDetails = {
     'mysql-dba': { name: 'mysql-dba', desc: 'MySQL database administration expert. Responsible for installation & configuration, performance tuning, backup & recovery, database security auditing, and high-availability/disaster recovery design.' },
     'oracle-dba': { name: 'oracle-dba', desc: 'Oracle database administration expert. Responsible for installation & configuration, performance tuning, backup & recovery, database security auditing, and high-availability/disaster recovery (RAC/Data Guard) design.' },
     'postgresql-dba': { name: 'postgresql-dba', desc: 'PostgreSQL database administration expert. Responsible for installation & configuration, performance tuning, backup & recovery, database security auditing, and high-availability/disaster recovery (streaming replication/logical replication/Patroni) design.' },
-    'general': { name: 'general', desc: 'General-purpose multi-step task Agent. Suitable for tasks requiring isolated context, long-running scripts, and batch processing tasks with no shared state with the current session.' },
     'documenter': { name: 'documenter', desc: 'Documentation writing and maintenance expert. Responsible for generating and updating README, API docs, design docs, and usage guides. Ideal for syncing documentation after code changes.' },
     'security-expert': { name: 'security-expert', desc: 'Security audit expert. Enforces security audit after code completion. Covers OWASP Top 10, CWE, memory safety, and 17 security dimensions. Blocking reports have the highest priority.' },
     'code-reviewer': { name: 'code-reviewer', desc: 'Code review expert. Focuses on code correctness, security, performance, and maintainability. Suitable for code quality review, design review, and architecture compliance checks.' },

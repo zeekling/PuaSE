@@ -22,7 +22,7 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 │        │                │                │                │       │
 │ ┌──────▼──────┐  ┌──────▼──────┐  ┌──────▼──────┐  ┌──────▼──────┐│
 │ │ architect   │  │ developer/* │  │ security    │  │ KPI 卡      ││
-│ │ explore     │  │ dba/*       │  │ code-review │  │ reflector   ││
+│ │              │  │ dba/*       │  │ code-review │  │ reflector   ││
 │ │             │  │ documenter  │  │ quality     │  │             ││
 │ └─────────────┘  └────────────┘  └─────────────┘  └─────────────┘│
 └─────────────────────────────────────────────────────────────────┘
@@ -32,8 +32,8 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 
 | 层级 | Agent | 职责 |
 |------|-------|------|
-| **Pre-Code（前置分析）** | architect, explore | 写代码前完成架构摸底 |
-| **Execution（执行层）** | developer/*, dba/*, general, documenter | 编码、数据库管理、文档编写 |
+| **Pre-Code（前置分析）** | architect | 写代码前完成架构摸底 |
+| **Execution（执行层）** | developer/*, dba/*, documenter | 编码、数据库管理、文档编写 |
 | **Post-Code（质量门禁）** | security-expert, code-reviewer, quality-inspector | 安全审计 → 代码审查 → 质量巡检 |
 | **闭环（交付验收）** | KPI 验收卡, reflector | 验收结果归档 → 复盘总结 → 改进闭环 |
 
@@ -80,6 +80,5 @@ PuaSE（全局编排 Agent）是为 **OpenCode** 设计的 Agent 编排系统，
 | **security-expert** | 安全审计 — OWASP Top 10、CWE、内存安全 |
 | **documenter** | 文档编写 — README、API 文档、设计文档 |
 | **quality-inspector** | 质量巡检 — 所有子 Agent 交付检查 |
-| **explore** | 代码库探索 — 快速查找文件、搜索代码模式 |
-| **general** | 通用多步任务 — 独立上下文、长时间运行 |
+
 | **reflector** | 反思总结 — 委派链复盘、改进策略提炼 |
