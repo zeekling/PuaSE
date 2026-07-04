@@ -10,20 +10,19 @@
 - **所有 `.md` 文件是 Agent 配置，不是文档**。frontmatter 的 `name`/`description`/`mode`/`model`/`temperature` **禁止更改**。
 - **全文必须简体中文**。
 - **`subagent/developer/*.md`** 在 frontmatter 之后、正文之前必定有 `<HARD-GATE>` 标签（验证：7 个 developer 文件均有）。
-- **subagent `.md` 以 `### 交付后` 结尾**（验证：除 explore.md、reflector.md、PuaSE.md 外，其余 15 个均有）。
-- **`general` 是内置 Agent**（无 `.md`）；`explore` 有独立 `.md`。subagents 列表混排，无 `.md` 的即为内置。
+- **subagent `.md` 以 `### 交付后` 结尾**（验证：除 reflector.md、PuaSE.md 外，其余 15 个均有）。
+- 所有子 Agent 均有独立 `.md` 文件。
 
 ## Agent 数量（精确计数）
 
 | 位置 | 数量 | 文件 |
 |------|------|------|
 | 根目录（PuaSE.md） | 1 | PuaSE 自身（编排器） |
-| `subagent/` 根 | 6 | architect, code-reviewer, documenter, explore, quality-inspector, reflector |
+| `subagent/` 根 | 5 | architect, code-reviewer, documenter, quality-inspector, reflector |
 | `subagent/developer/` | 7 | cpp, csharp, go, java, python, rust, web（无 bigdata） |
 | `subagent/dba/` | 3 | mysql-dba, oracle-dba, postgresql-dba |
 | `subagent/security/` | 1 | security-expert |
-| **内置（无 `.md`）** | 1 | general |
-| **合计** | **19** | 18 `.md` + 1 内置 |
+| **合计** | **17** | 17 `.md` |
 
 > ⚠️ CONTRIBUTING.md 的目录树已过期（developer/ 列 4 个实际有 7 个），不要依赖其精确性。
 

@@ -60,8 +60,6 @@ subagent/
     └── security-expert.md
 ```
 
-> **注意**：`explore` 和 `general` 是 OpenCode 内置 Agent，无需也不应有配置文件。
-
 ### 新增子 Agent
 
 1. 按目录层级创建对应的 `.md` 文件（含 YAML frontmatter）
