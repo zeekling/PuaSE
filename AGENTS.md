@@ -9,7 +9,7 @@
 - **全文简体中文**——所有 `description`、注释、说明必须中文
 - **frontmatter 的 `name`/`description`/`mode`/`model`/`temperature` 禁止更改**
 - **`permissions: any` 仅出现在 PuaSE.md**，子 Agent 无 `permissions` 字段
-- 子 Agent 使用 `mode: subagent`，`temperature` 0.1-0.2。PuaSE 自身用 `mode: primary` + `permissions: any` + `run_in_background: true`
+- 子 Agent 使用 `mode: subagent`，`temperature` 通常 0.1-0.2（documenter 例外：0.3）。PuaSE 自身用 `mode: primary` + `permissions: any` + `run_in_background: true`
 - 所有 `developer/*.md` 在 frontmatter 后、正文前有 `<HARD-GATE>` 标签
 - 所有子 Agent `.md` 以 `### 交付后` 结尾（仅 PuaSE.md、reflector.md 例外）
 - **禁止未经用户明确允许执行 git commit/push**
@@ -39,6 +39,7 @@ subagent/
 ```
 
 > ⚠️ `developer/bigdata` **不存在**。quality-inspector.md 和 README.md 中残留的 `bigdata` 引用是过时的（如 QI-BIG 检查项），注意识别。
+> ⚠️ `docs/PROJECT_STRUCTURE.md` 的 ISSUE_TEMPLATE 目录**已不存在**，目录树部分过时。
 
 ## 工作流（Pre-Code → Execution → Post-Code）
 
@@ -56,8 +57,8 @@ subagent/
 
 | 工作流 | 触发条件 | 操作 |
 |--------|---------|------|
-| `build.yml` | 任意分支 push/PR，路径为 `website/**` 或自身 | `npm ci` → `npm run build`，Node 20，Ubuntu |
-| `deploy.yml` | main 分支 push + `v*.*.*` tag，路径为 `website/**` 或自身 | 构建后推送到 `gh-pages` 分支。tag 部署到 `versions/v*.*.*/`，main 推根目录 |
+| `build.yml` | 任意分支 push / main PR，路径 `website/**` 或 `.github/workflows/build.yml` | `npm ci` → `npm run build`，Node 20 |
+| `deploy.yml` | main push + `v*.*.*` tag，路径 `website/**` 或 `.github/workflows/deploy.yml` | 构建后推 `gh-pages`；tag 部署到 `versions/v*.*.*/`，main 推根目录 |
 
 website 命令（均在 `website/` 目录执行）：
 ```bash
@@ -75,4 +76,4 @@ website 是纯静态 Vite 6 项目（无 React/Vue/Svelte），`base: '/PuaSE/'`
 - **`docs/` 中 `specs/`, `plans/`, `superpowers/`, `kpi/` 被 `.gitignore`**，但本地可能已创建。`docs/blog/` 存放发布日志
 - **`.PuaSE/improvement-track.md`** —— reflector 复盘时追加 P0/P1/P2 改进项。Agent **不得主动据此优化自身行为**（由用户决定）
 - **`.gitignore` 忽略项**：`.logs`, `.idea`, `docs/specs`, `docs/plans`, `docs/superpowers`, `docs/kpi/`, `node_modules/`, `dist/`, `.superpowers/`, `.PuaSE`
-- **增量变更规则**：增删子 Agent 需同步 PuaSE.md 的 `subagents:` 列表 + README.md + docs/AGENT_LIST.md，三者一起提交
+- **增量变更规则**：增删子 Agent 需同步 PuaSE.md 的 `subagents:` 列表 + README.md + docs/AGENT_LIST.md + docs/PROJECT_STRUCTURE.md，四者一起提交
