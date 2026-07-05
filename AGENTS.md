@@ -2,61 +2,77 @@
 
 核心是 Agent 配置文件（`.md` + YAML frontmatter），另有一个 `website/` 子目录是 Vite 6 静态前端项目。
 
-**本质**：这不是传统代码仓库——无测试框架、无 lint 配置、无构建系统（website 除外）。.md 文件是运行时可执行的 Agent 配置，不是文档。
+**本质**：这不是传统代码仓库——无测试框架、无 lint 配置、无构建系统（website 除外）。`.md` 文件是运行时可执行的 Agent 配置，**不是文档**。勿将其当作文档阅读或修改。
 
-## 配置约束（已验证）
+## 关键约束
 
-- **`permissions: any` 仅出现在 PuaSE.md 的 frontmatter**，所有子 Agent 均不使用。
-- **所有 `.md` 文件是 Agent 配置，不是文档**。frontmatter 的 `name`/`description`/`mode`/`model`/`temperature` **禁止更改**。
-- **全文必须简体中文**。
-- **`subagent/developer/*.md`** 在 frontmatter 之后、正文之前必定有 `<HARD-GATE>` 标签（验证：7 个 developer 文件均有）。
-- **subagent `.md` 以 `### 交付后` 结尾**（验证：除 reflector.md、PuaSE.md 外，其余 15 个均有）。
-- 所有子 Agent 均有独立 `.md` 文件。
+- **全文简体中文**——所有 `description`、注释、说明必须中文
+- **frontmatter 的 `name`/`description`/`mode`/`model`/`temperature` 禁止更改**
+- **`permissions: any` 仅出现在 PuaSE.md**，子 Agent 无 `permissions` 字段
+- 子 Agent 使用 `mode: subagent`，`temperature` 0.1-0.2。PuaSE 自身用 `mode: primary` + `permissions: any` + `run_in_background: true`
+- 所有 `developer/*.md` 在 frontmatter 后、正文前有 `<HARD-GATE>` 标签
+- 所有子 Agent `.md` 以 `### 交付后` 结尾（仅 PuaSE.md、reflector.md 例外）
+- **禁止未经用户明确允许执行 git commit/push**
 
-## Agent 数量（精确计数）
+## 文件结构（17 个 `.md` 配置）
 
-| 位置 | 数量 | 文件 |
-|------|------|------|
-| 根目录（PuaSE.md） | 1 | PuaSE 自身（编排器） |
-| `subagent/` 根 | 5 | architect, code-reviewer, documenter, quality-inspector, reflector |
-| `subagent/developer/` | 7 | cpp, csharp, go, java, python, rust, web（无 bigdata） |
-| `subagent/dba/` | 3 | mysql-dba, oracle-dba, postgresql-dba |
-| `subagent/security/` | 1 | security-expert |
-| **合计** | **17** | 17 `.md` |
+```
+PuaSE.md              — 全局编排器（646 行，含 16 项 subagents: 列表）
+subagent/
+├── architect.md       — 架构分析（full 深度 / quick 轻量）
+├── code-reviewer.md   — 代码审查
+├── documenter.md      — 文档编写
+├── quality-inspector.md — 质量巡检
+├── reflector.md       — 复盘分析（无 `### 交付后` 尾节）
+├── developer/         — 7 个语言开发者（均有 HARD-GATE）
+│   ├── go-developer.md
+│   ├── rust-developer.md
+│   ├── csharp-developer.md
+│   ├── java-developer.md
+│   ├── python-developer.md
+│   ├── cpp-developer.md
+│   └── web-developer.md
+├── dba/               — 3 个数据库专家
+│   ├── mysql-dba.md / oracle-dba.md / postgresql-dba.md
+└── security/
+    └── security-expert.md
+```
 
-> ⚠️ CONTRIBUTING.md 的目录树已过期（developer/ 列 4 个实际有 7 个），不要依赖其精确性。
+> ⚠️ `developer/bigdata` **不存在**。quality-inspector.md 和 README.md 中残留的 `bigdata` 引用是过时的（如 QI-BIG 检查项），注意识别。
 
-## 增删子 Agent（三文件同步规则）
+## 工作流（Pre-Code → Execution → Post-Code）
 
-1. 创建/删除 `.md` 文件
-2. 更新 PuaSE.md 的 `subagents:` 列表（~18 行，在文件末尾）
-3. 同步更新 README.md + website/index.html
-4. 提交时**三者一起提交**
+```
+隐含需求解析 → 成熟度评估 → [architect 架构分析]
+→ [developer/dba/documenter 执行] → [security + code-review + quality 三方并行验收]
+→ [reflector 复盘（条件触发）] → KPI 验收卡
+```
 
-## 架构流
+完整编排规则在 PuaSE.md 中定义，尤其是 §4.2（验收规则）和 §6.4（KPI 门禁）。
 
-Pre-Code(architect) → Execution(developer/dba) → Post-Code(security/code-review/quality/reflector)
+## CI/CD（仅 website 目录触发）
 
-详细编排规则见 PuaSE.md（~650 行），尤其是 §4.2（验收）+ §6.4（KPI 门禁）。
+位于 `.github/workflows/`，两个 `.yml` 文件：
 
-## CI/CD（仅 website 触发）
+| 工作流 | 触发条件 | 操作 |
+|--------|---------|------|
+| `build.yml` | 任意分支 push/PR，路径为 `website/**` 或自身 | `npm ci` → `npm run build`，Node 20，Ubuntu |
+| `deploy.yml` | main 分支 push + `v*.*.*` tag，路径为 `website/**` 或自身 | 构建后推送到 `gh-pages` 分支。tag 部署到 `versions/v*.*.*/`，main 推根目录 |
 
-- **`build.yml`**：所有分支/PR，仅 `website/**` + 自身变更触发。`npm ci` → `npm run build`，Node 20。
-- **`deploy.yml`**：main 分支 + v* 标签，自动部署到 gh-pages 分支。tag 推送到版本化子目录（`versions/v*.*.*/`）。
-- **website 构建命令**：
-  ```bash
-  cd website
-  npm run dev      # 开发服务器
-  npm run build    # 生产构建，base: '/PuaSE/'
-  npm run preview  # 预览构建结果
-  ```
-- **`.gitignore`** 忽略：`.logs`, `.idea`, `docs/specs`, `docs/plans`, `docs/superpowers`, `docs/kpi/`, `node_modules/`, `dist/`, `.superpowers/`, `.PuaSE`。
+website 命令（均在 `website/` 目录执行）：
+```bash
+npm run dev       # 开发服务器
+npm run build     # 生产构建
+npm run preview   # 预览构建结果
+```
 
-## 约束与提示
+website 是纯静态 Vite 6 项目（无 React/Vue/Svelte），`base: '/PuaSE/'`。
 
-- **无 `opencode.json`**（用户侧配置，不跟踪到仓库）。勿创建或写入 `opencode/` 目录（不存在）。
-- **`scripts/` 目录为空**（安装脚本已删除）。
-- **`docs/` 中 `specs/`, `plans/`, `superpowers/` 被 gitignore**，但目录可能被本地创建。
-- **禁止未经用户明确允许执行 git commit/push**。
-- **`.PuaSE/improvement-track.md`**：reflector 复盘时追加 P0/P1/P2 改进项。Agent 不得主动据此优化自身行为（由用户决定）。
-- **PuaSE.md 末尾含 `subagents:` 列表**（约 18 行），增删 Agent 时必须同步。
+## 陷坑与提示
+
+- **无 `opencode.json`** —— 该文件是用户侧配置，不跟踪到仓库。勿创建或写入 `opencode/` 目录
+- **CONTRIBUTING.md 过时** —— 它仍引用 PuaSE.md 的 `experts:` 列表，但该列表已被删除。增删子 Agent 时以 PuaSE.md frontmatter 的 `subagents:` 为准
+- **`docs/` 中 `specs/`, `plans/`, `superpowers/`, `kpi/` 被 `.gitignore`**，但本地可能已创建。`docs/blog/` 存放发布日志
+- **`.PuaSE/improvement-track.md`** —— reflector 复盘时追加 P0/P1/P2 改进项。Agent **不得主动据此优化自身行为**（由用户决定）
+- **`.gitignore` 忽略项**：`.logs`, `.idea`, `docs/specs`, `docs/plans`, `docs/superpowers`, `docs/kpi/`, `node_modules/`, `dist/`, `.superpowers/`, `.PuaSE`
+- **增量变更规则**：增删子 Agent 需同步 PuaSE.md 的 `subagents:` 列表 + README.md + docs/AGENT_LIST.md，三者一起提交
