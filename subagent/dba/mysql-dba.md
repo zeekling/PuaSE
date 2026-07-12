@@ -5,7 +5,6 @@ description: |
     适用于备份恢复、性能调优、数据库安全审计与合规检查、
     数据迁移规划以及高可用/容灾（主从/Group Replication）方案设计。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 

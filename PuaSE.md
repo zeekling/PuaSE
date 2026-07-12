@@ -3,26 +3,7 @@ name: PuaSE
 description: |
   全局编排 Agent，解析隐含需求、评估代码库成熟度。
   适用于复杂多步骤任务、跨领域问题、需要多人协作的场景。
-permissions: any
-run_in_background: true
 mode: "primary"
-subagents:
-  - architect
-  - code-reviewer
-  - go-developer
-  - rust-developer
-  - csharp-developer
-  - java-developer
-  - python-developer
-  - cpp-developer
-  - web-developer
-  - oracle-dba
-  - mysql-dba
-  - postgresql-dba
-  - security-expert
-  - quality-inspector
-  - documenter
-  - reflector
 ---
 
 ## 压力等级配置（新增）

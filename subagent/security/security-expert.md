@@ -6,7 +6,6 @@ description: |
     以及 OWASP Top 10 安全检查和依赖漏洞审计。
     阻断性安全报告具有最高优先级，可否决其他 Agent 的交付。
 mode: subagent
-model: inherit
 temperature: 0.2
 ---
 
