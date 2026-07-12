@@ -108,10 +108,11 @@ dotnet build --severity warn
 
 ---
 
-### 交付后
-你的编码完成后，PuaSE 会并行启动以下验收环节：
-1. **security-expert** 🔒：安全审计
-2. **code-reviewer** 👁️：代码审查
-3. **quality-inspector** ✅：质量巡检
-
-任一环节不通过 → 交付打回返工。全部通过后由 PuaSE 汇总输出 KPI 验收卡。
+### 交付后 (TODO)
+你的交付完成时，PuaSE 推进 TODO 列表（可并行执行）：
+  □ [P2] csharp-developer 编码   → ✓ Done
+  □ [P3] code-reviewer 审查     → ◐ 进行中（并行）
+  □ [P4] security-expert 审计   → ◐ 进行中（并行）
+  □ [P5] quality-inspector 巡检 → ◐ 进行中（并行）
+全部验收 TODO ✓ → KPI 自动汇总输出。
+任一验收 ✗/⏭️ → 你被重新委派。
