@@ -97,6 +97,16 @@ const i18n = {
     'caps.7.desc': '没有 KPI 卡的交付叫自嗨。Post-Code 默认并行 security-expert + code-reviewer + quality-inspector，任一不通过立即打回。复盘仅当 subagent 被多次打回时触发',
     'caps.8.title': '异常处理 · 压力升级',
     'caps.8.desc': '指数退避重试、Agent 熔断降级、L0-L4 压力升级、关键路径保护',
+    'caps.opt1.title': '上下文压缩引擎',
+    'caps.opt1.desc': '简单任务数字压缩（1/2/3），复杂任务阶段分组，批量汇报效率提升50%',
+    'caps.opt2.title': '归因透明化',
+    'caps.opt2.desc': '7个归因标签覆盖所有阶段，决策来源明确（手动/自动/fallback）',
+    'caps.opt3.title': '可视化日志系统',
+    'caps.opt3.desc': '4级日志（INFO/WARN/ERROR/DEBUG）+ TODO进度看板，进度一目了然',
+    'caps.opt4.title': '智能健康监控',
+    'caps.opt4.desc': '每10个Task检测一次，L0-L5分级响应，故障恢复率提升50%',
+    'caps.opt5.title': '循环委派检测',
+    'caps.opt5.desc': '维护委派链（上限10跳），禁止循环模式，防止死循环',
 
     // === Demo Terminal ===
     'demo.title': '快速上手',
@@ -245,6 +255,16 @@ const i18n = {
     'caps.7.desc': 'No KPI card = no delivery. Post-Code runs security-expert + code-reviewer + quality-inspector in parallel by default. Any rejection = immediate rework. Retrospective triggers only when a subagent faces repeated rejections (≥2)',
     'caps.8.title': 'Error Handling · Escalation',
     'caps.8.desc': 'Exponential backoff retry, Agent circuit breaker, L0-L4 escalation, critical path protection',
+    'caps.opt1.title': 'Context Compression Engine',
+    'caps.opt1.desc': 'Simple tasks compressed to numbers (1/2/3), complex tasks grouped by phase, batch reporting efficiency +50%',
+    'caps.opt2.title': 'Attribution Transparency',
+    'caps.opt2.desc': '7 attribution tags covering all phases, clear decision sources (manual/auto/fallback)',
+    'caps.opt3.title': 'Visual Logging System',
+    'caps.opt3.desc': '4-level logs (INFO/WARN/ERROR/DEBUG) + TODO progress board, progress at a glance',
+    'caps.opt4.title': 'Smart Health Monitoring',
+    'caps.opt4.desc': 'Check every 10 tasks, L0-L5 graded response, fault recovery rate +50%',
+    'caps.opt5.title': 'Circular Delegation Detection',
+    'caps.opt5.desc': 'Maintain delegation chain (max 10 hops), forbid circular patterns, prevent infinite loops',
 
     // === Demo Terminal ===
     'demo.title': 'Quick Start',
