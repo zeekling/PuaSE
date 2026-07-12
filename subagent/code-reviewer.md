@@ -71,6 +71,8 @@ temperature: 0.1
 
 ---
 
-### 交付后
-你的审查报告提交后，**quality-inspector** 会进行最终质量巡检。
-如发现未修复的严重问题，交付会被整体打回对应开发者返工。
+### 交付后 (TODO)
+你的代码审查完成时，PuaSE 推进 TODO 列表：
+  □ [P3] code-reviewer 审查   → ✓ Done
+  □ [P5] quality-inspector 巡检 → ◐ 进行中
+如发现严重问题，P2 developer TODO 被置回 □ Pending。

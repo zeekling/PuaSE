@@ -85,6 +85,7 @@ temperature: 0.3
 
 ---
 
-### 交付后
-你的文档编写完成后，交付成果直接回传给 PuaSE，由 PuaSE 进行最终 KPI 验收。
-文档会随代码一起交付给用户。
+### 交付后 (TODO)
+你的文档编写完成时，PuaSE 推进 TODO 列表：
+  □ [P2] documenter 文档     → ✓ Done
+  □ [P6] KPI 验收卡          → pending（与编码 TODO 合并出卡）

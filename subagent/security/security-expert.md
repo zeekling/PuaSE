@@ -211,6 +211,8 @@ temperature: 0.2
 
 ---
 
-### 交付后
-你的安全审计报告提交后，**code-reviewer** 进行代码审查，**quality-inspector** 进行最终质量巡检。
-如发现阻断性安全漏洞（如 SQL 注入、硬编码凭据），开发者的交付会被整体打回。
+### 交付后 (TODO)
+你的安全审计完成时，PuaSE 推进 TODO 列表：
+  □ [P4] security-expert 审计 → ✓ Done
+  □ [P5] quality-inspector 巡检 → ◐ 进行中
+如发现阻断性漏洞，P2 developer TODO 被置回 □ Pending。
