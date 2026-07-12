@@ -5,12 +5,6 @@ description: >
   扫描项目结构、构建系统、源代码、配置、测试、文档、基础设施 7 个维度，
   输出可编排决策的结构化探索报告。
 mode: subagent
-permission:
-  read: allow
-  glob: allow
-  grep: allow
-  bash: allow
-  network: allow
 ---
 
 # Explore — 全维度代码库探索专家
