@@ -237,14 +237,6 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 详见[docs/index.md](docs/index.md)
 
 
-## 项目趋势
-
-<p align="center">
-  <a href="https://star-history.com/#zeekling/PuaSE&Date">
-    <img src="https://api.star-history.com/svg?repos=zeekling/PuaSE&type=Date" alt="Star History Chart" width="600" />
-  </a>
-</p>
-
 ## 许可证
 
 MIT
