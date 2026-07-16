@@ -26,7 +26,7 @@
 │       ├── v0.2.4-release.md
 │       └── v0.2.5-changelog.md
 │
-├── subagent/                  # 子 Agent 配置文件（19 个 .md）
+├── subagent/                  # 子 Agent 配置文件（16 个 .md）
 │   ├── architect.md           # 架构分析（full 深度设计 / quick 轻量扫描）
 │   ├── code-reviewer.md       # 代码审查
 │   ├── documenter.md          # 文档编写

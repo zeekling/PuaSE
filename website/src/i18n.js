@@ -56,8 +56,8 @@ const i18n = {
     'agents.group.postcode': '🛡️ Post-Code 质量门禁',
     'agents.group.closure': '✅ 闭环 交付验收',
 
-    // === Agent Descriptions ===
-'agent.architect.desc': '架构分析（full 深度设计 / quick 轻量扫描）',
+     // === Agent Descriptions ===
+    'agent.architect.desc': '架构分析（full 深度设计 / quick 轻量扫描）',
     'agent.java-developer.desc': 'Java 开发',
     'agent.python-developer.desc': 'Python 开发',
     'agent.go-developer.desc': 'Go 开发',
@@ -76,7 +76,7 @@ const i18n = {
     'agent.reflector.desc': '反思总结',
 
     // === Agents ===
-    'agents.title': '17 个子 Agent',
+    'agents.title': '16 个子 Agent',
     'agents.desc': '三层架构，各司其职 — 点击卡片查看详情',
 
     // === Capabilities ===
@@ -88,7 +88,7 @@ const i18n = {
     'caps.3.title': '先架构后代码',
     'caps.3.desc': '不读通架构不写代码，不画清依赖不修改。架构分析作为所有决策的上下文基础',
     'caps.4.title': '专家委派体系',
-    'caps.4.desc': '17 位专家 Agent 覆盖架构、开发、DBA、安全、审查、巡检、复盘全链条',
+    'caps.4.desc': '16 位专家 Agent 覆盖架构、开发、DBA、安全、审查、巡检、复盘全链条',
     'caps.5.title': '上下文隔离原则',
     'caps.5.desc': '所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层',
     'caps.6.title': '技能编排优化',
@@ -97,12 +97,8 @@ const i18n = {
     'caps.7.desc': '没有 KPI 卡的交付叫自嗨。Post-Code 默认并行 security-expert + code-reviewer + quality-inspector，任一不通过立即打回。复盘仅当 subagent 被多次打回时触发',
     'caps.8.title': '异常处理 · 压力升级',
     'caps.8.desc': '指数退避重试、Agent 熔断降级、L0-L4 压力升级、关键路径保护',
-    'caps.opt1.title': '上下文压缩引擎',
-    'caps.opt1.desc': '简单任务数字压缩（1/2/3），复杂任务阶段分组，批量汇报效率提升50%',
     'caps.opt2.title': '归因透明化',
     'caps.opt2.desc': '7个归因标签覆盖所有阶段，决策来源明确（手动/自动/fallback）',
-    'caps.opt3.title': '可视化日志系统',
-    'caps.opt3.desc': '4级日志（INFO/WARN/ERROR/DEBUG）+ TODO进度看板，进度一目了然',
     'caps.opt4.title': '智能健康监控',
     'caps.opt4.desc': '每10个Task检测一次，L0-L5分级响应，故障恢复率提升50%',
     'caps.opt5.title': '循环委派检测',
@@ -214,8 +210,8 @@ const i18n = {
     'agents.group.postcode': '🛡️ Post-Code Quality Gates',
     'agents.group.closure': '✅ Closure Delivery Review',
 
-    // === Agent Descriptions ===
-'agent.architect.desc': 'Architecture Analysis (full depth design / quick light scan)',
+     // === Agent Descriptions ===
+    'agent.architect.desc': 'Architecture Analysis (full depth design / quick light scan)',
     'agent.java-developer.desc': 'Java Development',
     'agent.python-developer.desc': 'Python Development',
     'agent.go-developer.desc': 'Go Development',
@@ -234,7 +230,7 @@ const i18n = {
     'agent.reflector.desc': 'Retrospective',
 
     // === Agents ===
-    'agents.title': '17 Sub-Agents',
+    'agents.title': '16 Sub-Agents',
     'agents.desc': 'Three layers, each with its own role — Click cards for details',
 
     // === Capabilities ===
@@ -246,7 +242,7 @@ const i18n = {
     'caps.3.title': 'Architecture Before Code',
     'caps.3.desc': 'No code before understanding architecture. No modification without clear dependencies. Architecture analysis is the context foundation for all decisions',
     'caps.4.title': 'Expert Delegation System',
-    'caps.4.desc': '17 expert Agents covering architecture, development, DBA, security, review, inspection, and retrospective',
+    'caps.4.desc': '16 expert Agents covering architecture, development, DBA, security, review, inspection, and retrospective',
     'caps.5.title': 'Context Isolation Principle',
     'caps.5.desc': 'All expert tasks run in independent sub-agent sessions. Main context only keeps minimal orchestration decision info, preventing expert work logs from polluting the orchestration layer',
     'caps.6.title': 'Skill Orchestration Optimization',

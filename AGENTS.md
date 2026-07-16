@@ -14,7 +14,7 @@
 - 所有子 Agent `.md` 以 `### 交付后` 结尾（仅 PuaSE.md、reflector.md 例外）
 - **禁止未经用户明确允许执行 git commit/push**
 
-## 文件结构（17 个 `.md` 配置）
+## 文件结构（16 个 `.md` 配置）
 
 ```
 PuaSE.md              — 全局编排器（646 行，含 16 项 subagents: 列表）
