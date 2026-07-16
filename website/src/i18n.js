@@ -99,8 +99,6 @@ const i18n = {
     'caps.8.desc': '指数退避重试、Agent 熔断降级、L0-L4 压力升级、关键路径保护',
     'caps.opt2.title': '归因透明化',
     'caps.opt2.desc': '7个归因标签覆盖所有阶段，决策来源明确（手动/自动/fallback）',
-    'caps.opt4.title': '智能健康监控',
-    'caps.opt4.desc': '每10个Task检测一次，L0-L5分级响应，故障恢复率提升50%',
     'caps.opt5.title': '循环委派检测',
     'caps.opt5.desc': '维护委派链（上限10跳），禁止循环模式，防止死循环',
 
@@ -257,8 +255,6 @@ const i18n = {
     'caps.opt2.desc': '7 attribution tags covering all phases, clear decision sources (manual/auto/fallback)',
     'caps.opt3.title': 'Visual Logging System',
     'caps.opt3.desc': '4-level logs (INFO/WARN/ERROR/DEBUG) + TODO progress board, progress at a glance',
-    'caps.opt4.title': 'Smart Health Monitoring',
-    'caps.opt4.desc': 'Check every 10 tasks, L0-L5 graded response, fault recovery rate +50%',
     'caps.opt5.title': 'Circular Delegation Detection',
     'caps.opt5.desc': 'Maintain delegation chain (max 10 hops), forbid circular patterns, prevent infinite loops',
 
