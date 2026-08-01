@@ -373,13 +373,20 @@
   </ul>
 
   <h4>安装</h4>
-  <p class="text-dim">将仓库中的 Agent 配置拷贝到 OpenCode 的 agents 目录：</p>
+  <p class="text-dim">推荐：使用 <code>install.py</code> 一键安装，可交互式为每个 subagent 设置单独模型：</p>
+  <div class="code-block"># Windows PowerShell / Linux / macOS
+git clone https://github.com/zeekling/PuaSE.git
+cd PuaSE
+python install.py</div>
+  <p class="text-dim">直接输入模型名即为该 subagent 设置模型；回车（空）跳过，保持现状；<code>a</code> 剩余全部设置、<code>s</code> 剩余全部跳过。</p>
+
+  <p class="text-dim">或手动拷贝：</p>
   <div class="code-block"># Windows PowerShell
 git clone https://github.com/zeekling/PuaSE.git
-Copy-Item -Recurse -Force .\PuaSE\subagent, .\PuaSE\PuaSE.md "$env:USERPROFILE\.config\opencode\agents\PuaSE\"</div>
+Copy-Item -Recurse -Force .\PuaSE\subagent, .\PuaSE\PuaSE.md, .\PuaSE\PuaSE-protocol.md "$env:USERPROFILE\.config\opencode\agents\PuaSE\"</div>
   <div class="code-block"># Linux / macOS
 git clone https://github.com/zeekling/PuaSE.git
-cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ~/.config/opencode/agents/PuaSE/</div>
+mkdir -p ~/.config/opencode/agents/PuaSE && cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ./PuaSE/PuaSE-protocol.md ~/.config/opencode/agents/PuaSE/</div>
 
   <h4>验证安装</h4>
   <ol class="install-params">

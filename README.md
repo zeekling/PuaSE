@@ -23,6 +23,24 @@
 
 - [OpenCode](https://opencode.ai) 已安装并配置
 
+### 一键安装（install.py）
+
+仓库根目录提供 `install.py` 安装脚本，自动复制 Agent 配置，并可在安装时逐个为 subagent 设置单独模型：
+
+```powershell
+# Windows PowerShell / Linux / macOS
+git clone https://github.com/zeekling/PuaSE.git
+cd PuaSE
+python install.py
+```
+
+按提示逐个输入模型名：直接输入模型名即为该 subagent 设置模型；回车（空）跳过，保持现状；`a` 剩余全部设置、`s` 剩余全部跳过。
+
+| 参数 | 说明 |
+|------|------|
+| `--target <目录>` | 指定安装目录（默认 Windows `%USERPROFILE%\.config\opencode\agents\PuaSE`，Linux/macOS `~/.config/opencode/agents/PuaSE`） |
+| `--no-prompt` | 非交互模式：仅复制，不询问模型设置，保持现状 |
+
 ### 手动安装
 
 将仓库中的 Agent 配置拷贝到 OpenCode 的 agents 目录：

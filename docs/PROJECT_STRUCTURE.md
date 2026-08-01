@@ -5,6 +5,7 @@
 ├── CONTRIBUTING.md            # 贡献指南（目录树过期，勿依赖文件列表）
 ├── LICENSE                    # MIT 许可证
 ├── README.md                  # 主 README（安装/设计/架构说明）
+├── install.py                 # 一键安装脚本（复制配置 + 可选为 subagent 设置模型）
 ├── PuaSE.md                   # 全局编排 Agent 主配置（642 行，含 subagents: 列表）
 ├── .gitignore                 # 忽略：.logs .idea docs/specs docs/plans docs/superpowers docs/kpi/ node_modules/ dist/ .superpowers/ .PuaSE
 ├── .PuaSE/
