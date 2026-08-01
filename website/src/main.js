@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize language
   const subtitleEl = document.getElementById('hero-subtitle');
   if (subtitleEl) {
-    typeWriter(subtitleEl, i18n[currentLang]?.['hero.subtitle'] || '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付');
+    typeWriter(subtitleEl, i18n[currentLang]?.['hero.subtitle'] || '全局编排 Agent');
   }
 
   // Initial language switch

@@ -10,8 +10,8 @@ const i18n = {
     'nav.get-started': '开始',
 
     // === Hero ===
-    'hero.subtitle': '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付',
-    'hero.desc': '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付',
+    'hero.subtitle': '全局编排 Agent',
+    'hero.desc': 'AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付',
     'hero.btn-arch': '▸ 了解架构',
     'hero.btn-github': '★ GitHub',
     'hero.stars': 'Stars',
@@ -162,8 +162,8 @@ const i18n = {
     'nav.get-started': 'Get Started',
 
     // === Hero ===
-    'hero.subtitle': 'Global Orchestration Agent — AI Coding Workflow · Anti-fraud · Gate-driven · Closed-loop Delivery',
-    'hero.desc': 'Global Orchestration Agent — AI Coding Workflow · Anti-fraud · Gate-driven · Closed-loop Delivery',
+    'hero.subtitle': 'Global Orchestration Agent',
+    'hero.desc': 'AI Coding Workflow · Anti-fraud · Gate-driven · Closed-loop Delivery',
     'hero.btn-arch': '▸ Explore Arch',
     'hero.btn-github': '★ GitHub',
     'hero.stars': 'Stars',
@@ -249,12 +249,8 @@ const i18n = {
     'caps.7.desc': 'No KPI card = no delivery. Post-Code runs security-expert + code-reviewer + quality-inspector in parallel by default. Any rejection = immediate rework. Retrospective triggers only when a subagent faces repeated rejections (≥2)',
     'caps.8.title': 'Error Handling · Escalation',
     'caps.8.desc': 'Exponential backoff retry, Agent circuit breaker, L0-L4 escalation, critical path protection',
-    'caps.opt1.title': 'Context Compression Engine',
-    'caps.opt1.desc': 'Simple tasks compressed to numbers (1/2/3), complex tasks grouped by phase, batch reporting efficiency +50%',
     'caps.opt2.title': 'Attribution Transparency',
     'caps.opt2.desc': '7 attribution tags covering all phases, clear decision sources (manual/auto/fallback)',
-    'caps.opt3.title': 'Visual Logging System',
-    'caps.opt3.desc': '4-level logs (INFO/WARN/ERROR/DEBUG) + TODO progress board, progress at a glance',
     'caps.opt5.title': 'Circular Delegation Detection',
     'caps.opt5.desc': 'Maintain delegation chain (max 10 hops), forbid circular patterns, prevent infinite loops',
 

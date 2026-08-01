@@ -30,13 +30,13 @@
 ```powershell
 # Windows PowerShell
 git clone https://github.com/zeekling/PuaSE.git
-Copy-Item -Recurse -Force .\PuaSE\subagent, .\PuaSE\PuaSE.md "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
+Copy-Item -Recurse -Force .\PuaSE\subagent, .\PuaSE\PuaSE.md, .\PuaSE\PuaSE-protocol.md "$env:USERPROFILE\.config\opencode\agents\PuaSE\"
 ```
 
 ```bash
 # Linux/macOS
 git clone https://github.com/zeekling/PuaSE.git
-cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ~/.config/opencode/agents/PuaSE/
+cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ./PuaSE/PuaSE-protocol.md ~/.config/opencode/agents/PuaSE/
 ```
 
 重启 OpenCode 后即可使用 PuaSE 编排器及全部 16 个子 Agent。
@@ -105,16 +105,12 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 | **上下文隔离原则** | 所有专家任务在独立子 Agent 会话中执行，主上下文仅保留编排决策所需最小信息，避免专家工作日志污染编排层 |
 | **技能编排优化** | 将执行类 Skill（如 brainstorming/TDD/调试）翻译为委派策略委派给对应 Agent，自身不执行技能中的"你来做"指令。编排者不做执行者的事 |
 | **结果综合 · KPI 验收** | 多 Agent 结果按依赖顺序合并，冲突检测与仲裁。输出 KPI 验收卡（🧪 测试验证 + 🔍 代码检视 + 🛡️ 安全审计 + 📋 委派链记录 + 🔄 复盘反思）量化交付标准 |
-| **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做；全部通过后输出委派链记录 → 复盘（条件触发，多次打回时执行）→ KPI 验收卡（详见 PuaSE.md §4.2）；developer 返回后必须先输出 Handover Gate 声明再处理交付（详见 PuaSE.md §4.2.1） |
-| **KPI 卡强制生成钩子** | 子 Agent 返回后、声明完成前必须按序执行：并行验收 → 委派链记录 → 复盘（条件触发，仅多次打回时委派 reflector）→ KPI 卡。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §6.4）；声明完成前必须在最后输出 security-expert 状态行（详见 PuaSE.md §6.4 §4.2） |
-| **Brainstorming → 实现过渡** | brainstorming 产出 spec 后自动判断是否加载 writing-plans（涉及文件数 ≤ 2 + 无新模块 + 无架构变更 可跳过），输出过渡决策理由，跳过 plan 不跳过验收（详见 PuaSE.md §10.5） |
+| **Post-Code 默认并行验收** | 开发者返回结果后默认并行启动 code-reviewer + quality-inspector +（如适用）security-expert 三方验收，任一不通过即打回重做；全部通过后输出委派链记录 → 复盘（条件触发，多次打回时执行）→ KPI 验收卡（详见 PuaSE.md §4.1） |
+| **KPI 卡强制生成钩子** | 子 Agent 返回后、声明完成前必须按序执行：并行验收 → 委派链记录 → 复盘（条件触发，仅多次打回时委派 reflector）→ KPI 卡。无 KPI 卡的完成声明视为 P0 流程违规（详见 PuaSE.md §4.2）；声明完成前必须在最后输出 security-expert 状态行（详见 PuaSE.md §4.2） |
+| **Brainstorming → 实现过渡** | brainstorming 产出 spec 后自动判断是否加载 writing-plans（涉及文件数 ≤ 2 + 无新模块 + 无架构变更 可跳过），输出过渡决策理由，跳过 plan 不跳过验收（详见 PuaSE.md §7） |
 | **异常处理** | 模型失败自动重试（指数退避）、Agent超时降级自执行、循环委派检测、关键路径保护 |
-
 | **归因透明化** | 7个归因标签覆盖所有阶段，决策来源明确（手动/自动/fallback） |
-
-| **智能健康监控** | 每10个Task检测一次，L0-L5分级响应，故障恢复率提升50% |
 | **循环委派检测** | 维护委派链（上限10跳），禁止循环模式，防止死循环 |
-| **Token优化** | 简单任务Token消耗降低30-40%，复杂任务压缩效率提升50% |
 
 ### 层级结构
 
@@ -184,27 +180,24 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-**新增优化机制：**
+**核心机制：**
 
 ```
-┌─ PuaSE 优化层（新增）─────────────────────────────────────────────┐
-│ TODO状态机V2（9种状态） │ 上下文压缩（简单/复杂/批量）           │
-│ 归因透明化（7标签）     │ 智能健康监控（L0-L5）                  │
-
-│ 循环委派检测            │ Token优化（降低30-40%）                │
+┌─ PuaSE 核心机制 ─────────────────────────────────────────────────┐
+│ STEP 生命周期（P0-P6） │ 并行验收组（P3+P4+P5 三方并行）          │
+│ 委派宣言 + 自执行归因  │ 反熟悉度偏误检测                        │
+│ 循环委派保护（10跳）   │ 压力分级（L0-L4）+ 指数退避重试          │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-**优化效果：**
-- Token消耗降低30-40%（简单任务数字压缩）
-- 用户体验提升80%（进度可视化+归因透明化）
-- 故障恢复率提升50%（智能健康监控+L2降级）
-
-**应用场景：**
-- 简单任务（≤3步）→ 数字符号压缩，减少Token消耗
-- 复杂任务（≥4步）→ 阶段分组展示，进度更清晰
-- Agent故障 → L2降级自动换Agent，L3熔断防止连锁反应
-- 循环检测 → 10跳链检测+循环模式禁止，防止死循环
+**异常处理（L0-L4 压力分级，详见 PuaSE-protocol.md）：**
+- 指数退避重试：1000ms → 2000ms → 4000ms（±10% jitter），最多 3 次
+- 压力升级仅限**技术故障**；质量打回不升级，退回原开发者重做
+- L1：同 Agent 同一任务连续 2 次技术故障 → 换 Agent 执行同类任务
+- L2：同 Agent 连续 3 次技术故障 → 熔断该 Agent（5 分钟）+ 降级自执行
+- L3：累积技术故障率 > 30%（最近 10 次）→ 标记低可靠，通知用户排查
+- L4：所有 Agent 均故障 → 用户决策：降级功能 / 换技术栈 / 中止
+- 循环委派保护：委派链上限 10 跳，禁止 A→B→A 循环模式，防止死循环
 
 **KPI 验收标准（七者缺一不可 + 门禁强制序列）：**
 > 1. ✅ 编译/测试/语法验证通过（输出验证证据）
@@ -215,8 +208,8 @@ PuaSE 不相信 AI 的任何口头承诺。信任建立的方式是：
 > 6. ✅ 委派链记录已输出——所有应委派的子 Agent 均已记录，跳过的有明确原因说明。应委派但跳过且无原因说明 → 标记为"⏳ 委派链不完整"
 > 7. ✅ 复盘已完成（如触发）——仅当 subagent 被多次打回（≥2 次）时委派 reflector 完成反思总结并写入 `.PuaSE/improvement-track.md`；未触发则标记"默认跳过"
 >
-> **门禁执行顺序（§6.4 KPI 卡强制生成钩子）：**
-> 子 Agent 返回后 → 按 §4.2 并行启动 code-reviewer + quality-inspector +（如适用）security-expert
+> **门禁执行顺序（§4.2 KPI 卡输出机制）：**
+> 子 Agent 返回后 → 按 §4.1 并行启动 code-reviewer + quality-inspector +（如适用）security-expert
 > → 全部通过后 → 输出委派链记录 → **reflector 复盘（条件触发，多次打回时执行）** → 输出 KPI 验收卡 → 声明完成。
 > **任何声称"完成"但没有 KPI 卡的行为，均视为 P0 级流程违规。**
 > **复盘（已触发但未完成）不得输出 KPI 卡。委派链缺失不得标记为通过。**
