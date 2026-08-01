@@ -56,7 +56,7 @@ const i18n = {
     'agents.group.postcode': '🛡️ Post-Code 质量门禁',
     'agents.group.closure': '✅ 闭环 交付验收',
 
-     // === Agent Descriptions ===
+    // === Agent Descriptions ===
     'agent.architect.desc': '架构分析（full 深度设计 / quick 轻量扫描）',
     'agent.java-developer.desc': 'Java 开发',
     'agent.python-developer.desc': 'Python 开发',
@@ -135,9 +135,9 @@ const i18n = {
     'demo.out5g': '  └─ 全部通过 ✅',
     'demo.terminal-title': 'PuaSE — 终端',
 
-// === Get Started ===
-  'started.title': '快速开始',
-  'started.install.title': '📦 安装',
+    // === Get Started ===
+    'started.title': '快速开始',
+    'started.install.title': '📦 安装',
     'started.contrib.title': '🤝 贡献',
     'started.contrib.desc': '欢迎为 PuaSE 贡献！流程简单透明：',
     'started.contrib.step1': 'Fork 本仓库',
@@ -208,7 +208,7 @@ const i18n = {
     'agents.group.postcode': '🛡️ Post-Code Quality Gates',
     'agents.group.closure': '✅ Closure Delivery Review',
 
-     // === Agent Descriptions ===
+    // === Agent Descriptions ===
     'agent.architect.desc': 'Architecture Analysis (full depth design / quick light scan)',
     'agent.java-developer.desc': 'Java Development',
     'agent.python-developer.desc': 'Python Development',
@@ -291,9 +291,9 @@ const i18n = {
     'demo.out5g': '  └─ All passed ✅',
     'demo.terminal-title': 'PuaSE — Terminal',
 
-// === Get Started ===
-  'started.title': 'Get Started',
-  'started.install.title': '📦 Install',
+    // === Get Started ===
+    'started.title': 'Get Started',
+    'started.install.title': '📦 Install',
     'started.contrib.title': '🤝 Contribute',
     'started.contrib.desc': 'Contributions welcome! Simple and transparent process:',
     'started.contrib.step1': 'Fork this repo',
@@ -306,7 +306,6 @@ const i18n = {
     'footer.quote': '"No verification, no delivery"',
     'footer.mit': 'PuaSE · MIT License',
     'footer.pua': 'Built with ❤️ and PUA',
+    }
   }
-};
-
 export default i18n;
