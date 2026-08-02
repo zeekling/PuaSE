@@ -10,7 +10,6 @@ const i18n = {
     'nav.get-started': '开始',
 
     // === Hero ===
-    'hero.subtitle': '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付',
     'hero.desc': '全局编排 Agent — AI 编程流程化 · 防欺诈 · 门禁驱动 · 闭环交付',
     'hero.btn-arch': '▸ 了解架构',
     'hero.btn-github': '★ GitHub',
