@@ -73,7 +73,6 @@
     <section id="hero" class="hero">
       <div class="hero-content">
         <h1 class="hero-title">PuaSE</h1>
-        <p class="hero-subtitle" id="hero-subtitle"></p>
         <p class="hero-desc" data-i18n="hero.desc"></p>
 
         <div class="hero-actions">
@@ -458,12 +457,6 @@ mkdir -p ~/.config/opencode/agents/PuaSE && cp -r ./PuaSE/subagent ./PuaSE/PuaSE
         if (text !== undefined) el.textContent = text;
       });
 
-      const subtitleEl = document.getElementById('hero-subtitle');
-      const subtitleText = i18n[lang]?.['hero.subtitle'];
-      if (subtitleEl && subtitleText) {
-        subtitleEl.textContent = subtitleText;
-      }
-
       if (agentModal.classList.contains('show') && lastClickedAgent) {
         const detail = currentLang === 'zh'
           ? agentDetailsZh[lastClickedAgent]
@@ -534,17 +527,12 @@ mkdir -p ~/.config/opencode/agents/PuaSE && cp -r ./PuaSE/subagent ./PuaSE/PuaSE
 
     document.addEventListener('DOMContentLoaded', () => {
       initScrollReveal();
-      initMobileNav();
-      initVersionSwitcher();
-      initStats();
+       initMobileNav();
+       initVersionSwitcher();
+       initStats();
 
-      const subtitleEl = document.getElementById('hero-subtitle');
-      if (subtitleEl) {
-        typeWriter(subtitleEl, i18n[currentLang]?.['hero.subtitle']);
-      }
-
-      switchLang(currentLang);
-    });
-  </script>
+       switchLang(currentLang);
+     });
+   </script>
 </body>
 </html>
