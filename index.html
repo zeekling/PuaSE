@@ -39,7 +39,7 @@
     "operatingSystem": "Windows, Linux, macOS"
   }
   </script>
-  <script type="module" crossorigin src="/PuaSE/assets/index-CL9VZxMw.js"></script>
+  <script type="module" crossorigin src="/PuaSE/assets/index-D4lpt2kR.js"></script>
   <link rel="stylesheet" crossorigin href="/PuaSE/assets/index-DD03qJw2.css">
 </head>
 <body>
@@ -389,12 +389,11 @@ Copy-Item -Recurse -Force .\PuaSE\subagent, .\PuaSE\PuaSE.md, .\PuaSE\PuaSE-prot
 git clone https://github.com/zeekling/PuaSE.git
 mkdir -p ~/.config/opencode/agents/PuaSE && cp -r ./PuaSE/subagent ./PuaSE/PuaSE.md ./PuaSE/PuaSE-protocol.md ~/.config/opencode/agents/PuaSE/</div>
 
-  <h4>验证安装</h4>
-  <ol class="install-params">
-    <li>重启 OpenCode</li>
-    <li>确认默认 Agent 为 "PuaSE"</li>
-    <li>运行编排任务测试（如 <code>@PuaSE 帮我分析项目架构</code>）</li>
-  </ol>
+    <h4 data-i18n="started.install.verify">验证安装</h4>
+    <ol class="install-params">
+      <li data-i18n="started.install.verify">确认 PuaSE 为默认 Agent 后直接输入</li>
+      <li data-i18n="started.install.verify2">切换到 PuaSE 后直接输入：如 <code>@PuaSE 帮我分析项目架构</code></li>
+    </ol>
   <p class="text-dim">安装后所有子 Agent 自动注册在主 Agent 下，无需手动维护 opencode.json 的 agent 条目。</p>
 
 </div>
