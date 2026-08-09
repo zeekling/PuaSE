@@ -137,6 +137,8 @@ const i18n = {
     // === Get Started ===
     'started.title': '快速开始',
     'started.install.title': '📦 安装',
+    'started.install.verify': '确认 PuaSE 为默认 Agent 后直接输入',
+    'started.install.verify2': '切换到 PuaSE 后直接输入：如<code> 帮我分析项目架构</code>',
     'started.contrib.title': '🤝 贡献',
     'started.contrib.desc': '欢迎为 PuaSE 贡献！流程简单透明：',
     'started.contrib.step1': 'Fork 本仓库',
@@ -293,6 +295,8 @@ const i18n = {
     // === Get Started ===
     'started.title': 'Get Started',
     'started.install.title': '📦 Install',
+    'started.install.verify': 'Verify PuaSE as default agent and start typing',
+    'started.install.verify2': 'Switch to PuaSE and type directly: e.g. <code> analyze project architecture</code>',
     'started.contrib.title': '🤝 Contribute',
     'started.contrib.desc': 'Contributions welcome! Simple and transparent process:',
     'started.contrib.step1': 'Fork this repo',
