@@ -51,6 +51,13 @@ subagent/
 
 完整编排规则在 PuaSE.md 中定义，尤其是 §4.2（验收规则）和 §6.4（KPI 门禁）。
 
+**⚠️ 强制执行规则（已硬化到 PuaSE.md）**：
+1. **STEP 铁律**：每次任务的第一条回复必须是 STEP 列表
+2. **反熟悉度偏误**：写文件操作前必须委派对应子 Agent（web-developer/文档写入用 documenter 等）
+3. **验收闭环**：所有代码变更必须走 P3-P5 三方验收（code-reviewer + quality-inspector + security-expert）
+4. **KPI 卡输出**：完成前必须输出 KPI 卡，无 KPI 卡的完成声明 = P0 违规
+5. **自检清单**：每次任务开始前必须执行自检（5 项强制检查）
+
 ## CI/CD（仅 website 目录触发）
 
 位于 `.github/workflows/`，两个 `.yml` 文件：
